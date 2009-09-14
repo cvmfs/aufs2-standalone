@@ -1,7 +1,7 @@
-aufs2 standalone patch for linux-2.6.
+aufs2 standalone patch for linux-2.6.31
 
 diff --git a/fs/namei.c b/fs/namei.c
-index dcedad1..728a39b 100644
+index b49c2af..4521c70 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -337,6 +337,7 @@ int deny_write_access(struct file * file)
@@ -85,10 +85,10 @@ index b8186ba..42208d8 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-index 4732f5e..6fa13dd 100644
+index b85e61b..a23fad4 100644
 --- a/security/integrity/ima/ima_main.c
 +++ b/security/integrity/ima/ima_main.c
-@@ -320,6 +320,7 @@ int ima_file_mmap(struct file *file, unsigned long prot)
+@@ -324,6 +324,7 @@ int ima_file_mmap(struct file *file, unsigned long prot)
  					 MAY_EXEC, FILE_MMAP);
  	return 0;
  }
