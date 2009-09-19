@@ -1,3 +1,101 @@
+commit 2e975b2d80914f18f3df0f1525d56189a43384fa
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Sep 18 15:00:26 2009 +0900
+
+    aufs: possible bugfix, sysfs and aufs
+    
+    The previous fix with Big Kernel Lock did not work expectedly.
+    Instead, sysaufs_si_show() gives up its operation when it failed to
+    acquire read lock.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7ec220639eefe7b8c6cfc9b799bbbef6c79e68b0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Sep 19 15:46:16 2009 +0900
+
+    aufs: add some debug prints
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8752713c3c5b4c1a802d7979bcca9cebc9dde6df
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 17 16:30:02 2009 +0900
+
+    aufs: bugfix, EIO from stat/fstat(2) after branch management
+    
+    au_refresh_hdentry() in au_getattr_lock_reval(), which is called by
+    aufs_getattr(), may return 0 as a number of positive lower dentries
+    especially after the failure of branch management (add, del, and
+    others).
+    Zero is not a problem in this case.
+    Removing setting EIO in the case.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 101732b0b818bb2de45e52dcb2d2847e6f0bed15
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 17 00:36:47 2009 +0900
+
+    aufs: bugfix, a test for the generation in debug mode
+    
+    aufs_getattr() tests the internal generation for the file other than
+    root, but I put '!' by mistake.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ec4358102c68ff97b838950cf8d7cea5993f4438
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 17 00:28:10 2009 +0900
+
+    Revert "aufs: bugfix, support NFSD in aufs_getattr()"
+    
+    This reverts commit 3573a80198d01928adb01d0112046d919a369876.
+    I made a mistake twice blindly, see next commit in detail.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4f4b7dabeba9894abed83a4b10ae8bc7ba027ce6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 17 00:21:07 2009 +0900
+
+    aufs: bugfix, nested lock aufs_fault() after aufs_write()
+    
+    Replace the lock of rw_semaphore in aufs_fault() (and other vm
+    operations) by a new mutex, fi_vm_mtx.
+    When aufs_fault() is called in the context of write(2), aufs tried
+    acquiring the same lock twice.
+    
+    Originally the rw_semaphore in aufs_fault() was introduced to protect a
+    race condition of multiple page faults and mmap()s.
+    Later, aufs_mmap() became to acquire a write lock
+    unconditionally. Additionally the race between page fault and mmap,
+    which may assign the different fi_h_vm_ops, should not happen.
+    
+    Finally, for the race conditions between A and B is protected such like this.
+    
+    A	B	lock
+    ----------------------------------------
+    mmap	mmap	fi_write_lock
+    mmap	pf	should not happen. if it happens, it should be safe.
+    pf	pf	the new mutex
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 062051b0253df5d1031a59264fcd6766ef002307
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 14 20:10:09 2009 +0900
+
+    aufs: re-start supporting IMA (limited)
+    
+    The bug in IMA was fixed in linux-2.6.31, and aufs re-starts supporting
+    it. But changing the branch permission RW --> RO will make IMA to
+    produce some incorrect messages, since IMA doesn't support
+    mark_files_ro() in emergency remount. When IMA becomes to support it,
+    aufs will support IMA fully.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 15b72fe903e179a4d217d99f60aaf2560e3467ff
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Sep 14 14:17:36 2009 +0900
