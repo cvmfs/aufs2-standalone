@@ -29,9 +29,9 @@ MODULE_PARM_DESC(debug, "debug print");
 module_param_named(debug, aufs_debug, int, S_IRUGO | S_IWUSR | S_IWGRP);
 
 char *au_plevel = KERN_DEBUG;
-#define dpri(fmt, arg...) do { \
+#define dpri(fmt, ...) do { \
 	if (au_debug_test()) \
-		printk("%s" fmt, au_plevel, ##arg); \
+		printk("%s" fmt, au_plevel, ##__VA_ARGS__); \
 } while (0)
 
 /* ---------------------------------------------------------------------- */
@@ -420,7 +420,7 @@ int __init au_debug_init(void)
 	AuDebugOn(destr.len < NAME_MAX);
 
 #ifdef CONFIG_4KSTACKS
-	AuWarn("CONFIG_4KSTACKS is defined.\n");
+	pr_warning("CONFIG_4KSTACKS is defined.\n");
 #endif
 
 #ifdef AuForceNoBrs

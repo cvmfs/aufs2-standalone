@@ -1,3 +1,39 @@
+commit 99cc47b8cbcc31fe5f8e0b6faa8308f96ee42fa9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 24 01:01:06 2009 +0900
+
+    aufs: tiny, replace AuDpri macro by pr_fmt
+    
+    More common way to customize the messages.
+    Define pr_fmt macro in fs/aufs/Makefile.
+    All Au{Info,Warn,Err} macros are replaced by generic
+    pr_{info,warning,err} macros.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ac01261c533224c558c0d4b288afe43f1f33ee6f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 24 00:31:14 2009 +0900
+
+    aufs: tiny, convert the variadic macros into C99 style
+    
+    Convert "args..." into "...", and "##args" into "##__VA_ARGS__",
+    as linux-2.6.28 did.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit fe98ed1c205eff4bb5b7f623885f8f7827ab3e8c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Sep 23 09:06:07 2009 +0900
+
+    aufs: lockdep_off/on() became useless
+    
+    Remove most of lockdep_off/on() call from aufs, due to the change made
+    in mainline.
+    It looks strange for me.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 2e975b2d80914f18f3df0f1525d56189a43384fa
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Sep 18 15:00:26 2009 +0900

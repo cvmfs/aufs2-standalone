@@ -68,7 +68,7 @@ void au_hin_free(struct au_hinode *hinode)
 			err = inotify_rm_watch(au_hin_handle, &hin->hin_watch);
 		if (unlikely(err))
 			/* it means the watch is already removed */
-			AuWarn("failed inotify_rm_watch() %d\n", err);
+			pr_warning("failed inotify_rm_watch() %d\n", err);
 		au_cache_free_hinotify(hin);
 		hinode->hi_notify = NULL;
 	}
@@ -138,7 +138,7 @@ static int hin_xino(struct inode *inode, struct inode *h_inode)
 
 	err = 0;
 	if (unlikely(inode->i_ino == AUFS_ROOT_INO)) {
-		AuWarn("branch root dir was changed\n");
+		pr_warning("branch root dir was changed\n");
 		goto out;
 	}
 
@@ -233,7 +233,7 @@ static int hin_gen_by_inode(char *name, unsigned int nlen, struct inode *inode,
 
 	err = 1;
 	if (unlikely(inode->i_ino == AUFS_ROOT_INO)) {
-		AuWarn("branch root dir was changed\n");
+		pr_warning("branch root dir was changed\n");
 		err = 0;
 		goto out;
 	}
@@ -283,7 +283,7 @@ static int hin_gen_by_name(struct dentry *dentry, const unsigned int isdir)
 	if (IS_ROOT(dentry)
 	    /* || (inode && inode->i_ino == AUFS_ROOT_INO) */
 		) {
-		AuWarn("branch root dir was changed\n");
+		pr_warning("branch root dir was changed\n");
 		return 0;
 	}
 
@@ -367,8 +367,8 @@ static int hin_job(struct hin_job_args *a)
 	if (au_ftest_hinjob(a->flags, MNTPNT)
 	    && a->dentry
 	    && d_mountpoint(a->dentry))
-		AuWarn("mount-point %.*s is removed or renamed\n",
-		       AuDLNPair(a->dentry));
+		pr_warning("mount-point %.*s is removed or renamed\n",
+			   AuDLNPair(a->dentry));
 
 	return 0;
 }
@@ -453,7 +453,7 @@ static struct inode *lookup_wlock_by_ino(struct super_block *sb,
 		goto out;
 
 	if (unlikely(inode->i_ino == AUFS_ROOT_INO)) {
-		AuWarn("wrong root branch\n");
+		pr_warning("wrong root branch\n");
 		iput(inode);
 		inode = NULL;
 		goto out;
@@ -681,9 +681,9 @@ static void aufs_inotify(struct inotify_watch *watch, u32 wd __maybe_unused,
 	 * inotify_mutex is already acquired and kmalloc/prune_icache may lock
 	 * iprune_mutex. strange.
 	 */
-	lockdep_off();
+	/* lockdep_off(); */
 	args = kmalloc(sizeof(*args) + len + 1, GFP_NOFS);
-	lockdep_on();
+	/* lockdep_on(); */
 	if (unlikely(!args)) {
 		AuErr1("no memory\n");
 		iput(dir);
@@ -704,11 +704,11 @@ static void aufs_inotify(struct inotify_watch *watch, u32 wd __maybe_unused,
 		memcpy(p, h_child_name, len + 1);
 	}
 
-	lockdep_off();
+	/* lockdep_off(); */
 	wkq_err = au_wkq_nowait(postproc, args, dir->i_sb);
-	lockdep_on();
+	/* lockdep_on(); */
 	if (unlikely(wkq_err))
-		AuErr("wkq %d\n", wkq_err);
+		pr_err("wkq %d\n", wkq_err);
 }
 
 static void aufs_inotify_destroy(struct inotify_watch *watch __maybe_unused)
