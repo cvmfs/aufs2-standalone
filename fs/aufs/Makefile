@@ -1,5 +1,8 @@
 
 include ${src}/magic.mk
+ifeq (${CONFIG_AUFS_FS},m)
+include ${src}/conf.mk
+endif
 -include ${src}/priv_def.mk
 
 # cf. include/linux/kernel.h
