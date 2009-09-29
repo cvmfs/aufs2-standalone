@@ -1,3 +1,11 @@
+commit 5c6f2dd53684b43cdb9c22b16d73380922b22d1e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 29 17:10:49 2009 +0900
+
+    aufs: tiny, make diff(1) quiet
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4edce1132b866e3435fdcf7c0708d8abf64c803e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Sep 29 01:37:55 2009 +0900

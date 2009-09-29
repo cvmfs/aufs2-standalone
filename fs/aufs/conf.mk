@@ -22,7 +22,7 @@ AuConfName = ${obj}/conf.str
 ${AuConfName}.tmp: FORCE
 	@echo ${AuConfStr} | tr ' ' '\n' | sed -e 's/^/"/' -e 's/$$/\\n"/' > $@
 ${AuConfName}: ${AuConfName}.tmp
-	@diff -q $< $@ 2> /dev/null || { \
+	@diff -q $< $@ > /dev/null || { \
 	echo '  GEN    ' $@; \
 	cp -p $< $@; \
 	}
