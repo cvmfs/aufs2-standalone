@@ -1,3 +1,22 @@
+commit 3cd8f40faf6e5e2b2b56e56055015fb8795ec753
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Oct 1 15:04:50 2009 +0900
+
+    aufs: tiny, make super_operations 'const'
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e811fc13e96b33ef01970c0ded753f842471b6ed
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Oct 1 00:55:07 2009 +0900
+
+    aufs: debugging address_space_operations
+    
+    Implement ->get_xip_mem, -> migratepage, ->launder_page, and
+    ->is_partially_uptodate operations for debugging.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 01a0edcb8d67f88f3fc97807e407523ec746321f
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Sep 29 18:02:20 2009 +0900
