@@ -1,3 +1,11 @@
+commit 6d4fe728dbb55065fe65dcf00b1f1a1c76cc0fba
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Oct 9 17:08:50 2009 +0900
+
+    aufs: tiny, add a simple note about GIT branch
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 3cd8f40faf6e5e2b2b56e56055015fb8795ec753
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Oct 1 15:04:50 2009 +0900
