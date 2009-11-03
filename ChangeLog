@@ -1,3 +1,15 @@
+commit 1bf031a09d6717ae7a57e634740651e190b569e0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Nov 3 15:09:07 2009 +0900
+
+    aufs: bugfix, support 64bit s390 and alpha
+    
+    Remove an unnecessary BUILD_BUG_ON().
+    
+    Reported-by: Ben Hutchings <ben@decadent.org.uk>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 6d4fe728dbb55065fe65dcf00b1f1a1c76cc0fba
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Oct 9 17:08:50 2009 +0900
