@@ -1,3 +1,19 @@
+commit a50dcd4e324fbe44aa313d5dd1d4679cc82e5f0c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 4 23:14:57 2009 +0900
+
+    Revert "Revert "aufs: bugfix, support 64bit s390 and alpha""
+    
+    This reverts commit 0dd2e67cf9f256d4e98a3cb11733c28e4a5a7cd2.
+
+commit 7a07beb481ef61bb4f3409142b56518adf40d1a2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 4 23:13:37 2009 +0900
+
+    Revert "aufs: vdir stop 'packing' structures"
+    
+    This reverts commit cbfd069e1543be1cfda537195b77171a4bb63257.
+
 commit cbfd069e1543be1cfda537195b77171a4bb63257
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Nov 4 01:31:26 2009 +0900
