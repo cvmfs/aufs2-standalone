@@ -1,3 +1,34 @@
+commit b36da07a32789c54e6b44b72410a361cc85ef090
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 25 16:59:17 2009 +0900
+
+    aufs: bugfix, statfs(2) max namelen
+    
+    Generally every filesystem supports NAME_MAX (255) as its max namelen.
+    Since rmdir/rename(for the existing target dir) in aufs will rename the
+    dir to the format of WH + WH + <name> + "." + <4-digts hex>, the max
+    name should be decreased by (4*2 + 1 + 4).
+    This fix calculates the max namelen based upon NAME_MAX. If a branch fs
+    limits it shorter, then aufs rejects it.
+    
+    Also,
+    - reject creating such long name
+    - statfs(2) returns correct length
+    - au_whtmp_lkup() compares the namelen with NAME_MAX
+    - define AUFS_WH_TMP_LEN and AUFS_MAX_NAMELEN globaly
+    
+    Reported-by: Stew Benedict <stewb@linux-foundation.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f53d734b53fdaf11f8dbdfb275ba2bd56690f34d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 25 16:56:34 2009 +0900
+
+    aufs: tiny, use some debug macros
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit a50dcd4e324fbe44aa313d5dd1d4679cc82e5f0c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Nov 4 23:14:57 2009 +0900
