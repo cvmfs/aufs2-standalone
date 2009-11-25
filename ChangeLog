@@ -1,3 +1,11 @@
+commit 684857bf8613ed1ef7f538699f69f30761405835
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 25 17:32:50 2009 +0900
+
+    aufs: tiny, replace AuErr macro by pr_err
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit b36da07a32789c54e6b44b72410a361cc85ef090
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Nov 25 16:59:17 2009 +0900
