@@ -1,3 +1,25 @@
+commit d2e7315b282149350d54ec47dd90bd43dce88712
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 1 19:29:32 2009 +0900
+
+    aufs: tiny, revise a constant value
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 47b6e43f9bf15d5f16cca8252db36ee5d25909fc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 1 19:29:05 2009 +0900
+
+    aufs: bugfix, max namelen
+    
+    - i_op->lookup() checks AUFS_MAX_NAMELEN.
+    - readdir in aufs checks AUFS_MAX_NAMELEN too. when the name is longer,
+      set DT_UNKNOWN.
+    
+    Reported-by: Stew Benedict <stewb@linux-foundation.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit fe73c5d9a0519919c0dc2e0afe480da713ce9c58
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Nov 29 13:53:24 2009 +0900
