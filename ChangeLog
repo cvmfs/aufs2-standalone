@@ -1,3 +1,26 @@
+commit 4a191d650a966b2750471530f3984aa4c913eaeb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 4 16:57:49 2009 +0900
+
+    aufs: new ioctl interface for pathconf(3) wrapper library
+    
+    A new interface for the userspace library libau.so (in aufs2-util GIT
+    tree) in order to support pathconf(3)/fpathconf(3) with _PC_LINK_MAX
+    parameter.
+    The library intercepts the pathconf(3) call for aufs, issues the new
+    ioctl interface.
+    aufs_ioctl_dir() and aufs_ioctl_nondir() calls au_wbr_fd(), and returns
+    a file descriptor which refers the first writable branch in aufs.
+    Then the library function calls the original fpathconf(3) for the
+    branch, and gets the correct maximum number of link count.
+    
+    This is ugly interface since au_wbr_fd() opens a dir internally and
+    returns a file descriptor.
+    
+    Reported-by: Stew Benedict <stewb@linux-foundation.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit d2e7315b282149350d54ec47dd90bd43dce88712
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Dec 1 19:29:32 2009 +0900
