@@ -1,3 +1,15 @@
+commit f48d7d44f4808e066a8954ed5b5a30c7fa182938
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 4 17:31:07 2009 +0900
+
+    aufs: bugfix, branch counter in the new au_wbr_fd()
+    
+    au_h_open() increments the counter for the internal finfo->fi_hfile.
+    Since au_wbr_fd() doesn't set the opened file to finfo->fi_hfile,
+    it has to decrement the branch counter.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4a191d650a966b2750471530f3984aa4c913eaeb
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Dec 4 16:57:49 2009 +0900
