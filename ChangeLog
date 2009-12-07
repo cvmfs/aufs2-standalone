@@ -1,3 +1,63 @@
+commit 5d9f06b64ba204fe3f91375986cc24fc92d1e615
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 8 01:38:26 2009 +0900
+
+    aufs: lock-free file close
+    
+    Remove all locks from the file close path.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit db54b13a9cc63a0ae5f305ac71b1f8e97e116d5c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 8 00:48:50 2009 +0900
+
+    aufs: minor, revise maintenace for plink
+    
+    Replace finfo->fi_maintain_plink (a member for dir only) and
+    MAINTAIN_PLINK flag in si_status by new members in au_sbinfo,
+    si_plink_maint_lock and si_plink_maint.
+    The si_plink_maint member points a file object.
+    
+    - new functions au_plink_maint_enter() and au_plink_maint_leave().
+    - rename au_plink_block_maintain() to au_plink_maint_block().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit fc90ae1947c3a974f23d65c9a6eb37aaa7782146
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 7 21:35:32 2009 +0900
+
+    aufs: tiny, strict type check for aufs caches
+    
+    Define internal small functions for aufs caches with its type.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 30e74a3052fa80b9da55e274f1b461a918743cbb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 7 21:22:32 2009 +0900
+
+    aufs: tiny, add SPREAD flag for aufs caches
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 26104ed68359df3213ce6bba7c0f53bb50be0882
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 7 17:25:16 2009 +0900
+
+    aufs: tiny, add a comment about security_file_mmap()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7e878f057d2ca55a7dacc9906d9ee108598d0c7e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 7 14:17:17 2009 +0900
+
+    aufs: version string for aufs2-32
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit dd3473ef40c5e8560cf7c3631fa34c78b3087343
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Dec 7 13:38:52 2009 +0900

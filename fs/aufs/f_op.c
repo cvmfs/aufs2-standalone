@@ -106,12 +106,8 @@ static int aufs_open_nondir(struct inode *inode __maybe_unused,
 static int aufs_release_nondir(struct inode *inode __maybe_unused,
 			       struct file *file)
 {
-	struct super_block *sb = file->f_dentry->d_sb;
-
-	si_noflush_read_lock(sb);
 	kfree(au_fi(file)->fi_vm_ops);
 	au_finfo_fin(file);
-	si_read_unlock(sb);
 	return 0;
 }
 
@@ -483,6 +479,8 @@ static struct vm_operations_struct *au_vm_ops(struct file *h_file,
 {
 	struct vm_operations_struct *vm_ops;
 	int err;
+
+	/* todo: call security_file_mmap() here */
 
 	vm_ops = ERR_PTR(-ENODEV);
 	if (!h_file->f_op || !h_file->f_op->mmap)
