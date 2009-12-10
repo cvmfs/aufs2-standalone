@@ -1,3 +1,19 @@
+commit 26f5f8f92561549eb0878eff18c370b98c174e2e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 11 03:25:48 2009 +0900
+
+    aufs: tiny, simply define the empty functions
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2ae9369a2acd1995807ab8d0ebfa2c6c80543398
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 11 02:46:34 2009 +0900
+
+    aufs: tiny, add a comment about direcct accessing
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 40e876d5bb227f256814706f3b6a48f16317ac9e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Dec 11 02:11:22 2009 +0900
