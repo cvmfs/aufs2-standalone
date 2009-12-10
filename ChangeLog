@@ -1,3 +1,45 @@
+commit 40e876d5bb227f256814706f3b6a48f16317ac9e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 11 02:11:22 2009 +0900
+
+    aufs: support special file, new configuration for FIFO
+    
+    simple make it selectable.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e7d7209be912cc77a13a9eb3ce42afe1add63574
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 10 12:49:43 2009 +0900
+
+    aufs: support special file, new file f_op_sp.c for FIFO
+    
+    Support the special file, currently FIFO only.
+    It should not be copied up since apps will not work.
+    Force copying-up at opening and never revalidate/refresh it.
+    
+    - check the opened special files in au_br_mod_files_ro().
+    - customize all file operations for FIFO, essentially they are all
+      simple redirectors.
+    - make sure the necessary file operations by au_dbg_sp_fop().
+    - since handling FIFO can block, release all aufs locks temporary before
+      handling it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3ed60c31e9492e6859cb567a675bf11385b987a3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 10 12:47:52 2009 +0900
+
+    aufs: support special file, make some functions global for FIFO
+    
+    - rename do_open_nondir() to au_do_open_nondir() and make it global
+    - make aufs_open_nondir() global
+    - extract a part of aufs_aio_read/write() and make a new global function
+      au_do_aio().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 5d9f06b64ba204fe3f91375986cc24fc92d1e615
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Dec 8 01:38:26 2009 +0900
