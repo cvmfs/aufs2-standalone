@@ -1,3 +1,13 @@
+commit 1d176b4be9b90ed2f332d12b28341bc196b4aeb1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 11 16:13:45 2009 +0900
+
+    aufs: support special file, f_op->dir_notify is removed
+    
+    Simply follow the change made in upstream.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 3b61723f03858d01f6399a9d44ca29b467dd666c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Dec 11 13:00:17 2009 +0900
