@@ -1,3 +1,11 @@
+commit f76897eb5a662eabd70e7af8d4c9b1a2f894a25a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 11 11:52:38 2009 +0900
+
+    aufs: tiny, suppress checkpatch msg
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 26f5f8f92561549eb0878eff18c370b98c174e2e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Dec 11 03:25:48 2009 +0900
