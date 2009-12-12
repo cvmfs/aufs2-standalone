@@ -1,3 +1,32 @@
+commit 8b87aec2f10432aabbe9780bfabf26fb83284eed
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Dec 12 21:18:42 2009 +0900
+
+    aufs: tiny, debug print in ioctl()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 38ac3be3793e8752540c7f3633e6bf3d676bcfd9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Dec 12 20:57:37 2009 +0900
+
+    aufs: tiny, move au_dbg_sp_fop()
+    
+    Move au_dbg_sp_fop() from debug.[ch] to f_op_sp.c.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e2b0ebb55268cbf5b0b0e904a5e6cd9dacdf221a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Dec 12 20:48:12 2009 +0900
+
+    aufs: tiny, copy-up FIFO in open
+    
+    Revise simpley.
+    When it exists on a writable branch, stop copying-up.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 1d176b4be9b90ed2f332d12b28341bc196b4aeb1
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Dec 11 16:13:45 2009 +0900
