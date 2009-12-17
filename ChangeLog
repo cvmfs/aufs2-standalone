@@ -1,3 +1,35 @@
+commit 228bc43781d58f43eb11e82300d00982f4951be9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 16 23:39:57 2009 +0900
+
+    aufs: re-write supporting FIFO
+    
+    A new approach to support the inode attributes of FIFO.
+    The previous approach was based upon the file on the first writable
+    branch. ie. the actual file I/O is handled by the common(VFS) FIFO
+    operating functions on the branch fs. But this scheme cannot handle
+    O_NONBLOCK flag, since the flag is set/cleared in VFS and aufs cannot
+    handle it (a bug).
+    The new approach is based upon the virtual file/inode in aufs. ie. the
+    actual file I/O is handled by the common(VFS) FIFO operating functions
+    on aufs. In order to support the inode attributes (mtime/ctime mainly),
+    aufs customize ->aio_read() and ->aio_write() operations which call the
+    ordinary FIFO oprations and then update the inode attributes on the
+    branch fs. All other FIFO operations are not customized.
+    
+    By this approach, the function au_do_aio() in fs/aufs/f_op.c can be
+    static. This is a revert of a part of commit
+    3ed60c31e9492e6859cb567a675bf11385b987a3.
+    
+    Additionally the new approach checks the branch attribute. When it is
+    not writable, then the aufs FIFO I/O operations don't update the inode
+    attributes on the branch fs. This is a revert of a part of commit
+    e7d7209be912cc77a13a9eb3ce42afe1add63574.
+    
+    Reported-by: Stew Benedict <stewb@linux-foundation.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4ed6a2155d84506e20b179a1fdba4e8984d47538
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Dec 12 22:45:36 2009 +0900
