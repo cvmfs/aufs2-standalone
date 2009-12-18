@@ -1,3 +1,15 @@
+commit daee56978cfd14dcd58ccb371d765b0fa9e56e48
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Dec 19 01:40:30 2009 +0900
+
+    aufs: allow FIFO on RO branch
+    
+    Operating on FIFO on the readonly branch is not an error.
+    Allow the failure of copyup.
+    Also support the aufs copyup policy.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 6503e7cf46f04ece2b3a194df8f63af9d28cc5d2
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Dec 17 13:59:27 2009 +0900
