@@ -1,3 +1,18 @@
+commit b15b0ba86e3aa8ae5e12cd52b16e0b80bcb86547
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Dec 19 16:16:22 2009 +0900
+
+    aufs: bugfix, mmap for the renamed destination
+    
+    Generally the destination of rename(2) is similar to the removed one.
+    It is possible issue mmap(2) to such renamed (and unlinked as its
+    result) file. So aufs_rename() (and its children) has to maintain its
+    internal dentry array.
+    
+    Reported-by: gettinther <gettinther@unity-linux.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit daee56978cfd14dcd58ccb371d765b0fa9e56e48
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Dec 19 01:40:30 2009 +0900
