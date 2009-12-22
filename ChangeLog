@@ -1,3 +1,19 @@
+commit 2cfbc5e89e5e41d7696e27e0246a0e6844179b7d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 22 16:04:48 2009 +0900
+
+    aufs: bugfix, mmap for the renamed destination
+    
+    The last bugfix was insufficient.
+    After the rename target was removed but before it is reclamed, the
+    dentry still contains the lower negative dentry in it.
+    Wehn it is going to be copied-up, the negative dentry has to be
+    discarded.
+    
+    Reported-by: gettinther <gettinther@unity-linux.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit b15b0ba86e3aa8ae5e12cd52b16e0b80bcb86547
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Dec 19 16:16:22 2009 +0900
