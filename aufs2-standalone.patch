@@ -97,7 +97,7 @@ index b85e61b..a23fad4 100644
  /**
   * ima_bprm_check - based on policy, collect/store measurement.
 diff --git a/security/security.c b/security/security.c
-index dc7674f..b309f88 100644
+index dc7674f..5356129 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -386,6 +386,7 @@ int security_path_mkdir(struct path *path, struct dentry *dentry, int mode)
@@ -180,3 +180,11 @@ index dc7674f..b309f88 100644
  
  int security_file_alloc(struct file *file)
  {
+@@ -641,6 +651,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
+ {
+ 	return security_ops->file_mmap(file, reqprot, prot, flags, addr, addr_only);
+ }
++EXPORT_SYMBOL(security_file_mmap);
+ 
+ int security_file_mprotect(struct vm_area_struct *vma, unsigned long reqprot,
+ 			    unsigned long prot)
