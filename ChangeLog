@@ -1,3 +1,11 @@
+commit e5843a8384a3d064b57bccb1d32a3cd7327121a9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 24 23:52:24 2009 +0900
+
+    aufs: tiny, add 'unlikely' in an error path
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 9244a055d21432cca2ecf264b17c675c55c5ee88
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Dec 24 14:38:21 2009 +0900
