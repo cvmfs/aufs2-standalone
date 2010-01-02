@@ -1,3 +1,17 @@
+commit 3d6203a320b5d212836f05124a96a165e7490426
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 2 13:09:21 2010 +0900
+
+    aufs: recover a merge conflict, the internal file open
+    
+    The commit 5482ca4cb046bf399b605174327c61688d39a21c
+    	"Merge branch 'aufs2-30' into aufs2-31"
+    got conflict fs/aufs/file.c.
+    I might fail recovering it. There left an extra internal file open.
+    Remove it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4b70e6f04d4292d8b5ce6cd7ac7371e68eab9175
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Jan 2 12:21:03 2010 +0900
