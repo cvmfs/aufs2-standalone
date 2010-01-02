@@ -1,3 +1,16 @@
+commit 4b70e6f04d4292d8b5ce6cd7ac7371e68eab9175
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 2 12:21:03 2010 +0900
+
+    aufs: bugfix, unlock mmap_sem temporary using BKL
+    
+    The aufs rwsem should be acquired before mm->mmap_sem. But mm->mmap_sem
+    is acquired before ->mmap(). aufs_mmap() has to release it temporary
+    with using BKL.
+    I don't think it is a good approach, but I don't know other way.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit e5843a8384a3d064b57bccb1d32a3cd7327121a9
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Dec 24 23:52:24 2009 +0900
