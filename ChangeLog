@@ -1,3 +1,14 @@
+commit 5f80ac5970a39e18c00db69889ef641aef9e4f48
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 2 16:32:31 2010 +0900
+
+    aufs: tiny, new abstract function vfsub_dentry_open()
+    
+    The main purpose of this small wrapper is to minimize the confilict at
+    merging GIT branches in the future.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 3d6203a320b5d212836f05124a96a165e7490426
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Jan 2 13:09:21 2010 +0900
