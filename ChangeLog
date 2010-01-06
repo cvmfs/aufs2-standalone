@@ -1,3 +1,11 @@
+commit 086ef320ff863e7733e7ae8b9eead31a67d483d5
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jan 6 17:36:41 2010 +0900
+
+    aufs: tiny, copyright 2010
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit c127eb8aeeb58e8899abffe377ae230f3d4d3c9c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Jan 6 17:21:08 2010 +0900
