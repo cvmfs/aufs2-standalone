@@ -1,3 +1,15 @@
+commit d84deeb079e09b33c2339bc7a54cf7d15c3b8a85
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 8 13:28:04 2010 +0900
+
+    aufs: narrow down the BKL region
+    
+    There is a debug feature which requires mmap_sem instead of BKL.
+    Theoretically BKL is enough. This patch just introduces a necessary
+    complexity, I am afraid.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 086ef320ff863e7733e7ae8b9eead31a67d483d5
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Jan 6 17:36:41 2010 +0900
