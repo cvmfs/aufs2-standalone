@@ -1,3 +1,11 @@
+commit daffa714aaebf3f80e241faa4ee6a639836129e1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 8 17:26:58 2010 +0900
+
+    aufs: tiny, restore the debug test in au_test_mmapped()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit d84deeb079e09b33c2339bc7a54cf7d15c3b8a85
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 8 13:28:04 2010 +0900
