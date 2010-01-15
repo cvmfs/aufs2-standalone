@@ -1,3 +1,40 @@
+commit 0151d47b2856de06b2cea1a3dc2563c16f8f20e1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 16 02:08:48 2010 +0900
+
+    aufs: tiny, add a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit af72b7cfb799232ea639aee6b70761780e542a01
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 16 02:01:19 2010 +0900
+
+    aufs: bugfix, protect f_flags by f_lock
+    
+    Cf. the commits
+    	29774cd aufs: support linux-2.6.30-rcN, f_flags
+    	4a56751 aufs: bugfix, protect f_flags by f_lock
+    	0562f63 aufs: remove handling FMODE_EXEC code
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4a56751e7b80cc2195742614fb777d73f3eb9793
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 16 01:04:37 2010 +0900
+
+    aufs: bugfix, protect f_flags by f_lock
+    
+    The commit
+    	29774cd 10 months ago aufs: support linux-2.6.30-rcN, f_flags
+    should be applied to aufs2-30 branch, but I put it aufs2-31
+    accidentally.
+    This fix refines the past commit by introducing a new inlined function
+    vfsub_file_flags(), and call it from the recently added function
+    au_do_open_sp().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 608b4abd498c8c2f170b7fa393a854308a8447f6
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 15 14:25:41 2010 +0900
