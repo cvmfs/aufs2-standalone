@@ -1,3 +1,65 @@
+commit 608b4abd498c8c2f170b7fa393a854308a8447f6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 15 14:25:41 2010 +0900
+
+    aufs: cosmetic clean-up for vfsub.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 59bd04e29d67ce1301904477bbad0e16fa811feb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 15 22:41:17 2010 +0900
+
+    aufs stdalone: export cap_file_mmap()
+    
+    It is required when CONFIG_SECURITY is disabled.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit af6a5249161ec8a549788200b516bdabc52e1b62
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jan 14 16:25:59 2010 +0900
+
+    aufs: cosmetic clean-up for branch.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 01c03c4dc1cf68ec6d3e3c5ee8ff0520bc972a0d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jan 13 23:44:33 2010 +0900
+
+    aufs: cosmetic clean-up for super.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 06c9c0f1ddb9a75e61d9a233d862a3a57b202b13
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 12 13:02:16 2010 +0900
+
+    aufs: bugfix, permission for special files
+    
+    Skip the write permission test for special files.
+    
+    Reported-by: <wyman@bk.ru>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 052c041d059f36c3636791bc7fa70e03ed135237
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 11 23:36:10 2010 +0900
+
+    aufs: tiny, cosmetics for sbinfo.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f47b28ede91434bb01529a81c5632409a3acff0b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 11 23:30:40 2010 +0900
+
+    aufs: tiny, comments for destroying AuCache_HINOTIFY
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit daffa714aaebf3f80e241faa4ee6a639836129e1
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 8 17:26:58 2010 +0900
