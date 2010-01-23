@@ -1,3 +1,89 @@
+commit eda45a1734c097b29047eaa5415957502eeb83e3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Jan 24 01:05:06 2010 +0900
+
+    Revert "aufs: move au_iattr for verifying from dentry.c to hinotify.c"
+    
+    This reverts commit 11bd18d97ac12e17a86f288326daef3da46cf7aa.
+    Since au_iattr will be modified in later version such as aufs2-28.
+
+commit 66ab4afd6a6bdcb4963ded9c6a0594f742dff311
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jan 21 00:39:20 2010 +0900
+
+    aufs: cosmetic clean-up for file.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 72dbef2653fc2b3a3fbe5c460bd1a07680295ca4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jan 21 00:30:21 2010 +0900
+
+    aufs: tiny, restore a debug check
+    
+    Restore a debug test for write-lock.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c988d53810bd067b1b8567576dbc9f0befaff685
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jan 20 23:50:22 2010 +0900
+
+    aufs: cosmetic clean-up for dentry.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 11a7b015fdc6c43567c03df12c44cdd9ae08f64c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jan 20 23:33:12 2010 +0900
+
+    aufs: cosmetic clean-up for wbr_policy.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b42bc7a3fee2ff683c599bff4a40dce267f2ce32
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 19 00:33:40 2010 +0900
+
+    aufs: cosmetic clean-up for whout.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 11bd18d97ac12e17a86f288326daef3da46cf7aa
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 19 00:20:39 2010 +0900
+
+    aufs: move au_iattr for verifying from dentry.c to hinotify.c
+    
+    A minor optimization.
+    When AUFS_HINOTIFY is disabled, make au_h_verify_dentry() empty.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5c172885c511f1ebb8f5e9a3154405a5d392332b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 18 23:27:54 2010 +0900
+
+    aufs: replace the multiple singlethread workqueues by a create_workqueue()
+    
+    Several workqueues (AUFS_WKQ_NAME) is used for the internal async works with
+    load-balancing. But it may NOT pay well since the accounting and
+    load-balancing is not useful. Stop creating multiple workqueues and use
+    more generic (per cpu) workqueue (also named AUFS_WKQ_NAME).
+    Under some heavy I/O load, the responce MAY become worse. It is not so
+    important since the response is already bad under such situation, I
+    guess.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 123b75f28e981c824eb507e2b845de1cc2ffab07
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 18 23:18:31 2010 +0900
+
+    aufs: tiny, a typo in a document
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit d063f7182eba24b8a0c3cee33d7af4e215fdb272
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Jan 16 03:22:24 2010 +0900
