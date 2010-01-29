@@ -1,3 +1,32 @@
+commit 88a88e0d404bb602ab9fb53e48f5133c14db5bec
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 29 16:17:11 2010 +0900
+
+    aufs: cosmetic clean-up for dentry.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f74afa3fee3d0b3ddba161c7f31e4f90511a3612
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 29 16:17:01 2010 +0900
+
+    aufs: cosmetic clean-up for inode.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 174b9a08f7936d7eccc3c00a46195f78f1528a67
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jan 28 15:41:34 2010 +0900
+
+    aufs: bugfix, ioctl(2) returns ENOTTY instead of EINVAL
+    
+    ioctl(2) should return ENOTTY instead of EINVAL when the passed cmd is
+    unknown to aufs.
+    
+    Reported-by: Stew Benedict <stewb@linux-foundation.org>
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit eda45a1734c097b29047eaa5415957502eeb83e3
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Jan 24 01:05:06 2010 +0900
