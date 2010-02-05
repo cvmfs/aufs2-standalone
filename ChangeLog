@@ -1,3 +1,22 @@
+commit 9df9bb8426d1ad249e41f9918b84a6cd1406508e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Feb 5 23:08:57 2010 +0900
+
+    aufs: cosmetic clean-up for i_op.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit edc355ecd8b988cbe13b7fdf7310096ed10c2f5f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Feb 5 01:54:33 2010 +0900
+
+    aufs: begin supporting btrfs
+    
+    Btrfs doesn't store the correct value to i_blocks, and doesn't check the
+    maximum link count.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 88a88e0d404bb602ab9fb53e48f5133c14db5bec
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 29 16:17:11 2010 +0900
