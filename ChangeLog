@@ -1,3 +1,11 @@
+commit 8a25f7e7f34ca81f2696e1a57f8b6de6bee2c9ad
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Feb 11 02:19:10 2010 +0900
+
+    aufs: cosmetic clean-up for i_op_add.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 9df9bb8426d1ad249e41f9918b84a6cd1406508e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Feb 5 23:08:57 2010 +0900
