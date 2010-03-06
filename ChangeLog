@@ -1,3 +1,11 @@
+commit 10f024d547f797bf356921bdcb7e63ac25440bf6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Mar 6 18:01:08 2010 +0900
+
+    aufs: fix the failure in manual merging
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 99a3d3208f5c445134c2015166e04e1c35be6e88
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Mar 5 09:07:58 2010 +0900
