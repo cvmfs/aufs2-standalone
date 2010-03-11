@@ -1,3 +1,81 @@
+commit 7172ca48bc5c49485b16cb6f76bfa11ee56fa3d8
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Mar 11 18:17:26 2010 +0900
+
+    aufs: tiny, make aufs_aop const
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b3d927ed71ceab0adb37d5d353e57602cc491292
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Mar 11 18:00:35 2010 +0900
+
+    aufs: tiny, make aufs_dop const
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e8f8f1b8d7a8b63c7132c4be1fe1d1c351d8f8f4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Mar 11 17:41:09 2010 +0900
+
+    aufs: tiny, remove space
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d261e9ac810a333d296ff2335d3417c1f489e07e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 10 03:44:14 2010 +0900
+
+    aufs: tiny, add a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8200bcab57f364bcf4f695bb59910fe921d9bd88
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Mar 9 04:52:38 2010 +0900
+
+    aufs: follow the changes in upstream, mutex_set_owner()
+    
+    debug_mutex_set_owner() was renamed to mutex_set_owner(), and becase
+    static inlined function.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e296ecffdd1506b33515285dd03faa6a88fd5ea8
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Mar 8 23:47:52 2010 +0900
+
+    aufs stdalone: bugfix, export to keep the lock order of mmap_sem
+    
+    See detail the commit
+    d986fa5 aufs: bugfix, another approach to keep the lock order of mmap_sem
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d986fa5a8557f6861fcac4106b6d75301bf5d118
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Mar 8 23:45:56 2010 +0900
+
+    aufs: bugfix, another approach to keep the lock order of mmap_sem
+    
+    The previous approach
+    	4b70e6f aufs: bugfix, unlock mmap_sem temporary using BKL
+    was bad and already reverted.
+    This approach is ugly too, but it works.
+    
+    - split aufs_mmap() into two parts.
+    - the first part is for copy-ing up which requires rwsem and executed by
+      aufsd workqueue.
+    - the second part is generic_file_mmap() and customizing vm_ops, and
+      executed by the original context.
+    - to protect customizing vm_ops from race between two mmaps, introduce a
+      new mutex in au_finfo. lock in the first phase, and release it in the
+      second. this is the most ugly part of this approach. if we could use
+      fi_rwsem for this use, we would use it. but there is no 'set_owner'
+      method for rwsem, but mutex has.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 10f024d547f797bf356921bdcb7e63ac25440bf6
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Mar 6 18:01:08 2010 +0900
