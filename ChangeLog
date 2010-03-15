@@ -1,3 +1,25 @@
+commit cded842851a8a85fe02dc13278fc2bef23c243bf
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Mar 15 20:33:54 2010 +0900
+
+    aufs: remove au_fsync_br(), uneport fsync_super()
+    
+    Because it is not so useful feature as expcted.
+    Additionally it may introduce a lock problem in the future.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 79e935088d11d915ffeb4b0ff27b6ae68609f5ec
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Mar 15 19:54:08 2010 +0900
+
+    aufs: remove au_fsync_br()
+    
+    Because it is not so useful feature as expcted.
+    Additionally it may introduce a lock problem in the future.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 7172ca48bc5c49485b16cb6f76bfa11ee56fa3d8
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Mar 11 18:17:26 2010 +0900
