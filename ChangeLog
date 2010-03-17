@@ -1,3 +1,22 @@
+commit dece7f0fce421044faa9ebd4428bfb8569236653
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Mar 18 01:58:29 2010 +0900
+
+    aufs: tiny, replace au_getname() by __getname_gfp(GFP_NOFS)
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6e5402c2c13be314963b65722e4a0bd2fd8f0bc9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 17 16:31:12 2010 +0900
+
+    aufs: possible bugfix, replace __getname() by au_getname()
+    
+    GFP_KENEL in __getname() macro may cause a deadlock. Replace it by
+    GFP_NOFS by a new macro au_getname().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit cded842851a8a85fe02dc13278fc2bef23c243bf
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Mar 15 20:33:54 2010 +0900
