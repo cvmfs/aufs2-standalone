@@ -1,3 +1,15 @@
+commit dee24aeb124881f631dc2352395767c3f877e4d2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Mar 20 16:56:13 2010 +0900
+
+    aufs: refine README
+    
+    I don't know why, but several people misunderstand the matching aufs
+    branch to linux kernel version.
+    Also add a guide about the shutdown script.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit dece7f0fce421044faa9ebd4428bfb8569236653
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Mar 18 01:58:29 2010 +0900
