@@ -1,3 +1,36 @@
+commit 48b705d5be75fa47d68a5d9502233b925e044e09
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Mar 26 08:11:39 2010 +0900
+
+    aufs: support FSNOTIFY, export functions
+    
+    Since FSNOTIFY is introduced in linux-2.6.31 and INOTIFY is on the list
+    Documentation/feature-removal-schedule.txt, aufs's udba=inotify will be
+    unavailable in the near future.
+    
+    Export FSNOTIFY functions for modules.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8842b479cb1afb25045554ea19f4ce24a42cd77c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Mar 26 04:32:04 2010 +0900
+
+    aufs: support FSNOTIFY
+    
+    Since FSNOTIFY is introduced in linux-2.6.31 and INOTIFY is on the list
+    Documentation/feature-removal-schedule.txt, aufs's udba=inotify will be
+    unavailable in the near future.
+    
+    This commit introducces a new configuration AUFS_HFSNOTIFY which behaves
+    as a toggle to AUFS_HINOTIFY.
+    - introduce a new file hfsnotify.c
+    - the common routine hnotify.c follows the symbols of FSNOTIFY, so
+      au_hin_conv_mask() is introduced in hinotify.c. this new function
+      convers simbols of INOTIFY into FSNOTIFY's.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4faae8f0a041f55fb2d00d6ad82486cf0bbeb38c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Mar 26 02:44:08 2010 +0900
