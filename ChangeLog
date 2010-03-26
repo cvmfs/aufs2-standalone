@@ -1,3 +1,11 @@
+commit 568ec06d9f85f4fb633c5626f89c7f4ae1db5f3c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Mar 26 09:09:49 2010 +0900
+
+    aufs: tiny, fix the comment style
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 48b705d5be75fa47d68a5d9502233b925e044e09
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Mar 26 08:11:39 2010 +0900
