@@ -1,3 +1,11 @@
+commit 9a8dac1e0e15535ba87b788c98af51d910133695
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Mar 26 22:06:04 2010 +0900
+
+    aufs: tiny, new conf HFSNOTIFY and HINOTIFY
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 568ec06d9f85f4fb633c5626f89c7f4ae1db5f3c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Mar 26 09:09:49 2010 +0900
