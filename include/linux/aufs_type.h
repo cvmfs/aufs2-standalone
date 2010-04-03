@@ -20,7 +20,10 @@
 #define __AUFS_TYPE_H__
 
 #include <linux/ioctl.h>
+/* for those who didn't "make headers_install" */
+#ifdef __KERNEL__
 #include <linux/kernel.h>
+#endif
 #include <linux/limits.h>
 #include <linux/types.h>
 
