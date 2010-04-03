@@ -1,3 +1,49 @@
+commit 8d462ecd47082b966339a0620b25ada5b9800bfc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 1 22:06:18 2010 +0900
+
+    aufs: bugfix, error from kset_create_and_add()
+    
+    It can be NULL.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5502e7b6925ae1c928ccc8be272bb988575c24f1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 1 14:46:11 2010 +0900
+
+    aufs: tiny, revise including header files
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0e40748ad3c6200339212eb2626c2ab50c189585
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 31 09:09:08 2010 +0900
+
+    aufs: bugfix, missing unlock in an error path
+    
+    Forgot unlocking after an error in au_lock_and_icpup().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9df16a8b1ccc7240d734ab6b50943063d67e311a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 31 09:07:37 2010 +0900
+
+    aufs: bugfix, support updating a removed dir
+    
+    In au_cpup_wh(), test the target is a dir or not.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4b1eb74536a0a56f28e3dc2652153de8fab54806
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 31 03:48:24 2010 +0900
+
+    aufs: minor optimization, remove unnecessary au_set_h_[id]ptr()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 9a8dac1e0e15535ba87b788c98af51d910133695
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Mar 26 22:06:04 2010 +0900
