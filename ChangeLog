@@ -1,3 +1,163 @@
+commit 705b4a369fba968a2feaa90c76cc1a9507655a5d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 19:17:24 2010 +0900
+
+    aufs: simplify au_show_brs/xino()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d69c9554619c8c78019f9262699daef79b0088a6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 19:17:00 2010 +0900
+
+    aufs: simplify au_reopen_wh()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c9b3353bf5144425d3babbcb1493004296c6c392
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 19:07:55 2010 +0900
+
+    aufs: simplify au_update_dbrange()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8eaae14c674f431303fa2f7c3d3d51847d856e5b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 19:01:31 2010 +0900
+
+    aufs: tiny, remove less important debug test
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 13b7b36c330522512eafec8d4d833757feb86f8e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 18:58:18 2010 +0900
+
+    aufs: simplify au_dpri_dentry()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3fa25cac03491332eecf0e4d3687da9cbaebcbb4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 18:56:53 2010 +0900
+
+    aufs: simplify au_do_cpup_wh()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a72aac8a157504b3a09b353e2b8327b0ea42783c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 18:50:26 2010 +0900
+
+    aufs: simplify au_br_do_del_hdp()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c3365c25ce4e0d35fc85d28d2a19ef67b9937a40
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 18:28:53 2010 +0900
+
+    aufs: tiny, support NULL in au_hdput()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4c245f10a034bd54cf818dac9461a4d528815ba8
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 17:12:53 2010 +0900
+
+    aufs: bugfix, revalidate in setattr
+    
+    In aufs_setattr(), revalidate the passed ia_file and dentry.
+    Only ftruncate passes ia_file but fchmod doesn't.
+    
+    - make au_getattr_lock_reval() generic and rename to
+      au_reval_for_attr().
+    - rename au_lock_and_icpup() to au_pin_and_icpup().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ca1ce0cdcf56e04aaaca60b315fc83591795e8df
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 7 07:03:36 2010 +0900
+
+    aufs: tiny, simplify the flag for open
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 15a6abcb614296cf2b4bb0f614b3cc8b80d1f84a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 6 23:59:37 2010 +0900
+
+    aufs stdalone: bugfix, include path for an ugly trick in f_op.c
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7f702452178c2f552ef3cc513fcf128a7707a45f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 6 00:58:10 2010 +0900
+
+    aufs: tiny, remove a doc about an obsoleted design
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 56d925bb01943b99a0218929bf4eac9b2b047336
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 6 00:40:18 2010 +0900
+
+    aufs: tiny, update the documents
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 89989ba7f69fd69bd4766dc217e4d8d327195fd1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 5 17:57:48 2010 +0900
+
+    aufs: minor optimization, refine icntnr cache
+    
+    Introduce au_icntnr_init_once() as a slab constructor.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f3945375fcc8a273fd63f8f745fac8205dcbebd4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 5 17:56:23 2010 +0900
+
+    aufs: minor optimization, refine finfo cache
+    
+    Introduce au_fi_init_once() as a slab constructor.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5e58aa0a369f13bb452b76821a81dff2994a3e99
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 5 17:52:19 2010 +0900
+
+    aufs: tiny, refine dinfo life
+    
+    - move most part of aufs_d_release() to a new function au_di_fin().
+    - rename au_alloc_dinfo() to au_di_init().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0e5761e8b0cc4f57ed86118b7955606d277e5edd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 5 17:48:36 2010 +0900
+
+    aufs: minor optimization, refine dinfo cache
+    
+    Introduce au_di_init_once() as a slab constructor.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d5ea97d53afa95e90b01b00d1a5aeefaaedee70a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 5 16:31:08 2010 +0900
+
+    aufs: tiny, ____cacheline_aligned_in_smp attr
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit ba8f448c3c5da969b4b51503a7ac0015785bac6c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Apr 3 16:37:36 2010 +0900
