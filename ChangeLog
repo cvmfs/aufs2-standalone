@@ -1,3 +1,11 @@
+commit 3567528b787eb5719edbcfd64cbad6f46ef59fc0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 19 01:52:16 2010 +0900
+
+    Revert "aufs stdalone: bugfix, include path for an ugly trick in f_op.c"
+    
+    This reverts commit 15a6abcb614296cf2b4bb0f614b3cc8b80d1f84a.
+
 commit f118b15b829edd642d98de97cf0f89e3711cd3a0
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Apr 8 08:49:06 2010 +0900

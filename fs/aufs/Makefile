@@ -11,8 +11,6 @@ ccflags-y += -DDEBUG
 ccflags-y += -D'pr_fmt(fmt)="aufs %s:%d:%s[%d]: " fmt, \
 	__func__, __LINE__, current->comm, current->pid'
 
-CFLAGS_f_op.o += -I${srctree}/kernel
-
 obj-$(CONFIG_AUFS_FS) += aufs.o
 aufs-y := module.o sbinfo.o super.o branch.o xino.o sysaufs.o opts.o \
 	wkq.o vfsub.o dcsub.o \
