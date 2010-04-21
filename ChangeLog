@@ -1,3 +1,53 @@
+commit 539a3ab0cfe5128368f22477edc45ccf33f051b3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 21 22:43:57 2010 +0900
+
+    aufs stdalone: tiny, extract an ugly inclusion
+    
+    The inclusion of ../kernel/mutex.h from f_op.c is ugly.
+    Extract it and create a new file mtx.h.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f18325d780ae660e57fabe9017c01eab7d142c5d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 21 00:16:25 2010 +0900
+
+    aufs: tiny, remove unnecessary header files.
+    
+    Since vfsub_dentry_open() was moved to vfsub.c.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 54989da94127061348c1807b09059f0f5b978c28
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 20 23:29:53 2010 +0900
+
+    aufs: tiny, missing header files
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 558daea48a10218ce16e94457111a7c14f22964b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 20 23:07:43 2010 +0900
+
+    aufs stdalone: stop including ../kernel/mutex.h
+    
+    Follow the changes in linux-2.6.30.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d93f39effaef6760b399b7afb9aa97e7f9a63b8e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 20 22:29:15 2010 +0900
+
+    aufs: stop including ../kernel/mutex.h
+    
+    Copy the necessary part, and make the header file unnecessary.
+    I am afraid that the un-polite inclusion makes users confused very much.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 3567528b787eb5719edbcfd64cbad6f46ef59fc0
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Apr 19 01:52:16 2010 +0900
