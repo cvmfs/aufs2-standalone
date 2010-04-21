@@ -593,11 +593,7 @@ static int au_custom_vm_ops(struct au_finfo *finfo, struct vm_area_struct *vma)
  */
 
 /* very ugly approach */
-#ifdef CONFIG_DEBUG_MUTEXES
-#include <../kernel/mutex-debug.h>
-#else
-#include <../kernel/mutex.h>
-#endif
+#include "mtx.h"
 
 struct au_mmap_pre_args {
 	/* input */
