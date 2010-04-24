@@ -1,3 +1,11 @@
+commit 013a9e7f01c2744e83121efe08390e4995442772
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Apr 25 01:19:19 2010 +0900
+
+    aufs stdalone: tiny, year for copyright
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 768b2c640dfa84da3e5473f9cb467455fb1f16a9
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Apr 22 14:30:32 2010 +0900
