@@ -1,3 +1,139 @@
+commit cad4138125dde8e85269d984ccf9d76f2a96006a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 29 20:53:10 2010 +0900
+
+    aufs: fix the merge conflicts
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 525dce0cba190e6c21b7f0ed9f1fc9b85736d6ea
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 29 16:47:27 2010 +0900
+
+    aufs: tiny, revise Documentation/ABI
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3c6d4639f5f1ca5deca9f5e9bfbe40bb30c928aa
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 29 00:26:11 2010 +0900
+
+    aufs: bugfix, ref-count for dynop
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3951fc111b700111d0f1472a6da1f81dba3d5f70
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 19:23:13 2010 +0900
+
+    aufs: minor optimization to maintain br_dykey
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 58eee2161c3e12a2e874f1bce69d52b1b7182ad7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 19:11:14 2010 +0900
+
+    aufs: tiny, f_op->dir_notify is removed in linux-2.6.29
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e21f9d79e882b59242291ade0396284f1072a5be
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:27:06 2010 +0900
+
+    aufs: dynop, support AIO, Direct I/O and XIP
+    
+    Refine f_op->aio_read() and aio_write().
+    Implement dummy a_ops->direct_IO() which should never be called, but is
+    checked its existence.
+    There is no special handling for XIP except dynop.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7329380b5788cfdb0d408e4d8f6d14ed4f2f93c2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:25:48 2010 +0900
+
+    aufs: dynop, set and refresh i_fop, f_op and vm_ops
+    
+    In lookup, i_fop is set.
+    In copyup and refresh inode, i_fop is refreshed.
+    In mmap, sets the cached or newly generated vm_ops to vma->vm_ops.
+    In reopen, f_ops is refreshed.
+    
+    By this commit, fi_vm_ops is obsoleted and totally discarded.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0090fd1b0ceb5d468371999b2362ff243bd5973b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:24:53 2010 +0900
+
+    aufs: dynop, lifetime is maintained by branch object
+    
+    The dynop objects are referenced and used by inode or file objects.
+    But they are kept in a module global list. Getting the operation object
+    from the branch fs and generating the operation of for aufs starts the
+    life of dynop object. Its referece count is incremented by branch
+    object. Only the branch object increments and decrements the
+    counter. When a branch is removed from aufs, it decrements the counter.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ad5cbe45278b0fd8ba10eda66c66314a59ac630b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:23:00 2010 +0900
+
+    aufs: dynop, build new files
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit bfb50e2d25a0c1441586339fbadcaed97fda3292
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:22:29 2010 +0900
+
+    aufs: new files for dynop, dynamically customizable fs operations
+    
+    In order to support direct i/o, aio, and xip, introduce a new
+    approach. I named it dynop. See the
+    Documentation/filesystems/aufs/design/10dynop.txt in this commit in
+    detail.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 955def3d9a4c7deafd94d97d2e6b0b258a13f611
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 11:21:05 2010 +0900
+
+    aufs: tiny, new debug print macro AuDbgSym()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5ec819d77811bda5e2f22c44e8db0187413ada5b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 10:05:39 2010 +0900
+
+    aufs: tiny, set owner to file_operations
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5ff9c93d30c7c2d8f680a9a659a689170b63fd07
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 03:17:20 2010 +0900
+
+    aufs: tiny, rename simply
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit bef5c93a2917b3d4ccb8125aa0cc247eb06fd9d4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 28 00:36:15 2010 +0900
+
+    aufs: tiny, rename fi_h_vm_ops to fi_hvmop
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 013a9e7f01c2744e83121efe08390e4995442772
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Apr 25 01:19:19 2010 +0900
