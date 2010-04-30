@@ -1,3 +1,38 @@
+commit 611087d8b00b7bbed4628f54f2cc0b2905cfa403
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 30 23:59:59 2010 +0900
+
+    aufs: dynop, RCUnize
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 325f70dceac211ee67cc24126678b3fa8e0c51cc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 30 22:35:27 2010 +0900
+
+    aufs: minor optimization, lock-free search for br_dykey
+    
+    br_key is a simple array to hold dynop reference. And the elements are
+    never be modified (add only) as long as the branch is alive.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ab66924160e65ec419a2fba26bdfec4a21e3a9e3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 30 22:31:11 2010 +0900
+
+    aufs: tiny, new macro AuInfoSym
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a55f31827946059a409c3cb831ec774c540e95f7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 30 21:46:51 2010 +0900
+
+    aufs: tiny, move some functions in a file
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit cad4138125dde8e85269d984ccf9d76f2a96006a
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Apr 29 20:53:10 2010 +0900
