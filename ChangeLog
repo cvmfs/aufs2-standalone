@@ -1,3 +1,88 @@
+commit 4097e89f396887b6642b136fce511344da2e9073
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 6 11:14:43 2010 +0900
+
+    aufs: tiny, fix the merge conflict
+    
+    aop->prepare_write() and ->commit_write() were removed in linux-2.6.28.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2653cd5031e3b8b7817ed75c6ff97a9b0cc284d0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 6 02:35:08 2010 +0900
+
+    aufs: dynop supports aop with dio/nodio
+    
+    Add the address_space_operation into dynamic operations scheme, in order
+    to switch ->direct_IO and ->get_xip_mem dynamically following the mount
+    options dio/nodio.
+    
+    - new functions dy_aop(), dy_adx(), dy_aget() and au_dy_arefresh().
+    - rename ay_dy_ifop() to au_dy_ifaop().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 96e2ba81fdf9476131b2ebeb519b80cca1cab9fc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 6 02:27:57 2010 +0900
+
+    aufs: dio/nodio, always define aop->get_xip_mem
+    
+    madvise and fadvies behaves diffently according to the definition of
+    aop->get_xip_mem. This aufs_get_xip_mem() will be set by dynamic
+    operations (dynop) later.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4a0c27a0e3d1f68ef155c3226d6b70e59d30fbf6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 6 02:00:19 2010 +0900
+
+    aufs: introduce the new mount options dio and nodio
+    
+    Direct I/O is a filesystem specific feature and the branches in aufs may
+    behave differently. It means that open(O_DIRECT) succeeds but the
+    succeeding write(2) may file since the upper writable branch may not
+    support Direct I/O. While I am afraid this is not a big problem since
+    all applications should check the failure of write(2), but applications
+    may expect the error from the first open(O_DIRECT) instead of the later
+    write(2).
+    
+    In order to make open() to return an error, aufs introduces the new
+    mount options dio and nodio. By nodio, open(O_DIRECT) always fails even
+    if the branch fs support Direct I/O. See the aufs manual in detail.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit aa6a9cac353e11d1ee513494363e5dae7bc6aaa3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 6 01:49:24 2010 +0900
+
+    aufs: bugfix, always REFRESH_NONDIR at adding a branch
+    
+    In order to refresh the dynamic operations ->i_fop and vm_ops.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7849fc8d61537ee06985fc2a0da11acdaf7d028a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon May 3 19:44:26 2010 +0900
+
+    aufs: RCUnize the pseudo-link list
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b27d90f0743d6408c0482b1f61a2d4d7d0eb4d6e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon May 3 16:34:18 2010 +0900
+
+    aufs: minor optimization, make rcu_head union-ed
+    
+    Also introduce a new function au_spl_list_del_rcu().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 611087d8b00b7bbed4628f54f2cc0b2905cfa403
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Apr 30 23:59:59 2010 +0900
