@@ -1,3 +1,53 @@
+commit 46fd1517d630bff5c199ded02e459e3d2481cf55
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed May 12 23:45:23 2010 +0900
+
+    aufs: stop dynamic operation for i_fop/f_op
+    
+    Aufs has to set file write operations even if the file is really
+    readonly (for instance, squashfs). It means that the dynamic operations
+    for f_op was a bad approach.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 96284fb6c49fc8789afdeac60a26979a2a851845
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed May 12 22:15:40 2010 +0900
+
+    aufs: bugfix, force setting file write operations for future copyup
+    
+    Aufs has to set file write operations even if the file is really
+    readonly (for instance, squashfs). It means that the dynamic operations
+    for f_op was a bad approach. While this commit forces setting file write
+    operations, next commit will remove f_op from dynamic operation.
+    
+    Reported-by: Jordi Pujol <jordipujolp@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 51f93aa7daea8cfe6d8b61f3a29de130af374efc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed May 12 15:06:20 2010 +0900
+
+    aufs: tiny, rename au_update_ibrange()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f450ccc1b5b029a3252dcdf3c8f8d01fcf67307c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon May 10 07:36:37 2010 +0900
+
+    aufs: tiny, simplify au_wr_dir()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 688a2a611b7628151408562f0ec4f1a9da6309f7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon May 10 07:35:08 2010 +0900
+
+    aufs: tiny, revise CONFIG_AUFS_RDU description
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit e502af47c396cd4631b1b1fffcfc60a3c8501a9b
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat May 8 22:33:21 2010 +0900
