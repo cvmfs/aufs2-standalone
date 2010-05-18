@@ -1,7 +1,7 @@
-aufs2 base patch for linux-2.6.
+aufs2 base patch for linux-2.6.34
 
 diff --git a/fs/namei.c b/fs/namei.c
-index a7dce91..c345520 100644
+index b86b96f..c43d6b8 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -1177,7 +1177,7 @@ out:

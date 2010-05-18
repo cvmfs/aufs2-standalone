@@ -1,7 +1,7 @@
-aufs2 standalone patch for linux-2.6.
+aufs2 standalone patch for linux-2.6.34
 
 diff --git a/fs/namei.c b/fs/namei.c
-index c345520..b4e15a2 100644
+index c43d6b8..538d40a 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -348,6 +348,7 @@ int deny_write_access(struct file * file)
@@ -29,7 +29,7 @@ index c345520..b4e15a2 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 8174c8a..9b90f70 100644
+index f20cb57..7cc1b42 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -1282,6 +1282,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,

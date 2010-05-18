@@ -1,4 +1,4 @@
-aufs2 kbuild patch for linux-2.6.
+aufs2 kbuild patch for linux-2.6.34
 
 diff --git a/fs/Kconfig b/fs/Kconfig
 index 5f85b59..6ee7cf8 100644
