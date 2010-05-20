@@ -1,3 +1,25 @@
+commit f4a7943493421f2ae86fe755cfcc57b6002a155d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu May 20 00:12:38 2010 +0900
+
+    aufs: bugfix, check the file handle strictly
+    
+    The passed file handle may be altered unexpectedly.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0b2c5d95c90be7053ce731c994fe1c892e361b75
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue May 18 16:35:46 2010 +0900
+
+    aufs: simplify au_set_ibstart()
+    
+    Calling au_cpup_igen() in au_set_ibstart() is unnecessary, since the
+    later au_set_h_iptr() calls it too.
+    Move au_set_ibstart() from iinfo.c to inode.h, and make it inlined.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit b87743a1f2ba1c57ac1f1a82f48ebda6b242cef8
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon May 17 10:27:24 2010 +0900
