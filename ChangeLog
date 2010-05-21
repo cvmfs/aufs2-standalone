@@ -1,3 +1,14 @@
+commit ed8b8d568abd9f96fd539d25015358893eb5cbd4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat May 22 06:17:09 2010 +0900
+
+    aufs: fill the prompt string for choice block
+    
+    I don't know why, but on some systems it doesn't work.
+    
+    Reported-by: Wilhelm <wilhelm.meier@fh-kl.de>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit f4a7943493421f2ae86fe755cfcc57b6002a155d
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu May 20 00:12:38 2010 +0900
