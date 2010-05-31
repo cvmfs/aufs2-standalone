@@ -1,3 +1,129 @@
+commit a9be01e5e9688018ebe9ef46ec5414bb356bc556
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun May 30 04:40:49 2010 +0900
+
+    aufs: fi_hdir, rename au_do_refresh_file() to au_do_refresh_dir()
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    It is for dir only.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ace9ed5d338f19f49994304616d03cc5f9f74f11
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun May 30 04:39:22 2010 +0900
+
+    aufs: fi_hdir, remove an obsoleted au_dbg_verify_hf()
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    It is unused now.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a5988585b6f01f2447a728a8edb5de319aa0afaf
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun May 30 04:36:50 2010 +0900
+
+    aufs: fi_hdir, append the prefix '_dir' to au_fbend() and au_set_fbend()
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    Now these functions are for dir only. Simply append the prefix '_dir.'
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2270b95d476dac8479f01de308fc1353d961fec1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun May 30 04:06:34 2010 +0900
+
+    aufs: fi_hdir, replace au_h_fptr() by au_hf_top() and au_hf_dir()
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    A new function au_hf_top() is for non-dir, and au_hf_dir() is for dir.
+    They replace the generic au_h_fptr().
+    On the other hand, au_set_h_fptr() will not be replaced.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 79befa0033f795d4fcef440a680aed3369fdbb4c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun May 30 03:38:16 2010 +0900
+
+    aufs: fi_hdir, split struct au_file into two parts
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    Extract a part of struct au_file and create a new struct au_fidir which
+    represents aufs dir. Non-dir entries are represented by au_finfo as they
+    were. The internal struct file pointer array was allocated by au_fidir
+    only. It will reduce the memory comsumption in opening non-dir. This is
+    the main purpose of this series.
+    struct au_file for non-dir doesn't allocate the internal array. Instead
+    it contains singe struct au_hfile to hold the lower file object. And
+    fi_bbot (fi_bend previously) is unnecessary.
+    
+    - aufs_open_dir() allocates the new member fi_hdir and opens the target
+      dir as it was, and aufs_release_dir() frees the fi_hdir.
+    - refresh_file() refreshes struct au_finfo for non-dir by itself.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a564c74c6fc87a03abf47e6dea06098f1756f9ee
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat May 29 23:06:04 2010 +0900
+
+    aufs: fi_hdir, simply rename fi_bstart/fi_bend to fi_btop/fi_bbot
+    
+    (A commit in a series of splittng struct au_file into two parts, one for
+    dir and the other for non-dir. You shoule read all commits in the series
+    since one commit itself may have less meaning.)
+    
+    Simply rename the member "branch start/end" to "branch top/bottom"
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c3438ca97f51467fc9478c1e490d2924d85a6e9a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat May 29 23:51:42 2010 +0900
+
+    aufs: generalize aufs_flush()
+    
+    Split aufs_flush into two parts, one for dir/non-dir specific part and
+    the other for common part.
+    Replace aufs_flush() by some new functions,
+    - au_do_flush_dir(), aufs_flush_dir()
+    - au_do_flush_nondir(), aufs_flush_nondir()
+    - au_do_flush()
+    - vfsub_flush()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 538e47a04a83fe2fd17d2881c7148362679017e5
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat May 29 21:19:48 2010 +0900
+
+    aufs: tiny, update atime in splice_to
+    
+    Updating atime in splice_to is unnecessary generally and doesn't in VFS
+    either. But sendfile(2) updates it, and sendfile is implemented by
+    splice internally. Finally aufs always updates atime in splice_to,
+    otherwise it won't be updated by sendfile(2).
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit ed8b8d568abd9f96fd539d25015358893eb5cbd4
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat May 22 06:17:09 2010 +0900
