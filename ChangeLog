@@ -1,3 +1,58 @@
+commit c503a51d10c9c7767f1eba8e47de545d31ab7858
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jun 4 02:54:13 2010 +0900
+
+    aufs: bugfix, the dentry paramter for security funcs
+    
+    Pass the correct parameter.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 92172f59e363f630ab44217e78135cdeff90ba0d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jun 4 02:09:23 2010 +0900
+
+    aufs: tiny, fake type-cast by union
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9f8ad8ca00cf7677e9d982c9e98d4b7586e759f6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 2 23:38:37 2010 +0900
+
+    aufs: possible bugfix, revalidate inode race between readdir and lookup
+    
+    Both of readdir and lookup operation need to assign the aufs inode
+    number, but it requires other aufs locks including xi_nondir_mtx which
+    prevents hard-linked inode number from race condition. There can happen
+    a violation of the order of these locks.
+    
+    They acquire these locks.
+    aufs_readdir("./dirA")
+    + si_read_lock
+    + fi_write_lock
+    + di_write_lock
+    + ii_write_lock for dirA
+    + xi_nondir_mtx for non-dir
+    
+    aufs_lookup("./dirA/fileB")
+    + si_read_lock
+    + di_write_lock
+    + xi_nondir_mtx for non-dir
+    + ii_write_lock_nested for fileB
+    
+    Here the fileB may be in copy-up operation which acquires the parent's
+    dentry-info and inode->info lock. So aufs_lookup() waits for the
+    completion of copy-up, aufs_readdir() waits for xi_nondir_mtx, and the
+    copy-up waits for the parent, but it is held by readdir.
+    This is very complicated situation and I am afraid the design of aufs
+    inode assignment is not godd. But I don't have other idea.
+    
+    This commit refines xi_nondir_mtx and releases it before
+    "ii_write_lock_nested for fileB."
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit a9be01e5e9688018ebe9ef46ec5414bb356bc556
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun May 30 04:40:49 2010 +0900
