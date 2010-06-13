@@ -1,3 +1,56 @@
+commit f2f51daf576fa90ad7209288ed8b19c8151ff92a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 9 17:03:00 2010 +0900
+
+    aufs: tiny, simplify the locks in au_do_flush()
+    
+    The read-lock for dinfo is unnecessary.
+    Also the write-lock for iinfo should be a read-lock.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit bdc941c464fd4181f7ab76fbb992b6ab150ac188
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jun 8 23:28:03 2010 +0900
+
+    aufs: minor optimization au_iinfo_fin()
+    
+    - extract a part of au_iinfo_fin(), create a new function
+      au_xino_delete_inode(), and remove au_iinfo_write0().
+    - simplify au_xino_write0() and rename to au_xib_clear_bit().
+    - convert the type of au_xigen_inc() into void.
+    - stop testing 'xino' option in au_xigen_inc().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7e7b86c68cf5d3638ceb19a0a1d7a254d8501bde
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jun 8 00:08:00 2010 +0900
+
+    aufs: tiny, remove an unnecessary variable
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ea824b7a71cd905fdadcb0998ab2005fcb3786e9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jun 8 00:06:55 2010 +0900
+
+    aufs: minor optimization, pass the 'verbose' flag
+    
+    Stop testing the 'verbose' flag in all test_dentry_busy(),
+    test_inode_busy() and au_br_del() functions. Instead pass the tested
+    result from au_br_del() to test_dentry_busy() and test_inode_busy().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit cabc97fe740d2c7664988e76f218318aecd5ec18
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jun 7 14:45:15 2010 +0900
+
+    aufs: tiny, test task flags instead of mm
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit c503a51d10c9c7767f1eba8e47de545d31ab7858
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jun 4 02:54:13 2010 +0900
