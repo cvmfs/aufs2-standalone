@@ -1,3 +1,125 @@
+commit d405a78a328658600f1928309bfbd2ded6136c59
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jun 19 03:36:21 2010 +0900
+
+    aufs: tiny, remove unused lockdep_off/on()
+    
+    In linux-2.6.31, lockdep_set_class() was applited to them.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a4862273fc684dd24a9e0b4c29f89aaf53723afc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 17 23:39:13 2010 +0900
+
+    aufs: several GIT servers
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 135ac88ed89e4780dc71bef119b803d4c594ea07
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 16 18:11:40 2010 +0900
+
+    aufs: possible bugfix, sbinfo lock in deleting inode, lockdep
+    
+    (A commit in a series of introducing pid map/tree and making sure to
+    acquire sbinfo lock in deleting inode. While every commit is
+    git-bisect-able, you shoule read all commits in the series since a
+    single commit may have less meaning.)
+    
+    A debugging feature in linux kernel, lockdep, warns
+    "inconsistent {RECLAIM_FS-ON-W} -> {IN-RECLAIM_FS-R} usage."
+    about sb->s_umount and aufs sbinfo lock.
+    This is bogus or "false positive" since {RECLAIM_FS-ON-W} state was
+    registered at allcating the root inode at mounting. This is definitly no
+    RECLAIM state. It may be a limitation of s_umount in lockdep.
+    Let's simply make it quiet.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6ef8250091897e1cf7e8b77a7cfc61c7ffe58b58
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 16 18:03:48 2010 +0900
+
+    aufs: possible bugfix, sbinfo lock in deleting inode, core
+    
+    (A commit in a series of introducing pid map/tree and making sure to
+    acquire sbinfo lock in deleting inode. While every commit is
+    git-bisect-able, you shoule read all commits in the series since a
+    single commit may have less meaning.)
+    
+    s_umount rwsem in struct super_block prevents a race condition among
+    umount, remount and kswapd. It is good.
+    But if an inode is going to be deleted by other than kswapd, aufs may be
+    doing another operation which requires a lock for sbinfo. In this case,
+    si_noflush_read_trylock() in au_iinfo_fin() will not acquire the
+    lock. Before au_iinfo_fin() completes or during its operations, another
+    operation may release the lock and remount or a branch management
+    process may start. Here if the branch management process changes the
+    union members, then xino management in au_iinfo_fin() will not work
+    correctly.
+    
+    In order to fix this potential problem, there another bad approch is
+    introduced which uses a bitmap to mark the pid which acquired the sbinfo
+    lock. In au_iinfo_fin(), if the bit is set, then the function will not
+    try acquiring the lock.
+    To support the pid larger than PID_MAX_DEFAULT, sbinfo prepares a radix
+    tree too.
+    
+    With this commit, we can remove si_noflush_read_trylock(). But it will
+    be necessary in aufs2-31 branch, so leave it now.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit eb6254f4b0080f01b3356a40bdd62d7130bf1951
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 16 17:51:00 2010 +0900
+
+    aufs: possible bugfix, sbinfo lock in deleting inode, use si_pid
+    
+    (A commit in a series of introducing pid map/tree and making sure to
+    acquire sbinfo lock in deleting inode. While every commit is
+    git-bisect-able, you shoule read all commits in the series since a
+    single commit may have less meaning.)
+    
+    Use si_pid which was declared and implmented by last commit.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 89d59298f045a8a7e2c5a667dfc3ee3b3fe8745a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 16 17:43:12 2010 +0900
+
+    aufs: possible bugfix, sbinfo lock in deleting inode, si_pid functions
+    
+    (A commit in a series of introducing pid map/tree and making sure to
+    acquire sbinfo lock in deleting inode. While every commit is
+    git-bisect-able, you shoule read all commits in the series since a
+    single commit may have less meaning.)
+    
+    Declare and implement si_pid functions which are not used yet.
+    The pid from 1 to PID_MAX_DEFAULT are marked in a new bitmap in
+    sbinfo. The larger pids will go to a new radix tree in sbinfo.
+    These marks will be referenced by au_iinfo_fin() in succeeding commit.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 40d554b0f6a6bc588fd88235f39b59f30ec27114
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 16 17:30:03 2010 +0900
+
+    aufs: possible bugfix, sbinfo lock in deleting inode, __si_ lock
+    
+    (A commit in a series of introducing pid map/tree and making sure to
+    acquire sbinfo lock in deleting inode. While every commit is
+    git-bisect-able, you shoule read all commits in the series since a
+    single commit may have less meaning.)
+    
+    Rename si_noflush_... lock macros to __si_..., and create new inlined
+    functions si_noflush_....
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit f2f51daf576fa90ad7209288ed8b19c8151ff92a
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Jun 9 17:03:00 2010 +0900
