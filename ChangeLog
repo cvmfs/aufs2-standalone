@@ -1,3 +1,11 @@
+commit 7c7f493d58745e45160ccebfbfb5e6244dbd0b52
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jun 25 10:52:59 2010 +0900
+
+    aufs: tiny, debug print [if]_version
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit d405a78a328658600f1928309bfbd2ded6136c59
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Jun 19 03:36:21 2010 +0900
