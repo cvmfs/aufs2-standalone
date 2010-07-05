@@ -1,3 +1,105 @@
+commit b37c575759dc4535ccc03241c584ad5fe69e3b25
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Jul 4 21:06:02 2010 +0900
+
+    aufs: minor update abput the doubling donations
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 799db4b1d59ea0ffc999889bc6985397333e9a13
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jul 2 00:37:56 2010 +0900
+
+    aufs: compat_ioctl, implement the operations
+    
+    (A commit in a series of supporting 32bit emulation under 64bit kernel.
+    While every commit is git-bisect-able, you shoule read all commits in
+    the series since a single commit may have less meaning.)
+    
+    Implement f_op->compat_ioctl().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 765378b55abcabfe3344e5fcf2eabd6a1d52abc0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jul 2 00:35:17 2010 +0900
+
+    aufs: compat_ioctl, make a room for a pointer
+    
+    (A commit in a series of supporting 32bit emulation under 64bit kernel.
+    While every commit is git-bisect-able, you shoule read all commits in
+    the series since a single commit may have less meaning.)
+    
+    In order to make it compatible, make a room for a pointer and always
+    handle it as 64bit size.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit abd339c757ea095f1affdd648d0e9e598213a790
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jul 2 00:29:00 2010 +0900
+
+    aufs: compat_ioctl, remove verifying the size of ptr
+    
+    (A commit in a series of supporting 32bit emulation under 64bit kernel.
+    While every commit is git-bisect-able, you shoule read all commits in
+    the series since a single commit may have less meaning.)
+    
+    Remove verifying the size of ptr which is meaningless.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3c979528184058b184608e6e3086c4c59b0a6c86
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jul 2 00:04:33 2010 +0900
+
+    aufs: follow 2.6.28, new flag LOOKUP_EXCL
+    
+    NFS replaces the internal test for LOOKUP_CREATE by a new flag
+    LOOKUP_EXCL.
+    Aufs has to prohibit this internal test in order to know whether the
+    file exists or not.
+    
+    Reported-by: "Ian Stakenvicius, Aerobiology Research" <ian@aerobiology.ca>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 396a2f097a6b278fc2a9e9da83b87255f60075fb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jun 29 14:32:26 2010 +0900
+
+    aufs: bugfix, separate the workqueue for preprocessing mmap
+    
+    variation of common AB-BA deadlock problem.
+    
+    ProcessA:
+    - aufs_mmap
+      + pre-process with using a workqueue
+      + wait until return from the workqueue
+    
+    Workqueue task for ProcessA:
+    - acquire aufs rwsem
+    
+    Processb
+    - lookup or readdir in aufs
+      + acquire aufs rwsem
+      + assign a new inode number
+      + write the value to the XINO file using a workqueue
+      + wait until return from the workqueue
+    
+    Since the workqueue handles the request one by one, both of processA and
+    B waits forever.
+    
+    This bug was introduced by the commit
+    d986fa5 2010-03-08
+    	aufs: bugfix, another approach to keep the lock order of mmap_sem
+    which is the last added workqueue task.
+    And this is the only one task which acquires such lock in workqueue.
+    To fix it, introduce another workqueue which is for preprocessing mmap only.
+    This commit will make the approach more ugly, I don't have another option.
+    
+    Reported-by: Oliver Welter <mail@oliwel.de>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 7c7f493d58745e45160ccebfbfb5e6244dbd0b52
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jun 25 10:52:59 2010 +0900
