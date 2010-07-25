@@ -1,3 +1,59 @@
+commit 94a88523d6f702e67a74dfbdc5917b6aea7ceb36
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jul 21 11:32:24 2010 +0900
+
+    aufs: allow a loopback-mounted branch
+    
+    It is rejected to add a branch which is a loopback-mount in another
+    branch. For example,
+    - /au = /br0 + /br1 ... + /brN
+    - /brX/fs.img exists
+    loopback mount /brX/fs.img at /out/dirB,
+    append:/out/dirB
+    
+    This commit allows such case.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4946ca0d7c61d3875ec7c633100843f9249b1a2c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jul 21 11:00:41 2010 +0900
+
+    aufs: bugfix, buffer overrun in au_whtmp_lkup()
+    
+    Removing or renaming a dir in aufs causes an internal renaming to a
+    temporary unique name. To gurantee its uniquness, aufs uses a static
+    internal counter and put it into the unique name. Historically it is
+    printed in hexdecimal, but I had changed it decimal. By this change, the
+    generating unique name will be longer, and when the counter exceeds 4
+    digtis AND the target dir name has AUFS_MAX_NAMELEN characterns, then
+    the buffer overrun will happen.
+    
+    Reported-by: Thayumanavar Sachithanantham <thayumj@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 068b8febe0b8e869c87b6b9c89b12b69b834a488
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jul 20 03:34:52 2010 +0900
+
+    aufs: bugfix, un-static a local var in dy_get()
+    
+    The local var 'p' in dy_get() should not be static.
+    
+    Reported-by: Roopesh <k.roopesh@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4de8d40f631cc57f569eca460b87688cab216c23
+Author: thayumj@gmail.com <thayumj@gmail.com>
+Date:   Mon Jul 19 11:49:36 2010 -0400
+
+    aufs: Fix null pointer dereference on branch deletion
+    
+    In au_br_del, we free up br in au_br_do_del and later on access br.
+    Avoid deference on br to prevent crash.
+    
+    Signed-off-by: Thayumanavar Sachithanantham <thayumj@gmail.com>
+
 commit b37c575759dc4535ccc03241c584ad5fe69e3b25
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Jul 4 21:06:02 2010 +0900
