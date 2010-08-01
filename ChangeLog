@@ -1,3 +1,29 @@
+commit 5675361e2aaf8c49e95f9cdc4804c18add26a2c1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Aug 1 12:52:57 2010 +0900
+
+    aufs: tiny, note about the vdir cache
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6c34a3c246941b965f14a1638c11683c202b72d2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Aug 1 12:27:40 2010 +0900
+
+    aufs: more verbose at deleting a branch
+    
+    In deleting a branch, aufs searches the files in-use on that branch. If
+    any of them are found, aufs rejects deleting immediately due to the
+    branch is busy. It is basically equivalent to unmounting.
+    But users may want to know the path of the opened file.
+    This commit stops aufs to abondon the deleting process in verbose mode
+    when it finds that there are file(s) opened on that branch. After
+    printing the paths, aufs returns the error as usual. While the result is
+    unchanged, aufs has to do for some unnecessary works just to show the
+    paths.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 94a88523d6f702e67a74dfbdc5917b6aea7ceb36
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Jul 21 11:32:24 2010 +0900
