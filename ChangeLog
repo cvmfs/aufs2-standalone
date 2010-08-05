@@ -1,3 +1,14 @@
+commit 3e5a357194016095c701e1198bb545ca68b84c87
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 5 22:41:26 2010 +0900
+
+    aufs stdalone: set all configs to a make variable
+    
+    This var is used to verify configs by another separated makefile, and
+    mainly for myself.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 1ab626c25f1c5521f4728f8435c618a7acec160a
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Aug 2 21:37:20 2010 +0900
