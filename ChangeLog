@@ -1,3 +1,11 @@
+commit cdbfd50d7e8733a8400e8f76cd9f9253747941d8
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Aug 7 00:56:12 2010 +0900
+
+    aufs: tiny, make au_dy_irefresh un-inline
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 3e5a357194016095c701e1198bb545ca68b84c87
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Aug 5 22:41:26 2010 +0900
