@@ -1,7 +1,7 @@
 aufs2 kbuild patch for linux-2.6.
 
 diff --git a/fs/Kconfig b/fs/Kconfig
-index 5f85b59..6ee7cf8 100644
+index 3d18530..8f582e1 100644
 --- a/fs/Kconfig
 +++ b/fs/Kconfig
 @@ -189,6 +189,7 @@ source "fs/romfs/Kconfig"
@@ -22,7 +22,7 @@ index e6ec1d3..b0d795a 100644
  obj-$(CONFIG_CEPH_FS)		+= ceph/
 +obj-$(CONFIG_AUFS_FS)           += aufs/
 diff --git a/include/linux/Kbuild b/include/linux/Kbuild
-index 2fc8e14..3b766a7 100644
+index 9aa9bca..cba586c 100644
 --- a/include/linux/Kbuild
 +++ b/include/linux/Kbuild
 @@ -34,6 +34,7 @@ header-y += atmppp.h

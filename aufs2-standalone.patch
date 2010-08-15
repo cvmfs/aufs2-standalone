@@ -1,10 +1,10 @@
 aufs2 standalone patch for linux-2.6.
 
 diff --git a/fs/namei.c b/fs/namei.c
-index 6e92c81..334130e 100644
+index 975a668..a72273b 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -348,6 +348,7 @@ int deny_write_access(struct file * file)
+@@ -347,6 +347,7 @@ int deny_write_access(struct file * file)
  
  	return 0;
  }
@@ -12,7 +12,7 @@ index 6e92c81..334130e 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1187,6 +1188,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1186,6 +1187,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  		return ERR_PTR(err);
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -20,7 +20,7 @@ index 6e92c81..334130e 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1209,6 +1211,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1208,6 +1210,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
@@ -110,7 +110,7 @@ index 0399bcb..74cdc13 100644
  /**
   * fsnotify_unmount_inodes - an sb is unmounting.  handle any watched inodes.
 diff --git a/fs/open.c b/fs/open.c
-index 5463266..d248ead 100644
+index 0d1fa3d..d7c8bcb 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -59,6 +59,7 @@ int do_truncate(struct dentry *dentry, loff_t length, unsigned int time_attrs,
@@ -163,7 +163,7 @@ index 8d9c48f..29108aa 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/security.c b/security/security.c
-index 351942a..6ba84a8 100644
+index e8c87b8..5fea6da 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -376,6 +376,7 @@ int security_path_mkdir(struct path *dir, struct dentry *dentry, int mode)
@@ -212,17 +212,17 @@ index 351942a..6ba84a8 100644
  }
 +EXPORT_SYMBOL(security_path_rename);
  
- int security_path_truncate(struct path *path, loff_t length,
- 			   unsigned int time_attrs)
-@@ -424,6 +430,7 @@ int security_path_truncate(struct path *path, loff_t length,
+ int security_path_truncate(struct path *path)
+ {
+@@ -423,6 +429,7 @@ int security_path_truncate(struct path *path)
  		return 0;
- 	return security_ops->path_truncate(path, length, time_attrs);
+ 	return security_ops->path_truncate(path);
  }
 +EXPORT_SYMBOL(security_path_truncate);
  
  int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
  			mode_t mode)
-@@ -432,6 +439,7 @@ int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
+@@ -431,6 +438,7 @@ int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
  		return 0;
  	return security_ops->path_chmod(dentry, mnt, mode);
  }
@@ -230,7 +230,7 @@ index 351942a..6ba84a8 100644
  
  int security_path_chown(struct path *path, uid_t uid, gid_t gid)
  {
-@@ -439,6 +447,7 @@ int security_path_chown(struct path *path, uid_t uid, gid_t gid)
+@@ -438,6 +446,7 @@ int security_path_chown(struct path *path, uid_t uid, gid_t gid)
  		return 0;
  	return security_ops->path_chown(path, uid, gid);
  }
@@ -238,7 +238,7 @@ index 351942a..6ba84a8 100644
  
  int security_path_chroot(struct path *path)
  {
-@@ -515,6 +524,7 @@ int security_inode_readlink(struct dentry *dentry)
+@@ -514,6 +523,7 @@ int security_inode_readlink(struct dentry *dentry)
  		return 0;
  	return security_ops->inode_readlink(dentry);
  }
@@ -246,7 +246,7 @@ index 351942a..6ba84a8 100644
  
  int security_inode_follow_link(struct dentry *dentry, struct nameidata *nd)
  {
-@@ -529,6 +539,7 @@ int security_inode_permission(struct inode *inode, int mask)
+@@ -528,6 +538,7 @@ int security_inode_permission(struct inode *inode, int mask)
  		return 0;
  	return security_ops->inode_permission(inode, mask);
  }
@@ -254,7 +254,7 @@ index 351942a..6ba84a8 100644
  
  int security_inode_setattr(struct dentry *dentry, struct iattr *attr)
  {
-@@ -622,6 +633,7 @@ int security_file_permission(struct file *file, int mask)
+@@ -621,6 +632,7 @@ int security_file_permission(struct file *file, int mask)
  {
  	return security_ops->file_permission(file, mask);
  }
@@ -262,7 +262,7 @@ index 351942a..6ba84a8 100644
  
  int security_file_alloc(struct file *file)
  {
-@@ -649,6 +661,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
+@@ -648,6 +660,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
  		return ret;
  	return ima_file_mmap(file, prot);
  }

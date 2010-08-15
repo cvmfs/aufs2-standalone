@@ -375,9 +375,9 @@ void au_dbg_verify_gen(struct dentry *parent, unsigned int sigen)
 
 void au_dbg_verify_kthread(void)
 {
-	if (au_test_wkq(current)) {
+	if (current->flags & PF_WQ_WORKER) {
 		au_dbg_blocked();
-		BUG();
+		WARN_ON(1);
 	}
 }
 
