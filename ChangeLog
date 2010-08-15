@@ -1,3 +1,80 @@
+commit 84d9887aa24d67f81c024cce71c52227e1440e6f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Aug 14 09:40:18 2010 +0900
+
+    aufs: simplify the usage of "current" for aufs2-29 and later
+    
+    See
+    1c53087 2010-08-12 aufs: simplify the usage of "current"
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit dbfaa66eb454ae6570d150afeb2da6eed4cd7aec
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Aug 14 01:16:41 2010 +0900
+
+    aufs: simplify the usage of "current" for aufs2-28 and later
+    
+    See
+    1c53087 2010-08-12 aufs: simplify the usage of "current"
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6c1c99c2828715f1f64f1e21e34b4d2077627cdc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 12 03:45:59 2010 +0900
+
+    aufs: bugfix, after an error in adding a branch
+    
+    At adding a new branch, initializing the xino file for that branch may
+    fail due to ENOSPC or something. Close the file in the error path and
+    re-initialize br->br_mnt.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1c53087eec392d2ecd6005b6cef9c180ae04c29f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Aug 11 16:40:50 2010 +0900
+
+    aufs: simplify the usage of "current"
+    
+    Replace "current" by generic macros, and remove the paramter of
+    au_test_nfsd().
+    Also with hoping a small optimization, reduce the number of "current" by
+    storing a variable.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b785271cb7631fa4a3961e77e0f8189cfe2ca165
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Aug 11 16:37:59 2010 +0900
+
+    aufs: simplify and remove au_test_wkq()
+    
+    In whplink() and xino_fwrite(), au_test_wkq() is called to make sure
+    that we have super user privilege. Essentially whplink() needs the
+    privilege to lookup/link the hidden pseudo-link dir, and xino_fwrite()
+    needs to break RLIMIT_FSIZE (in order to suppress SIGXFSZ).
+    
+    This commit splits (make the granularity lower) the tests.
+    Also in the debug build, make sure the workqueue has the expected fsid
+    and RLIMIT_FSIZE.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9944ffeb972e8de0cf730d6a323c5ccd0efe1ab9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Aug 11 13:14:40 2010 +0900
+
+    aufs: bugfix, test h_parent in au_do_pin()
+    
+    Under heavy I/O load, particularly rename(2) and others, the parent
+    dentry of the passed dentry to au_do_pin() may be changed, and the
+    corresponding h_parent can be NULL.
+    
+    Reported-by: Roopesh <k.roopesh@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit cdbfd50d7e8733a8400e8f76cd9f9253747941d8
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Aug 7 00:56:12 2010 +0900
