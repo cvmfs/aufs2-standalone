@@ -1,0 +1,164 @@
+commit 044e9c5c98540ca853cb6b1c98c8bf246f3baa33
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 26 11:59:24 2010 +0900
+
+    support patch-2.6.33.5-rt25 (untested)
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+diff --git a/fs/aufs/mtx.h b/fs/aufs/mtx.h
+index 1b7e6f0..866d1ee 100644
+--- a/fs/aufs/mtx.h
++++ b/fs/aufs/mtx.h
+@@ -33,13 +33,13 @@ struct thread_info;
+ #ifdef CONFIG_DEBUG_MUTEXES
+ static inline void mutex_set_owner(struct mutex *lock)
+ {
+-	lock->owner = current_thread_info();
++	lock->lock.owner = current;
+ }
+ #else
+ static inline void mutex_set_owner(struct mutex *lock)
+ {
+ #ifdef CONFIG_SMP
+-	lock->owner = current_thread_info();
++	lock->lock.owner = current;
+ #endif
+ }
+ #endif
+diff --git a/fs/aufs/rwsem.h b/fs/aufs/rwsem.h
+index 7f4c399..ccc5a8f 100644
+--- a/fs/aufs/rwsem.h
++++ b/fs/aufs/rwsem.h
+@@ -28,8 +28,34 @@
+ #include <linux/rwsem.h>
+ #include "debug.h"
+ 
++#ifdef CONFIG_PREEMPT_RT
++#define AuRw				rw_anon_semaphore
++#define AuRwInit(rw)			init_anon_rwsem(rw)
++#define AuRwDownWrite(rw)		anon_down_write(rw)
++#define AuRwDownWriteNested(rw, lsc)	anon_down_write_nested(rw, lsc)
++#define AuRwDownRead(rw)		anon_down_read(rw)
++#define AuRwDownReadNested(rw, lsc)	anon_down_read_nested(rw, lsc)
++#define AuRwUpRead(rw)			anon_up_read(rw)
++#define AuRwDgrade(rw)			anon_downgrade_write(rw)
++#define AuRwUpWrite(rw)			anon_up_write(rw)
++#define AuRwDownReadTry(rw)		anon_down_read_trylock(rw)
++#define AuRwDownWriteTry(rw)		anon_down_write_trylock(rw)
++#else
++#define AuRw				rw_semaphore
++#define AuRwInit(rw)			init_rwsem(rw)
++#define AuRwDownWrite(rw)		down_write(rw)
++#define AuRwDownWriteNested(rw, lsc)	down_write_nested(rw, lsc)
++#define AuRwDownRead(rw)		down_read(rw)
++#define AuRwDownReadNested(rw, lsc)	down_read_nested(rw, lsc)
++#define AuRwUpRead(rw)			up_read(rw)
++#define AuRwDgrade(rw)			downgrade_write(rw)
++#define AuRwUpWrite(rw)			up_write(rw)
++#define AuRwDownReadTry(rw)		down_read_trylock(rw)
++#define AuRwDownWriteTry(rw)		down_write_trylock(rw)
++#endif
++
+ struct au_rwsem {
+-	struct rw_semaphore	rwsem;
++	struct AuRw		rwsem;
+ #ifdef CONFIG_AUFS_DEBUG
+ 	/* just for debugging, not almighty counter */
+ 	atomic_t		rcnt, wcnt;
+@@ -68,13 +94,13 @@ struct au_rwsem {
+ static inline void au_rw_init(struct au_rwsem *rw)
+ {
+ 	AuDbgCntInit(rw);
+-	init_rwsem(&rw->rwsem);
++	AuRwInit(&rw->rwsem);
+ }
+ 
+ static inline void au_rw_init_wlock(struct au_rwsem *rw)
+ {
+ 	au_rw_init(rw);
+-	down_write(&rw->rwsem);
++	AuRwDownWrite(&rw->rwsem);
+ 	AuDbgWcntInc(rw);
+ }
+ 
+@@ -82,19 +108,19 @@ static inline void au_rw_init_wlock_nested(struct au_rwsem *rw,
+ 					   unsigned int lsc)
+ {
+ 	au_rw_init(rw);
+-	down_write_nested(&rw->rwsem, lsc);
++	AuRwDownWriteNested(&rw->rwsem, lsc);
+ 	AuDbgWcntInc(rw);
+ }
+ 
+ static inline void au_rw_read_lock(struct au_rwsem *rw)
+ {
+-	down_read(&rw->rwsem);
++	AuRwDownRead(&rw->rwsem);
+ 	AuDbgRcntInc(rw);
+ }
+ 
+ static inline void au_rw_read_lock_nested(struct au_rwsem *rw, unsigned int lsc)
+ {
+-	down_read_nested(&rw->rwsem, lsc);
++	AuRwDownReadNested(&rw->rwsem, lsc);
+ 	AuDbgRcntInc(rw);
+ }
+ 
+@@ -102,7 +128,7 @@ static inline void au_rw_read_unlock(struct au_rwsem *rw)
+ {
+ 	AuRwMustReadLock(rw);
+ 	AuDbgRcntDec(rw);
+-	up_read(&rw->rwsem);
++	AuRwUpRead(&rw->rwsem);
+ }
+ 
+ static inline void au_rw_dgrade_lock(struct au_rwsem *rw)
+@@ -110,19 +136,19 @@ static inline void au_rw_dgrade_lock(struct au_rwsem *rw)
+ 	AuRwMustWriteLock(rw);
+ 	AuDbgRcntInc(rw);
+ 	AuDbgWcntDec(rw);
+-	downgrade_write(&rw->rwsem);
++	AuRwDgrade(&rw->rwsem);
+ }
+ 
+ static inline void au_rw_write_lock(struct au_rwsem *rw)
+ {
+-	down_write(&rw->rwsem);
++	AuRwDownWrite(&rw->rwsem);
+ 	AuDbgWcntInc(rw);
+ }
+ 
+ static inline void au_rw_write_lock_nested(struct au_rwsem *rw,
+ 					   unsigned int lsc)
+ {
+-	down_write_nested(&rw->rwsem, lsc);
++	AuRwDownWriteNested(&rw->rwsem, lsc);
+ 	AuDbgWcntInc(rw);
+ }
+ 
+@@ -130,13 +156,13 @@ static inline void au_rw_write_unlock(struct au_rwsem *rw)
+ {
+ 	AuRwMustWriteLock(rw);
+ 	AuDbgWcntDec(rw);
+-	up_write(&rw->rwsem);
++	AuRwUpWrite(&rw->rwsem);
+ }
+ 
+ /* why is not _nested version defined */
+ static inline int au_rw_read_trylock(struct au_rwsem *rw)
+ {
+-	int ret = down_read_trylock(&rw->rwsem);
++	int ret = AuRwDownReadTry(&rw->rwsem);
+ 	if (ret)
+ 		AuDbgRcntInc(rw);
+ 	return ret;
+@@ -144,7 +170,7 @@ static inline int au_rw_read_trylock(struct au_rwsem *rw)
+ 
+ static inline int au_rw_write_trylock(struct au_rwsem *rw)
+ {
+-	int ret = down_write_trylock(&rw->rwsem);
++	int ret = AuRwDownWriteTry(&rw->rwsem);
+ 	if (ret)
+ 		AuDbgWcntInc(rw);
+ 	return ret;
