@@ -1,3 +1,51 @@
+commit 85fd019dea9e02d3afa4cc014ac6e08160abc6dc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 19:32:05 2010 +0900
+
+    aufs stdalone: for 2.6.36, export fsnotify functions and remove inotify
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit fbd5d097dc308631e8a9f5bdef8a17e9dade0a86
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 22:33:11 2010 +0900
+
+    aufs: for 2.6.36, remove inotify
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f03c943921eb1ba0ed403bc6bf8c39f966b74cbd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 19:21:04 2010 +0900
+
+    aufs: for 2.6.36, refined fsnotify
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4841757d905015161a26b3b7fdd89b32014afb64
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 19:15:08 2010 +0900
+
+    aufs: for 2.6.36, vc_cons
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f5a2468f4366886420124adadaa34601adc7bd21
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 19:14:13 2010 +0900
+
+    aufs: for 2.6.36, truncate_setsize()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3cafe1c2890f4b2af32862d56285f41573d07efc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Aug 20 19:12:54 2010 +0900
+
+    aufs: for 2.6.36, the parameter of vfs_statfs()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 156e24817a3997f8c9948e2a149fcf7eca2fdef6
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Aug 14 10:31:28 2010 +0900
