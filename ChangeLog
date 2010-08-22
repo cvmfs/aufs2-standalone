@@ -1,3 +1,27 @@
+commit c656be344b5080b5a88cfc44977da2072c6b6f80
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Aug 22 19:34:35 2010 +0900
+
+    aufs: tiny, suppress harmless warnings
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 07beb7d1b8c969a38d79fc2239bf7b5937c63ef1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Aug 22 17:28:30 2010 +0900
+
+    aufs: tiny, suppress warning about indenting labels
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d986953aba429f6bab8285a66474d918d856f262
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Aug 22 16:17:26 2010 +0900
+
+    aufs: tiny, suppress harmless warnings
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 84d9887aa24d67f81c024cce71c52227e1440e6f
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Aug 14 09:40:18 2010 +0900
