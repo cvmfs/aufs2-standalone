@@ -18,14 +18,25 @@ export CONFIG_AUFS_FS
 EXTRA_CFLAGS := -I${CURDIR}/include
 EXTRA_CFLAGS += ${AUFS_DEF_CONFIG}
 
-all: aufs.ko
+all: aufs.ko usr/include/linux/aufs_type.h
+
+clean:
+	${MAKE} -C ${KDIR} M=${CURDIR}/fs/aufs EXTRA_CFLAGS="${EXTRA_CFLAGS}" $@
+	find . -type f -name '*~' | xargs -r ${RM}
+	${RM} -r aufs.ko usr
+
 aufs.ko: fs/aufs/aufs.ko
 	ln -f $< $@
 fs/aufs/aufs.ko:
 	@echo ${EXTRA_CFLAGS}
 	${MAKE} -C ${KDIR} M=${CURDIR}/fs/aufs EXTRA_CFLAGS="${EXTRA_CFLAGS}" modules
 
-clean:
-	${MAKE} -C ${KDIR} M=${CURDIR}/fs/aufs EXTRA_CFLAGS="${EXTRA_CFLAGS}" $@
-	find . -type f -name '*~' | xargs -r ${RM}
-	${RM} aufs.ko
+usr/include/linux/aufs_type.h: d = $(shell echo ${CURDIR} | cut -c2-)
+usr/include/linux/aufs_type.h:
+	echo '$$(install-file):srctree= $$(install-file):objtree=' |\
+	tr ' ' '\n' |\
+	${MAKE} -rR -C ${KDIR} \
+		-f scripts/Makefile.headersinst \
+		-f - \
+		-f Makefile \
+		obj=${d}/include/linux dst=${d}/usr/include/linux
