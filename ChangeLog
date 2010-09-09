@@ -1,3 +1,152 @@
+commit 0d1c50fe861b27db7e401bf372e4fa513fc42967
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Sep 10 01:42:14 2010 +0900
+
+    aufs: begin of aufs2.1
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 77e008addb63ba96f7e8163e83c264903e8fc17a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Sep 10 00:58:26 2010 +0900
+
+    aufs: end of aufs2 and doubling donations
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9d80cf726157b9a5e24fb45553f7753622c4fa4c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 18:17:52 2010 +0900
+
+    aufs: tiny, convert sec <--> jiffies
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit edeaf060bb5acbb46fee915319ed0423a3e8ffd1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:30:08 2010 +0900
+
+    aufs: bugfix, test h_mnt before reference in au_unpin()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0a625f79b6ff4f666e470c7c387e53adf4bb9c35
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:28:40 2010 +0900
+
+    aufs: bugfix, unnecessary finfo_fin() in an error path in do_open_sp()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3b258d73ecbf9d05466444e54f6d8e40af123b71
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:26:17 2010 +0900
+
+    aufs: tiny, refine debug print for file object
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3fd3605306d3d6e3fd6958f481a877e9c7119d70
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:24:15 2010 +0900
+
+    aufs: bugfix, unnecessary iput in an error path in alloc_root()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c55326e652a55cd92b602cb011e79b5c719bc910
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:21:50 2010 +0900
+
+    aufs: bugfix, wakeup in an error path in au_wkq_nowait()
+    
+    Wake up other processes who are waiting for completion of the task.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 72e9d220041ecc8d9a9f15c9734274c61906e498
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 17:18:15 2010 +0900
+
+    aufs: bugfix, use br_id instead of bindex in au_br_mod_files_ro()
+    
+    The file objects may not be refreshed yet, and its branch index is
+    unreliable here.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c8c330e9d032f047e5871995158dbc28fc111d7a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 13:43:57 2010 +0900
+
+    aufs: tiny, warn once about ima
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e602a3ad860d34034ae8d98ef663d5d2954d70c0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 16:53:56 2010 +0900
+
+    aufs: tiny, replace pr_warn in sysrq by printk
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit aa66464222a900644ef7b73956f7c8ca9656f9f7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 12:47:44 2010 +0900
+
+    aufs: tiny, include vt_kern.h from fs/aufs/debug.h
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8c35854e8b2a7a92015f5d763b4e71f9cec124be
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 12:44:27 2010 +0900
+
+    aufs: tiny, printing in sysrq
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c41ae7e6249e4c11660904a2ccce6462030a3d87
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 12:38:09 2010 +0900
+
+    aufs: tiny, reuse a variable in aufs_open_dir()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 21c612ca43e499b0f6461286f32a038bd30c7e1e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 12:37:06 2010 +0900
+
+    aufs: tiny, set lock class for debugging
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e8dad573843d47a421ebaf913dc958a9db1c108b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Sep 5 12:22:37 2010 +0900
+
+    aufs: unnecessary atomic *_return funcs
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b0eb67fb8a6ed66964d679294f4cdd60f5159b25
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 26 11:27:37 2010 +0900
+
+    aufs: describe about make headers_install
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 630defc8f3ab3f10848a7b8b1f14c7c53814da1e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Aug 23 22:24:06 2010 +0900
+
+    aufs: tiny, rename sysaufs_ket to ..._kset
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit c656be344b5080b5a88cfc44977da2072c6b6f80
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Aug 22 19:34:35 2010 +0900
