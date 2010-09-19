@@ -1,3 +1,267 @@
+commit 22343eb479940bd550aa15ba0a13130e10483991
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 20 06:18:09 2010 +0900
+
+    aufs: possible bugfix, deadlock around remount
+    
+    When one remount process uses /sbin/mount.aufs expectedly, but the other
+    remount process doesn't, a deadlock may happen.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7b4207ff802db466c4f4015c806b977b8bd38ca4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Sep 17 10:21:23 2010 +0900
+
+    aufs: tiny, update simply
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4d1785f36fd1ac5593ccc45ac69f8c339c023a75
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Sep 17 09:50:09 2010 +0900
+
+    aufs: tiny, use a var instead of calling a func twice
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5c45016dc812b8feed80d6542fb1c48715ebb2d0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Sep 16 11:12:01 2010 +0900
+
+    aufs: bugfix, unset the return value in an error path
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6eab56fb7cf1bd41b70e25356d130d088211c60e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 16:18:12 2010 +0900
+
+    aufs: plm mode, debugging feature
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    - add a verbose flag to au_plink_put() in order to produce a warning
+      when the pseudo-link is not flushed.
+    - test the process has a right to access to plink by AuDebugOn().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d0be3d45e4ebc92a3919862a5281ea5ab20021d4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 16:04:19 2010 +0900
+
+    aufs: plm mode, flags for si_read_lock()
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    Handle the new flags AuLock_NOPLM/NOPLMW for most si_read_lock() call.
+    New si_read_lock() waits the pseudo-link maintenance mode to exit, or
+    return an error at once.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ee2f73c05bfec715b1eb0687e2b590d934860c11
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 14:22:24 2010 +0900
+
+    aufs: plm mode, flags for si_write_lock()
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    Replace some si_noflush_write_lock() calls by a new si_write_lock() which
+    is added flags argument.
+    New si_write_lock() waits the pseudo-link maintenance mode to exit.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a5cb0dc275e36411710a62ec46f80e19ea347d5d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 18:05:07 2010 +0900
+
+    aufs: plm mode, move sbi lock funcs
+    
+    Move si_(read|write)_lock() from super.h to sbinfo.c.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 67580fa2a03212c7516b6225125d554dd3fcdf5a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 04:55:44 2010 +0900
+
+    aufs: plm mode, a new interface under proc_fs
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    Intorudce a new interface under procfs.
+    Users have to update and install aufs2-util.git which handles the procfs
+    entry.
+    
+    Now the pseudo-link feature totally depends upon CONFIG_PROC_FS.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 19fd2f6b872b51d920aee24ed2794174eaa891d0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 02:37:49 2010 +0900
+
+    aufs: plm mode, remove plink ioctl, new au_plink_maint()
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    Replace the current pseudo-link maintenance mode via ioctl by a new
+    scheme using procfs interface. This patch doesn't contain the new
+    interface. You will see it in later commits.
+    
+    Removing au_plink_ioctl(), AUFS_CTL_PLINK_MAINT and AUFS_CTL_PLINK_CLEAN
+    means that users have to update and install aufs2-util.git too.
+    
+    - rewrite au_plink_maint_enter() and au_plink_maint_leave().
+    - remove au_plink_maint_block().
+    - remove au_plink_maint_leave() from aufs_release_dir().
+    - extract a part of au_plink_ioctl() and create a new func
+      au_plink_clean().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d29dfef499b9a579afc143ea8d6b6a5d97703bb7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 14 02:08:15 2010 +0900
+
+    aufs: intorudce the pseudo-link maintenance mode, definition
+    
+    (This commit is just a part of "intorudce the pseudo-link maintenance
+    mode" series)
+    
+    New flags AuLock_NOPLM and AuLock_NOPLMW, and a new function
+    au_plink_maint() which will replace au_plink_maint_block() later.
+    They behave as like F_SETLK and F_SETLKW for all over aufs.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e327326f094b7ac0cef381cb2c2dfdd1c3a080f3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 18:04:28 2010 +0900
+
+    aufs: intorudce the pseudo-link maintenance mode, doc
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c5a615bad4cfd48f1bca344c7494d43aa571e75c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 03:04:32 2010 +0900
+
+    aufs: bugfix, race around Magic SysRq, s_inodes and s_files
+    
+    Protect sb->s_inodes and ->s_files from aufs Magic SysRq handler.
+    For allocating inodes, VFS calls s_op->alloc_inode() and then adds it to
+    s_inodes. Also for destroying, VFS removes it from s_inodes first and
+    then calls s_op->destory_inode().
+    With this sequence, it is guranteed that the inode in s_inodes is always
+    correct and we can refer struct au_iinfo.
+    
+    But for files, VFS adds the file object to s_files before calling
+    f_op->open(), and calls ->release() before removing it from s_files.
+    It means the file in s_files MAY be incorrect and we may not refer
+    struct au_finfo.
+    To support the file which is not initialized yet, aufs tests
+    file->private_data. And to address the file which is released but still
+    in s_files, aufs removes it from s_files first in file release operation.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3816652bca1aa498f19482dc6c7b89c4b9a0556a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:58:04 2010 +0900
+
+    aufs stdalone: export to access inodes and files
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 96138ab2b4ec9de86ff66430c593a68371acf466
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:56:00 2010 +0900
+
+    aufs stdlone: new auto-config CONFIG_AUFS_SBILIST
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e71e072386b5aff7109ded6563bd3d35e08dd834
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:53:40 2010 +0900
+
+    aufs: introduce au_sbinfo list
+    
+    Make a new list of all au_sbinfo objects.
+    This is important for next commit which fixes a bug around Magic SysRq
+    and others.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ebba50d69a7ce5ba1f5ab7184151e5eedb45b70a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:45:30 2010 +0900
+
+    aufs: possible bugfix, nwt may be queued just before unmounting
+    
+    Just before unmounting, UDBA hnotify might be fired (or other "no wait
+    task").
+    Make sure all events are flushed in aufs_kill_sb().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e4a9bd53629be12e368a67292427df65343459fd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:40:19 2010 +0900
+
+    aufs: possible bugfix, sb may be destroyed before au_si_free()
+    
+    The lifetime of super_block is maintained by VFS, while au_sbinfo is
+    maintained by aufs via kobject.
+    In au_si_free(), sb might be already destroyed.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e69d64436220c1a7708bc420ac759a71fd7ff971
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:33:14 2010 +0900
+
+    aufs: tiny, convert s_op->umount_begin() to ->kill_sb()
+    
+    Current ->umount_begin() already became less meaningful.
+    Implement newly ->kill_sb() and convert umount_begin() into it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5ab35c5dc0a541f25948ec68ff4d330229d32303
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 13 02:17:58 2010 +0900
+
+    aufs: bugfix, branch management before au_call_rmdir_whtmp()
+    
+    Between au_whtmp_kick_rmdir() and au_call_rmdir_whtmp() (which is a "no
+    wait task"), users may execute branch management, and the target branch
+    "bindex" may be broken.
+    Pass the branch instead of its index.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9c86f2ea994fd4936e6cbc8e525d0c8fb4ca7011
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Sep 15 13:57:53 2010 +0900
+
+    Revert "aufs: more verbose at deleting a branch"
+    
+    This reverts commit 6c34a3c246941b965f14a1638c11683c202b72d2.
+    
+    Some "no wait task"s makes a branch busy.
+    We should not continue when it is found.
+
 commit 0d1c50fe861b27db7e401bf372e4fa513fc42967
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Sep 10 01:42:14 2010 +0900
