@@ -61,10 +61,18 @@ index c43d6b8..538d40a 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index f20cb57..7cc1b42 100644
+index f20cb57..5a28470 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1282,6 +1282,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
+@@ -39,6 +39,7 @@
+ 
+ /* spinlock for vfsmount related operations, inplace of dcache_lock */
+ __cacheline_aligned_in_smp DEFINE_SPINLOCK(vfsmount_lock);
++EXPORT_SYMBOL(vfsmount_lock);
+ 
+ static int event;
+ static DEFINE_IDA(mnt_id_ida);
+@@ -1282,6 +1283,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
  	}
  	return 0;
  }
