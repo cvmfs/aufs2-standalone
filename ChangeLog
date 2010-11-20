@@ -1,3 +1,254 @@
+commit e2e21ce7f80d5b3d99661aa98386bb6854c3751e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 19 00:18:45 2010 +0900
+
+    aufs: tiny, braces for macro
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6badb1ed1fe179b544c25aaf22c2ea572c3b3894
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 19 00:18:02 2010 +0900
+
+    aufs: tiny, rename a parameter
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 18d5ed7fa331024a64f63487d53b76c1e3e5fe4e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 19 00:17:17 2010 +0900
+
+    aufs: tiny, remove spaces from a macro
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 870bf721a61b42701bb014068c2f8537cc436bad
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 19 00:14:15 2010 +0900
+
+    aufs: minor optimization, xib_next_bit
+    
+    Try the next bit of previously free.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 47dce097ac07764af41703379f11973ba93d53bb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 23:34:55 2010 +0900
+
+    aufs: bugfix, reverting bwh after a failure of unlink/rmdir
+    
+    The branch index of removing the just created whiteout differs from the
+    old branch index of whiteout.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 152e87e5cc6a8c7850bcbf8021e755dc68fbd305
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 23:29:58 2010 +0900
+
+    aufs: tiny, debugging drop_nlink
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit daf58169a1b2241cb0a3d39d51f95c6a4765bb66
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 23:19:47 2010 +0900
+
+    aufs: possible bugfix, prevent unmounting for no wait wkq
+    
+    Use si_kobj instead of super_block object.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1c16d762868b72747895b204dfa901400a469344
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 22:14:54 2010 +0900
+
+    aufs: tiny, remove unnecessary test for O_TRUNC
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit af65dba02af73c4624b7702699c022347eea400e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 22:00:41 2010 +0900
+
+    aufs: possible bugfix, missing iput() in lookup error
+    
+    While I don't think d_splice_alias() easily return an error, if it
+    happens, aufs should call iput().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5d1aaf10a8fa2184783d776d4516be3acd604a18
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 21:58:32 2010 +0900
+
+    aufs: possible bugfix, keep br_id positive
+    
+    When si_last_br_id wraps around, current code may not handle it well.
+    By shrinking its bit width, keep br_id positive.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 31b66581cfd3afe26c9df901554e6255376760b9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 21:24:53 2010 +0900
+
+    aufs: bugfix, missing supports for the pseudo-link maintenance mode
+    
+    ->lookup and ->getattr MAY also touch the pseudo-link. They should
+    return an error in the pseudo-link maintenance mode at once.
+    Since introducing a pseudo-link maintenance mode, all unnecessary
+    au_plink_test() should be avoided.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5f69f48727369ed2aa81af041193720f066047d4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 21:07:52 2010 +0900
+
+    aufs: bugfix, protect sb->sb_file from remount by file array
+    
+    In chaging a branch attribute, aufs verifies whether the branch is
+    chagable by testing all opened files. During this file object traveral,
+    file object may be reclamed outside of aufs.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0b721b0f59dfaf18599e983a0c2bfa330c2cef57
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 21:05:38 2010 +0900
+
+    aufs: a new counter si_nfiles
+    
+    Count the number of opened files and the tests at remounting will use
+    it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e793e0835fc4cc0a468678fe861bec63bc0ba97c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 20:19:06 2010 +0900
+
+    aufs: bugfix, protect sb->sb_inodes from remount by inode array
+    
+    In deleting a branch, aufs verifies whether the branch is unused by
+    testing all cached inodes. During this inode traveral, inode may be
+    reclamed outside of aufs.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9ae1dfbcc9a53cc8b9d734032c9949ed9482863a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 20:17:44 2010 +0900
+
+    aufs: a new counter si_ninodes
+    
+    Count the number of cached inodes and the tests at remounting will use
+    it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit da5f6d12ed4b683f518e03490c3540a7a601db0f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 16:48:30 2010 +0900
+
+    aufs: possible bugfix, replace some d_unhashed() by au_d_removed()
+    
+    The root dir may be unhashed, but it is obviously alive.
+    The simple test by just d_unhashed() may misunderstand as if it was removed.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 96524002220bc3a551c4b4e5aa5ff77ef015d42c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 16:47:13 2010 +0900
+
+    aufs: bugfix, introduce a new wrapper au_d_removed()
+    
+    The root dentry is unhashed but is not unlinked obviously.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7142b9ba7a087bc9cc910aba696c3aa43f7a85f7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 16:46:26 2010 +0900
+
+    aufs: bugfix, deadlock around au_plink_lkup()
+    
+    au_plink_lkup() can be called from both of normal and wkq context via
+    au_cpup_single(). It may cause a deadlock.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e249247d36d2af19d67ec594d0cc7029e1249e31
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 18 16:42:46 2010 +0900
+
+    aufs: bugfix, reverse loop in au_update_dbend()
+    
+    I am afraid there never have happend, but it is obviously a bug.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit fd1917e1f1900b8a130c79f83ccc5dd5591263ae
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Sep 21 14:01:10 2010 +0900
+
+    aufs: tiny, meaningless bit op
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2028ad2fdff9241c7f3f00988c4673aabd2769bb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 20 21:06:41 2010 +0900
+
+    aufs: acquire vfsmount_lock
+    
+    By the commits,
+    
+    306c22a 2010-03-09 aufs stdalone: begin supporting linux-2.6.24-rcN,
+    	stop exporting vfsmount_lock
+    6433436 2010-03-09 aufs: begin supporting linux-2.6.24-rcN, call
+    	iterate_mounts()
+    
+    exporting vfsmount_lock was removed and replaced by iterate_mounts()
+    call.
+    But vfsmount_lock is still necessary for aufs.
+    Inserting an "extern" delcaration is not so smart, but I wonder why
+    iterate_mounts() doen't provide anoter version which acquire
+    vfsmount_lock internally.
+    
+    By the way, the linux version in these old commits were wrong.
+    They should be 34 instead of 24.
+    Don't make fun of me.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0669d87f6aa78908290cddef2770bdf70ac52a02
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Sep 20 21:04:42 2010 +0900
+
+    aufs stdalone: re-export vfsmount_lock
+    
+    By the commits,
+    
+    306c22a 2010-03-09 aufs stdalone: begin supporting linux-2.6.24-rcN,
+    	stop exporting vfsmount_lock
+    6433436 2010-03-09 aufs: begin supporting linux-2.6.24-rcN, call
+    	iterate_mounts()
+    
+    exporting vfsmount_lock was removed and replaced by iterate_mounts()
+    call.
+    But vfsmount_lock is still necessary.
+    
+    By the way, the linux version in these old commits were wrong.
+    They should be 34 instead of 24.
+    Don't make fun of me.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 22343eb479940bd550aa15ba0a13130e10483991
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Mon Sep 20 06:18:09 2010 +0900
