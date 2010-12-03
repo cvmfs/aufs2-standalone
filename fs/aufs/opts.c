@@ -1265,8 +1265,7 @@ static int au_opt_br(struct super_block *sb, struct au_opt *opt,
 				au_ftest_opts(opts->flags, REMOUNT));
 		if (!err) {
 			err = 1;
-			au_fset_opts(opts->flags, REFRESH_DIR);
-			au_fset_opts(opts->flags, REFRESH_NONDIR);
+			au_fset_opts(opts->flags, REFRESH);
 		}
 		break;
 
@@ -1277,8 +1276,7 @@ static int au_opt_br(struct super_block *sb, struct au_opt *opt,
 		if (!err) {
 			err = 1;
 			au_fset_opts(opts->flags, TRUNC_XIB);
-			au_fset_opts(opts->flags, REFRESH_DIR);
-			au_fset_opts(opts->flags, REFRESH_NONDIR);
+			au_fset_opts(opts->flags, REFRESH);
 		}
 		break;
 
@@ -1289,10 +1287,8 @@ static int au_opt_br(struct super_block *sb, struct au_opt *opt,
 				&do_refresh);
 		if (!err) {
 			err = 1;
-			if (do_refresh) {
-				au_fset_opts(opts->flags, REFRESH_DIR);
-				au_fset_opts(opts->flags, REFRESH_NONDIR);
-			}
+			if (do_refresh)
+				au_fset_opts(opts->flags, REFRESH);
 		}
 		break;
 	}
@@ -1565,9 +1561,9 @@ int au_opts_remount(struct super_block *sb, struct au_opts *opts)
 	}
 
 	/* will be handled by the caller */
-	if (!au_ftest_opts(opts->flags, REFRESH_DIR)
+	if (!au_ftest_opts(opts->flags, REFRESH)
 	    && (opts->given_udba || au_opt_test(sbinfo->si_mntflags, XINO)))
-		au_fset_opts(opts->flags, REFRESH_DIR);
+		au_fset_opts(opts->flags, REFRESH);
 
 	AuDbg("status 0x%x\n", opts->flags);
 	return err;
