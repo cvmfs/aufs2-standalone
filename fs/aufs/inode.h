@@ -109,7 +109,7 @@ static inline struct au_iinfo *au_ii(struct inode *inode)
 
 /* inode.c */
 struct inode *au_igrab(struct inode *inode);
-int au_refresh_hinode_self(struct inode *inode, int do_attr);
+int au_refresh_hinode_self(struct inode *inode);
 int au_refresh_hinode(struct inode *inode, struct dentry *dentry);
 int au_ino(struct super_block *sb, aufs_bindex_t bindex, ino_t h_ino,
 	   unsigned int d_type, ino_t *ino);
@@ -305,6 +305,13 @@ AuSimpleUnlockRwsemFuncs(ii, struct inode *i, &au_ii(i)->ii_rwsem);
 
 /* ---------------------------------------------------------------------- */
 
+static inline void au_icntnr_init(struct au_icntnr *c)
+{
+#ifdef CONFIG_AUFS_DEBUG
+	c->vfs_inode.i_mode = 0;
+#endif
+}
+
 static inline unsigned int au_iigen(struct inode *inode)
 {
 	return atomic_read(&au_ii(inode)->ii_generation);
@@ -324,9 +331,18 @@ static inline int au_test_higen(struct inode *inode, struct inode *h_inode)
 
 static inline void au_iigen_dec(struct inode *inode)
 {
-#ifdef CONFIG_AUFS_HNOTIFY
 	atomic_dec(&au_ii(inode)->ii_generation);
-#endif
+}
+
+static inline int au_iigen_test(struct inode *inode, unsigned int sigen)
+{
+	int err;
+
+	err = 0;
+	if (unlikely(inode && au_iigen(inode) != sigen))
+		err = -EIO;
+
+	return err;
 }
 
 /* ---------------------------------------------------------------------- */
