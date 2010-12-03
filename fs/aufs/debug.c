@@ -340,19 +340,21 @@ void au_dbg_verify_dir_parent(struct dentry *dentry, unsigned int sigen)
 	struct dentry *parent;
 
 	parent = dget_parent(dentry);
-	AuDebugOn(!S_ISDIR(dentry->d_inode->i_mode)
-		  || IS_ROOT(dentry)
-		  || au_digen(parent) != sigen);
+	AuDebugOn(!S_ISDIR(dentry->d_inode->i_mode));
+	AuDebugOn(IS_ROOT(dentry));
+	AuDebugOn(au_digen_test(parent, sigen));
 	dput(parent);
 }
 
 void au_dbg_verify_nondir_parent(struct dentry *dentry, unsigned int sigen)
 {
 	struct dentry *parent;
+	struct inode *inode;
 
 	parent = dget_parent(dentry);
-	AuDebugOn(S_ISDIR(dentry->d_inode->i_mode)
-		  || au_digen(parent) != sigen);
+	inode = dentry->d_inode;
+	AuDebugOn(inode && S_ISDIR(dentry->d_inode->i_mode));
+	AuDebugOn(au_digen_test(parent, sigen));
 	dput(parent);
 }
 
@@ -371,7 +373,7 @@ void au_dbg_verify_gen(struct dentry *parent, unsigned int sigen)
 		dpage = dpages.dpages + i;
 		dentries = dpage->dentries;
 		for (j = dpage->ndentry - 1; !err && j >= 0; j--)
-			AuDebugOn(au_digen(dentries[j]) != sigen);
+			AuDebugOn(au_digen_test(dentries[j], sigen));
 	}
 	au_dpages_free(&dpages);
 }

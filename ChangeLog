@@ -1,3 +1,411 @@
+commit f1617ce6112b85ed5a686be5e0cb8f48794ea2c4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 2 03:48:57 2010 +0900
+
+    aufs: revise how to build
+    
+    Reported-by: wanyanqing <udknight@gmail.com>
+    Reported-by: Alex Vogt <elias@linexa.de>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 543820e74625523e263faad047928266dc672cfd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Nov 30 15:39:35 2010 +0900
+
+    aufs: tiny, remove unnecesary var
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 38fe8516196e35e6fab39a49f650dd5dd24deb63
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Nov 30 06:27:32 2010 +0900
+
+    aufs: refreshing, replace functions for remount time
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    In remounting (branch management), refresh all dentries and inodes
+    regardless their status (unhashed, unlinked, etc).
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f822af6506e20cd2bd328dfc678ffbcf31c6f910
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Nov 30 06:25:27 2010 +0900
+
+    aufs: refreshing, new functions for remount time
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    Introduce new functions do_refresh, au_do_refresh_d, au_refresh_d, and
+    au_refresh_i which will replace current functions.
+    Since they are large and to keep single commit simple, this commit just
+    define these functions. The behaviour won't change.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 85a3a786f9fb483aea021caf66d71a930a327974
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Nov 27 14:32:52 2010 +0900
+
+    aufs: refreshing, replace old function by new one
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    Replace au_refresh_hinode() by au_refresh_dentry() which was committed
+    previously.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 872472221dc4771c29010fb89609ffc4ec31d9f9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Nov 27 03:32:18 2010 +0900
+
+    aufs: refreshing, new functions to refresh dentry
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    Introduce new functions au_do_hide, au_hide_children, au_hide,
+    au_refresh_by_dinfo, and au_refresh_dentry which will replace current
+    au_refresh_hdentry.
+    Since they are large and to keep single commit simple, this commit just
+    define these functions. The behaviour won't change.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 92dcda8894818f43b7a627d4a3062996552306b3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 22:10:47 2010 +0900
+
+    aufs: refreshing, refine au_do_refresh_hdentry
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    Now dinfo sets -1 to dbstart and dbend to represent invalid.
+    Currently its return value is ignored. It will be used in later commits.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit db0c0d602004fe2884225624af19e9ac97d8b19c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 16:59:17 2010 +0900
+
+    aufs: refreshing, stop updating iigen in test_inode_busy()
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    In order to force refreshing in the later au_remount_refresh().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 48c759bfc43e795092bf0c0f31c6a8047cc6c9b1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 03:19:02 2010 +0900
+
+    aufs: refreshing, consolidate REFRESH macros
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    At remounting (branch management), aufs refreshes some internal arrays.
+    In this refreshing, objects for a dir and non-dir are separatedly
+    handled for performance. This commit forces always refreshing both.
+    And rename a macro AuSi_FAILED_REFRESH_DIRS to AuSiFAILED_REFRESH_DIR.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 40058d7c0ee7d8f449f5eef9ed178335303924a5
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 02:40:13 2010 +0900
+
+    aufs: new strategy for refreshing, refresh negative dentries
+    
+    (This is a part of a patch series "new strategy for refreshing")
+    
+    In branch management at remount, refresh negative dentries too, since
+    they may hold a refrence to an object in the deleting branch.
+    Also they may be in freeing, so call dget_locked() instead of simple
+    dget().
+    The permission of the branch who has the negative dentry may be changed
+    to readonly, so confirm it in au_pin_and_icpup().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 97f1369508bf1e71935363adc85c5fd52695a915
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Nov 28 11:24:12 2010 +0900
+
+    aufs: keep dinfo valid by temp dinfo
+    
+    To decide creating a new whiteout is necessary or not, aufs tries
+    finding whiteout on the lower branches. In this lookup, use another
+    dinfo temporary to keep the original dinfo.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 381ba01af8e781512742858854a510ebb7667b1f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 00:52:57 2010 +0900
+
+    aufs: temporary dinfo
+    
+    Introduce some functions to handle dinfo which will be used to make a
+    temporary dinfo. The existing interfaces (di_init() and di_fin()) are
+    not changed.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ca7dc2240a3b787761d31dc096fe95f3beb9a18a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 21:59:45 2010 +0900
+
+    aufs: store br_id in dinfo
+    
+    In order to identify the index of branch at refreshing, store br_id in
+    dinfo.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 447344925adad5f89950e409d3de501e7431468e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Nov 28 22:47:25 2010 +0900
+
+    aufs: bugfix, write to a removed file more than once
+    
+    In file write, the file may be already removed and au_ready_to_write()
+    supports such case. But the write to the removed file, eg, the file
+    had been already handled by au_ready_to_write(), then the function
+    doesn't detect it and a bug appear.
+    - when the file is removed, au_cpup_dirs() is unnecessary.
+    - when the file is removevd and already handled by au_ready_to_write(),
+      just re-open without copyup.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 24dddc56d3cab8671e30ad2213436b405ca715bc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 16:55:26 2010 +0900
+
+    aufs: split au_refresh_hinode_self()
+    
+    Extract a part of au_refresh_hinode_self() and create a new function
+    au_ii_refresh(). The 'do_attr' parameter of au_refresh_hinode_self()
+    becomes unnecessary.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d954281d7bd5f2523804290b120fd8a8bc7bb7fe
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 15:46:32 2010 +0900
+
+    aufs: refine au_update_ibrange()
+    
+    Now iinfo sets -1 to ibstart and ibend to represent invalid.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit bbc392af26ace27fc5e41e68f9437ad57ec2b85e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 01:45:43 2010 +0900
+
+    aufs: keep dinfo valid
+    
+    Keep dinfo valid even if an error happened.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 49b3e86c8b8337fc7db9093ec98906de4cd4acb3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 17:00:04 2010 +0900
+
+    aufs: use a generic warpper dbrange_test()
+    
+    Call au_dbrange_test() near au_digen_test() call.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e3d0c8ea457f3192caacaaeb83a01e9befb5176c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 16:59:11 2010 +0900
+
+    aufs: use a generic warpper [di]i_gen_test()
+    
+    Replace some direct test codes by au_[di]igen_test().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6680a2cc71b37511097df27149ae072034e89491
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Nov 30 13:35:07 2010 +0900
+
+    aufs: bugfix, missing unlock in an error path
+    
+    File revalidating in au_reval_and_lock_fdi().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f1abf5b5d55ffeae0d3850a62853c99c02286228
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Nov 29 03:22:07 2010 +0900
+
+    aufs: possible bugfix, the generation of dentry 3/3
+    
+    Test the generation of a dentry in the beginning of many operations.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 69e55ee7c6f87380df71b37dca94f6023407e1c2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Nov 29 03:21:36 2010 +0900
+
+    aufs: possible bugfix, the generation of dentry 2/3
+    
+    Introduce AuLock_GEN flag to test the generation of a dentry in the
+    beginning of many operations.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8755a096f8cc12a00b5f4826ac6cf8a3f5014535
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 01:25:57 2010 +0900
+
+    aufs: possible bugfix, the generation of dentry 1/3
+    
+    Introduce new functions au_[di]igen_test() and au_dbrange_test().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 49bfb76c10c75603561fcd6e9d79d5ccf000e7ce
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Nov 28 23:33:50 2010 +0900
+
+    aufs: possible bugfix, test valid dentry 2/2
+    
+    Test the validity of a dentry in the beginning of many operations.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2ecf50571003219f9d7ab257420c570764332469
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Nov 28 23:05:57 2010 +0900
+
+    aufs: possible bugfix, test valid dentry 1/2
+    
+    Introduce some functions to test the validity of a dentry.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 952cec591bffdb1d470286eeea4ae27ed196bf94
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Nov 28 22:51:06 2010 +0900
+
+    aufs: tiny, debug code for i_mode
+    
+    To detect setting type unmatching h_inode to iinfo, initialize i_mode.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c00655e4c8f66871decf0d79a2d3b4c1fb6207d7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 00:00:44 2010 +0900
+
+    aufs: tiny, comment around d_drop
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 426ed6061a419cb1c7a5e1504052a50c5198d3a7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 24 23:59:08 2010 +0900
+
+    aufs: possible bugfix, keep dentry of renamed target valid
+    
+    Basically the renamed target is removed, but it may be still referenced
+    and alive. Call d_drop in aufs and keep its dinfo valid.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6f00617abf56f74429ab06751df6519b957fc325
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Nov 27 22:06:48 2010 +0900
+
+    aufs: possible bugfix, decrement the link count of non-dir rename target
+    
+    Fix a missing drop_nlink() for the non-dir rename target.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b8ee2bd5b62c5dece464571a83f4142181a67a72
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Nov 26 17:28:15 2010 +0900
+
+    aufs: set S_DEAD to i_flags in aufs
+    
+    The S_DEAD flag is set in VFS, but we need to do it by ourselves because
+    a race condition may happen with aufs remount/branch-mgmt operation.
+    Set the flag within the aufs lock region.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 68fd4a243e4b9bbf397040c68ccc0f11da12c304
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 24 23:58:35 2010 +0900
+
+    aufs: minor optimization, d_drop after failure of adding an entry
+    
+    After the failure of creating an entry, the aufs dentry private data may
+    still refer the dentry in the branch fs's or may have invalid info.
+    Discard it by d_drop() in error case.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6f7ebf0d44bacda459a8ae6235c59f47c9715808
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 24 15:57:22 2010 +0900
+
+    aufs: possible bugfix, d_drop() job for hnotify
+    
+    Current d_drop() calls may have unexpected side effects.
+    In order to force re-lookup, aufs should use di_gen instead of testing
+    unhashed. When the test (in d_revalidate) fails, make it obsoleted.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ade2eb21fc942caa1c48bd931b5b8e2411eaadde
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Nov 25 02:52:39 2010 +0900
+
+    aufs: tiny, remove an empty line
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 16514eeea2d4b3ddcdd01b6cf54c8ae60cdc9bdf
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 24 15:09:23 2010 +0900
+
+    aufs: tiny, use a wrapper for fs private data
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8823675f5fd00ef30d6fea5f6779b45b3eb3bfd1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Nov 27 04:05:07 2010 +0900
+
+    aufs: possible bugfix, test d_fsdata in revalidating
+    
+    The passed dentry may not be created correctly, error case in previous
+    lookup.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 33d73de5ae0c44312ce6fbce59819cf04b9de9fa
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 24 13:22:02 2010 +0900
+
+    aufs: possible bugfix, release all before au_nwt_done()
+    
+    In racing unmount process, iput() after au_nwt_done() MAY cause a problem.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 097bf62d6f49619359d34bf17f242df38562489a
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Nov 20 03:53:46 2010 +0900

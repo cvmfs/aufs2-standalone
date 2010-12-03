@@ -54,10 +54,10 @@ index 5fe904d..8af12f7 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 8a415c9..2f3ef68 100644
+index 3dbfc07..3998762 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1322,6 +1322,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
+@@ -1321,6 +1321,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
  	}
  	return 0;
  }
@@ -159,10 +159,10 @@ index 278c94f..033f7ac 100644
  /**
   * splice_direct_to_actor - splices data directly between two non-pipes
 diff --git a/security/commoncap.c b/security/commoncap.c
-index 04b80f9..15f4ab6 100644
+index 64c2ed9..e58b5d8 100644
 --- a/security/commoncap.c
 +++ b/security/commoncap.c
-@@ -950,3 +950,4 @@ int cap_file_mmap(struct file *file, unsigned long reqprot,
+@@ -929,3 +929,4 @@ int cap_file_mmap(struct file *file, unsigned long reqprot,
  	}
  	return ret;
  }
@@ -180,7 +180,7 @@ index 8d9c48f..29108aa 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/security.c b/security/security.c
-index 3ef5e2a..991771b 100644
+index 1b798d3..3b7d2ca 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -360,6 +360,7 @@ int security_path_mkdir(struct path *dir, struct dentry *dentry, int mode)
