@@ -40,3 +40,4 @@ usr/include/linux/aufs_type.h:
 		-f - \
 		-f Makefile \
 		obj=${d}/include/linux dst=${d}/usr/include/linux
+	test -s $@
