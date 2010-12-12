@@ -335,6 +335,43 @@ void au_dbg_iattr(struct iattr *ia)
 
 /* ---------------------------------------------------------------------- */
 
+void __au_dbg_verify_dinode(struct dentry *dentry, const char *func, int line)
+{
+	struct inode *h_inode, *inode = dentry->d_inode;
+	struct dentry *h_dentry;
+	aufs_bindex_t bindex, bend, bi;
+
+	if (!inode /* || au_di(dentry)->di_lsc == AuLsc_DI_TMP */)
+		return;
+
+	bend = au_dbend(dentry);
+	bi = au_ibend(inode);
+	if (bi < bend)
+		bend = bi;
+	bindex = au_dbstart(dentry);
+	bi = au_ibstart(inode);
+	if (bi > bindex)
+		bindex = bi;
+
+	for (; bindex <= bend; bindex++) {
+		h_dentry = au_h_dptr(dentry, bindex);
+		if (!h_dentry)
+			continue;
+		h_inode = au_h_iptr(inode, bindex);
+		if (unlikely(h_inode != h_dentry->d_inode)) {
+			int old = au_debug_test();
+			if (!old)
+				au_debug(1);
+			AuDbg("b%d, %s:%d\n", bindex, func, line);
+			AuDbgDentry(dentry);
+			AuDbgInode(inode);
+			if (!old)
+				au_debug(0);
+			BUG();
+		}
+	}
+}
+
 void au_dbg_verify_dir_parent(struct dentry *dentry, unsigned int sigen)
 {
 	struct dentry *parent;
@@ -367,7 +404,7 @@ void au_dbg_verify_gen(struct dentry *parent, unsigned int sigen)
 
 	err = au_dpages_init(&dpages, GFP_NOFS);
 	AuDebugOn(err);
-	err = au_dcsub_pages_rev(&dpages, parent, /*do_include*/1, NULL, NULL);
+	err = au_dcsub_pages_rev_aufs(&dpages, parent, /*do_include*/1);
 	AuDebugOn(err);
 	for (i = dpages.ndpage - 1; !err && i >= 0; i--) {
 		dpage = dpages.dpages + i;
