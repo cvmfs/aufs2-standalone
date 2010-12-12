@@ -183,6 +183,18 @@ out:
 	return err;
 }
 
+static inline int au_dcsub_dpages_aufs(struct dentry *dentry, void *arg)
+{
+	return au_di(dentry) && dentry->d_sb == arg;
+}
+
+int au_dcsub_pages_rev_aufs(struct au_dcsub_pages *dpages,
+			    struct dentry *dentry, int do_include)
+{
+	return au_dcsub_pages_rev(dpages, dentry, do_include,
+				  au_dcsub_dpages_aufs, dentry->d_sb);
+}
+
 int au_test_subdir(struct dentry *d1, struct dentry *d2)
 {
 	struct path path[2] = {

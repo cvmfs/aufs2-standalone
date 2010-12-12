@@ -452,24 +452,31 @@ static inline void au_pin_set_parent(struct au_pin *pin, struct dentry *parent)
 
 /* ---------------------------------------------------------------------- */
 
+struct au_branch;
 #ifdef CONFIG_AUFS_HNOTIFY
 struct au_hnotify_op {
 	void (*ctl)(struct au_hinode *hinode, int do_set);
-	int (*alloc)(struct au_hnotify *hn, struct inode *h_inode);
-	void (*free)(struct au_hnotify *hn);
+	int (*alloc)(struct au_hinode *hinode);
+	void (*free)(struct au_hinode *hinode);
 
 	void (*fin)(void);
 	int (*init)(void);
+
+	int (*reset_br)(unsigned int udba, struct au_branch *br, int perm);
+	void (*fin_br)(struct au_branch *br);
+	int (*init_br)(struct au_branch *br, int perm);
 };
 
 /* hnotify.c */
-int au_hn_alloc(struct au_hinode *hinode, struct inode *inode,
-		struct inode *h_inode);
+int au_hn_alloc(struct au_hinode *hinode, struct inode *inode);
 void au_hn_free(struct au_hinode *hinode);
 void au_hn_ctl(struct au_hinode *hinode, int do_set);
 void au_hn_reset(struct inode *inode, unsigned int flags);
 int au_hnotify(struct inode *h_dir, struct au_hnotify *hnotify, u32 mask,
 	       struct qstr *h_child_qstr, struct inode *h_child_inode);
+int au_hnotify_reset_br(unsigned int udba, struct au_branch *br, int perm);
+int au_hnotify_init_br(struct au_branch *br, int perm);
+void au_hnotify_fin_br(struct au_branch *br);
 int __init au_hnotify_init(void);
 void au_hnotify_fin(void);
 
@@ -485,8 +492,7 @@ void au_hn_init(struct au_hinode *hinode)
 #else
 static inline
 int au_hn_alloc(struct au_hinode *hinode __maybe_unused,
-		struct inode *inode __maybe_unused,
-		struct inode *h_inode __maybe_unused)
+		struct inode *inode __maybe_unused)
 {
 	return -EOPNOTSUPP;
 }
@@ -496,6 +502,12 @@ AuStubVoid(au_hn_ctl, struct au_hinode *hinode __maybe_unused,
 	   int do_set __maybe_unused)
 AuStubVoid(au_hn_reset, struct inode *inode __maybe_unused,
 	   unsigned int flags __maybe_unused)
+AuStubInt0(au_hnotify_reset_br, unsigned int udba __maybe_unused,
+	   struct au_branch *br __maybe_unused,
+	   int perm __maybe_unused)
+AuStubInt0(au_hnotify_init_br, struct au_branch *br __maybe_unused,
+	   int perm __maybe_unused)
+AuStubVoid(au_hnotify_fin_br, struct au_branch *br __maybe_unused)
 AuStubInt0(__init au_hnotify_init, void)
 AuStubVoid(au_hnotify_fin, void)
 AuStubVoid(au_hn_init, struct au_hinode *hinode __maybe_unused)
