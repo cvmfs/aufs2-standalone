@@ -1,3 +1,215 @@
+commit 29c19e545f53894ca89a9525685572b9c99f34c3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Dec 12 10:25:26 2010 +0900
+
+    aufs: move missing declaration
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0de8fbc346a9bc5cf314ea82063a65c08ca9e41b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 10 13:25:09 2010 +0900
+
+    aufs: possible bugfix, walk in dcache limited to aufs
+    
+    In some cases, au_dcsub_pages_rev() should not handle out of aufs or
+    broken (but still cached) aufs dentry.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 52f9727243bf644db05168e6c77d2f063bcc01ba
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 10 13:20:06 2010 +0900
+
+    aufs: d_instantiate in link(2)
+    
+    Historically there was(were?) filesystem which calls d_drop() after the
+    success of link(2). In order to support such filesystem, old aufs1
+    follows it if h_dentry is dropped without d_instantiate().
+    Recently I looked whether there still exists such filesystem or not, and
+    could not find. So aufs_link() uncondionally calls d_instantiate() after
+    success of vfs_link() for branch fs.
+    But, as a fallback, d_drop() call with a d_unhashed() test are left.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6b0be66a68b95ca0bab3068133c8730882a38385
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 10 02:29:50 2010 +0900
+
+    aufs: bugfix, lock subclass in copying-up a dir hierarchy
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e1d13b721d930c72217df0a9b6e8a87e51ed1810
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 10 02:27:55 2010 +0900
+
+    aufs: bugfix, restore the internal array after special copyup
+    
+    When copyup a file which exists on the lower readonly branch and already
+    removed logically, au_do_cpup_wh() operates the internal array in dinfo
+    before copyup. After that, regardless an error happened in copyup,
+    restore the internal array.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit d539fca6887a013c6fbd1b579898aa78ba7c65c9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 9 02:19:42 2010 +0900
+
+    aufs: minor, make inode bad before unlock
+    
+    If an error happens in settting a new inode, we call iget_failed() and
+    make it "bad inode." Since someone else is wating for the inode is
+    unlocked, call iget_failed() before unlock it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b69574acb527171af24eddb51ac414664d70ddc4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 9 02:17:00 2010 +0900
+
+    aufs: bugfix, assign inode number for hardlink
+    
+    If the cached inode doesn't match the dentry in operation, never combine
+    them (instatiate). Find another inode number.
+    Basically the known inode number is stored in XINO file. But UDBA or
+    branch management easily break it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit efa578c51e3132442f8cd65e6efe4e344969449f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:28:32 2010 +0900
+
+    aufs: tiny, a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ff7babf5257fa57b341eb7230817a9ec0b45767c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:28:16 2010 +0900
+
+    aufs: debug by lockdep_depth()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f44393848b3d0ab046de672752d4c23cf14c6b62
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:27:04 2010 +0900
+
+    aufs: minor, sysrq+A prints all
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8fa5bfe552fdab2c900309f73f8a4174f705282d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:26:03 2010 +0900
+
+    aufs: limit of rdcache
+    
+    MAX_SEC_IN_JIFFIES is less meaningful and hard to handle.
+    Introduce a new reasonable upper limit AUFS_RDCACHE_MAX.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f85351d0360f40a2595c99f1182ddf1de0eed8a1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:24:40 2010 +0900
+
+    aufs: limit of MFS seconds
+    
+    MAX_SEC_IN_JIFFIES is less meaningful and hard to handle.
+    Introduce a new reasonable upper limit AUFS_MFS_MAX_SEC.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b64f629ab85e8d0641704fea2f2787d53713afd9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:21:00 2010 +0900
+
+    aufs: tiny, revise error messages
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3e17bf45f4ab40d6516c9de073417942661cd31f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 7 01:19:32 2010 +0900
+
+    aufs: bugfix, hfsnotify for multiple aufs 2/2
+    
+    Implement new operations, ->fin_br(), ->init_br() and ->reset_br().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit fec63cfd00c69fe89ecc60fdf22e610b836e0785
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 7 01:18:47 2010 +0900
+
+    aufs: bugfix, hfsnotify for multiple aufs 1/2
+    
+    Since fsnotify doesn't allow registering a same fsnotify_ops to the same
+    fsnotify_group, aufs should make them per branch.
+    Theoritically it is enough to make them per aufs super_block, but users
+    MAY move branch into the same filesystem where other branch exists. To
+    support such case, make them per branch.
+    Introduce new operations, ->fin_br(), ->init_br() and ->reset_br().
+    
+    Reported-by: Joonwoo Park <joonwpark81@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3da80541bb8d42a8f3cd2e2caf04b3037a0040bf
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 6 23:53:49 2010 +0900
+
+    aufs: tiny, revise the parameter for hinotify
+    
+    - convert au_hnotify to au_hinode, remove h_inode from au_hn_alloc() and
+      ->alloc().
+    - convert au_hnotify to au_hinode, ->free().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit b632f916658d019669d393975bdc66644b333269
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Dec 10 13:29:13 2010 +0900
+
+    aufs: debugging dinfo
+    
+    New debug function to verify the correctness of dinfo.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1341643c5de13471e781f9c0bcd8d987023494b6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 6 23:41:42 2010 +0900
+
+    aufs: bugfix, return value of au_do_refresh_d()
+    
+    Intialize it as success (0).
+    Add some debug messgages.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a4935871b43ea40fa73a67f228da6ef8c3dd0b14
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 8 02:27:39 2010 +0900
+
+    aufs stdalone: export debug_locks
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 09853aaa34cca5eeedb9277591668258de081813
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Dec 7 21:53:59 2010 +0900
+
+    aufs: support for 2.6.34, protect f_mode
+    
+    By introducing FMODE_RANDOM, file->f_mode may be modified out of aufs.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit f1617ce6112b85ed5a686be5e0cb8f48794ea2c4
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Dec 2 03:48:57 2010 +0900

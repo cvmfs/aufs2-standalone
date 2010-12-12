@@ -91,7 +91,7 @@ void au_set_h_iptr(struct inode *inode, aufs_bindex_t bindex,
 
 		if (au_ftest_hi(flags, HNOTIFY)
 		    && au_br_hnotifyable(br->br_perm)) {
-			err = au_hn_alloc(hinode, inode, h_inode);
+			err = au_hn_alloc(hinode, inode);
 			if (unlikely(err))
 				AuIOErr1("au_hn_alloc() %d\n", err);
 		}
