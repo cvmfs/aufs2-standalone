@@ -27,13 +27,16 @@ static struct inotify_handle *au_hin_handle;
 
 /* ---------------------------------------------------------------------- */
 
-static int au_hin_alloc(struct au_hnotify *hn, struct inode *h_inode)
+static int au_hin_alloc(struct au_hinode *hinode)
 {
 	int err;
 	s32 wd;
+	struct au_hnotify *hn;
+	struct inode *h_inode;
 	struct inotify_watch *watch;
 
 	err = -EEXIST;
+	h_inode = hinode->hi_inode;
 	wd = inotify_find_watch(au_hin_handle, h_inode, &watch);
 	if (wd >= 0) {
 		put_inotify_watch(watch);
@@ -41,6 +44,7 @@ static int au_hin_alloc(struct au_hnotify *hn, struct inode *h_inode)
 	}
 
 	err = 0;
+	hn = hinode->hi_notify;
 	inotify_init_watch(&hn->hn_watch);
 	wd = inotify_add_watch(au_hin_handle, &hn->hn_watch, h_inode,
 			       AuHinMask);
@@ -53,11 +57,13 @@ out:
 	return err;
 }
 
-static void au_hin_free(struct au_hnotify *hn)
+static void au_hin_free(struct au_hinode *hinode)
 {
 	int err;
+	struct au_hnotify *hn;
 
 	err = 0;
+	hn = hinode->hi_notify;
 	if (atomic_read(&hn->hn_watch.count))
 		err = inotify_rm_watch(au_hin_handle, &hn->hn_watch);
 	if (unlikely(err))

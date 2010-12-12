@@ -123,6 +123,7 @@ struct dentry *au_whtmp_lkup(struct dentry *h_parent, struct au_branch *br,
 	int i;
 	char defname[NAME_MAX - AUFS_MAX_NAMELEN + DNAME_INLINE_LEN_MIN + 1],
 		*name, *p;
+	/* strict atomic_t is unnecessary here */
 	static unsigned short cnt;
 	struct qstr qs;
 
