@@ -902,6 +902,7 @@ struct au_whtmp_rmdir *au_whtmp_rmdir_alloc(struct super_block *sb, gfp_t gfp)
 	}
 
 	whtmp->dir = NULL;
+	whtmp->br = NULL;
 	whtmp->wh_dentry = NULL;
 	/* no estimation for dir size */
 	rdhash = au_sbi(sb)->si_rdhash;
@@ -919,6 +920,8 @@ out:
 
 void au_whtmp_rmdir_free(struct au_whtmp_rmdir *whtmp)
 {
+	if (whtmp->br)
+		atomic_dec(&whtmp->br->br_count);
 	dput(whtmp->wh_dentry);
 	iput(whtmp->dir);
 	au_nhash_wh_free(&whtmp->whlist);
@@ -1029,7 +1032,6 @@ static void call_rmdir_whtmp(void *args)
 
 out:
 	/* mutex_unlock(&a->dir->i_mutex); */
-	atomic_dec(&a->br->br_count);
 	au_whtmp_rmdir_free(a);
 	si_read_unlock(sb);
 	au_nwt_done(&au_sbi(sb)->si_nowait);

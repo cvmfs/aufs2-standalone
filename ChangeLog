@@ -1,3 +1,74 @@
+commit c5021514085a5d96364e096dbd34cadb2251abfd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Dec 16 01:29:04 2010 +0900
+
+    aufs: bugfix, missign test for branch management
+    
+    In aufs_lookup(), the parent dir MAY be removed logically by branch
+    management.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5df24d5e0dc992ab991d0113703b9c90416ce527
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 15 22:55:09 2010 +0900
+
+    aufs: debugging, stop dcsub in sysrq handler
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 3f141020200c0e39c41c039eb261f65db0b3f18e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 15 22:50:15 2010 +0900
+
+    aufs: tiny, revised simply
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8f46271b6cd7521da44a087dcbf3d783f4af24c7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 15 22:18:33 2010 +0900
+
+    aufs: debugging, false positive around NOPLMW
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 788f93f121fcafecaca33dafb824495db02edfe7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 15 21:19:26 2010 +0900
+
+    aufs: tiny, just an indentation
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9a8dc61df4b4b722f9a9ef8a568cfcb78a4eb0aa
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Dec 15 21:19:09 2010 +0900
+
+    aufs: minor optimization, skip file-refresh for root
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9784a821611537ad9d0d4593ba775bb816ace3e9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 13 17:13:59 2010 +0900
+
+    aufs: possible bugfix, protect branch from deleting in nfsd fh_to_dentry()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8c017b90207d3e0914f53f7e15ff9fb30d33ffac
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Dec 13 17:00:20 2010 +0900
+
+    aufs: possible bugfix, br_count in async rmdir
+    
+    There is a missing decrement br_count for 'br' member in struct
+    au_whtmp_rmdir in an error path. Introduce a larger and bigger but more
+    generic and simple solution.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 29c19e545f53894ca89a9525685572b9c99f34c3
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Dec 12 10:25:26 2010 +0900
