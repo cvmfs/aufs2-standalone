@@ -51,7 +51,7 @@ static void sysrq_sb(struct super_block *sb)
 	au_dpri_inode(sb->s_root->d_inode);
 #endif
 
-#if 1
+#if 0
 	do {
 		int err, i, j, ndentry;
 		struct au_dcsub_pages dpages;

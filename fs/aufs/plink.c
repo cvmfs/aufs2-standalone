@@ -68,7 +68,7 @@ int au_plink_maint(struct super_block *sb, int flags)
 
 	if (au_ftest_lock(flags, NOPLMW)) {
 		/* if there is no i_mutex lock in VFS, we don't need to wait */
-		AuDebugOn(!lockdep_depth(current));
+		/* AuDebugOn(!lockdep_depth(current)); */
 		while (sbi->si_plink_maint_pid) {
 			si_read_unlock(sb);
 			/* gave up wake_up_bit() */
