@@ -177,15 +177,18 @@ static struct dentry *aufs_lookup(struct inode *dir, struct dentry *dentry,
 	if (unlikely(err))
 		goto out_si;
 
-	npositive = -EIO;
+	npositive = 0; /* suppress a warning */
 	parent = dentry->d_parent; /* dir inode is locked */
 	di_read_lock_parent(parent, AuLock_IR);
-	err = au_digen_test(parent, au_sigen(sb));
+	err = au_alive_dir(parent);
 	if (!err)
+		err = au_digen_test(parent, au_sigen(sb));
+	if (!err) {
 		npositive = au_lkup_dentry(dentry, au_dbstart(parent),
 					   /*type*/0, nd);
+		err = npositive;
+	}
 	di_read_unlock(parent, AuLock_IR);
-	err = npositive;
 	ret = ERR_PTR(err);
 	if (unlikely(err < 0))
 		goto out_unlock;
