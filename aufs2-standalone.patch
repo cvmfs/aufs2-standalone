@@ -26,7 +26,7 @@ index ae2727a..2c8071a 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index 5fe904d..8af12f7 100644
+index a8c583f..b020c45 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -347,6 +347,7 @@ int deny_write_access(struct file * file)

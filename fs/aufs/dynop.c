@@ -187,6 +187,7 @@ static void dy_aop(struct au_dykey *key, const void *h_op,
 	DySetAop(bmap);
 	DySetAop(invalidatepage);
 	DySetAop(releasepage);
+	DySetAop(freepage);
 	/* these two will be changed according to an aufs mount option */
 	DySetAop(direct_IO);
 	DySetAop(get_xip_mem);
