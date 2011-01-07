@@ -29,6 +29,8 @@ clean:
 
 install: all
 	${MakeMod} modules_install
+	install -o root -g root -p usr/include/linux/aufs_type.h \
+		${DESTDIR}/usr/include/linux
 
 aufs.ko: fs/aufs/aufs.ko
 	ln -f $< $@
