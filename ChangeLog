@@ -1,3 +1,55 @@
+commit 3714bfd727bb7afbfe9a1e8eee8f6aefcc0f4e58
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 7 12:25:06 2011 +0900
+
+    aufs: tiny, new year in copyright
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6a9bf4a4ebf0c4a5e694de2952d36e576b051692
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 7 12:21:14 2011 +0900
+
+    aufs: tiny, new year in copyright
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7c771c6f660d9e0f17def9550e396418589e4340
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 7 12:03:19 2011 +0900
+
+    aufs: tiny, describe union-mount and dm-snapshot
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 05a6d7153c58c13bca10ef7eb19ef3e3832d1c40
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 7 10:44:44 2011 +0900
+
+    aufs: bugfix, O_CLOEXEC for the plink maintenance mode
+    
+    /sbin/mount.aufs (and others) puts aufs into the plink maintenance mode
+    via /proc/fs/aufs/plink_maint which make many other operations to return
+    error or block.
+    During in this mode, /sbin/mount.aufs exec(2) the original mount(8).
+    If mount(8) is not statically linked, it may mmap(2) ld.so (and
+    others). And if ld.so is inside of the target aufs, then aufs mmap(2)
+    blocks, ie. deadlock.
+    To address this problem, specify O_CLOEXEC for /proc/fs/aufs/plink_maint
+    which makes aufs to exit the plink maintenance mode, and ->release()
+    doesn't care about pid.
+    
+    Reported-by: Marco Clocchiatti <ziapannocchia@gmail.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 24b389a51f85350d6fa465d22006cdd0a421ee30
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 3 10:16:17 2011 +0900
+
+    aufs: tiny, describe installing in aufs2-standalone.git
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 58276fb0ea7dbfa57498fc96f87ecad91606fcd6
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Dec 21 21:25:11 2010 +0900

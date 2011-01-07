@@ -1,5 +1,5 @@
 
-# Copyright (C) 2005-2010 Junjiro R. Okajima
+# Copyright (C) 2005-2011 Junjiro R. Okajima
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,19 +58,28 @@ filesystem is called 'lower filesystem' or 'branch' and has a mode
 readonly branch is handled by creating 'whiteout' on the upper writable
 branch.
 
-On LKML, there have been discussions about UnionMount (Jan Blunck and
-Bharata B Rao) and Unionfs (Erez Zadok). They took different approaches
-to implement the merged-view.
+On LKML, there have been discussions about UnionMount (Jan Blunck,
+Bharata B Rao and Valerie Aurora) and Unionfs (Erez Zadok). They took
+different approaches to implement the merged-view.
 The former tries putting it into VFS, and the latter implements as a
 separate filesystem.
 (If I misunderstand about these implementations, please let me know and
 I shall correct it. Because it is a long time ago when I read their
 source files last time).
+
 UnionMount's approach will be able to small, but may be hard to share
 branches between several UnionMount since the whiteout in it is
 implemented in the inode on branch filesystem and always
 shared. According to Bharata's post, readdir does not seems to be
 finished yet.
+There are several missing features known in this implementations such as
+- for users, the inode number may change silently. eg. copy-up.
+- link(2) may break by copy-up.
+- read(2) may get an obsoleted filedata (fstat(2) too).
+- fcntl(F_SETLK) may be broken by copy-up.
+- unnecessary copy-up may happen, for example mmap(MAP_PRIVATE) after
+  open(O_RDWR).
+
 Unionfs has a longer history. When I started implementing a stacking filesystem
 (Aug 2005), it already existed. It has virtual super_block, inode,
 dentry and file objects and they have an array pointing lower same kind
@@ -80,6 +89,22 @@ project AUFS (Jun 2006).
 In AUFS, the structure of filesystem resembles to Unionfs, but I
 implemented my own ideas, approaches and enhancements and it became
 totally different one.
+
+Comparing DM snapshot and fs based implementation
+- the number of bytes to be copied between devices is much smaller.
+- the type of filesystem must be one and only.
+- the fs must be writable, no readonly fs, even for the lower original
+  device. so the compression fs will not be usable. but if we use
+  loopback mount, we may address this issue.
+  for instance,
+	mount /cdrom/squashfs.img /sq
+	losetup /sq/ext2.img
+	losetup /somewhere/cow
+	dmsetup "snapshot /dev/loop0 /dev/loop1 ..."
+- it will be difficult (or needs more operations) to extract the
+  difference between the original device and COW.
+- DM snapshot-merge may help a lot when users try merging. in the
+  fs-layer union, users will use rsync(1).
 
 
 Several characters/aspects of aufs
