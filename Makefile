@@ -27,8 +27,10 @@ clean:
 	find . -type f -name '*~' | xargs -r ${RM}
 	${RM} -r aufs.ko usr
 
-install: all
+install: fs/aufs/aufs.ko
 	${MakeMod} modules_install
+
+install_header install_headers: usr/include/linux/aufs_type.h
 	install -o root -g root -p usr/include/linux/aufs_type.h \
 		${DESTDIR}/usr/include/linux
 
