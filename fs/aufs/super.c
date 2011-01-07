@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2010 Junjiro R. Okajima
+ * Copyright (C) 2005-2011 Junjiro R. Okajima
  *
  * This program, aufs is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -896,8 +896,6 @@ static void aufs_kill_sb(struct super_block *sb)
 			au_plink_put(sb, /*verbose*/1);
 		au_xino_clr(sb);
 		aufs_write_unlock(sb->s_root);
-
-		au_plink_maint_leave(sbinfo);
 		au_nwt_flush(&sbinfo->si_nowait);
 	}
 	generic_shutdown_super(sb);
