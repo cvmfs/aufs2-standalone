@@ -259,5 +259,6 @@ void au_iinfo_fin(struct inode *inode)
 		}
 	}
 	kfree(iinfo->ii_hinode);
+	iinfo->ii_hinode = NULL;
 	AuRwDestroy(&iinfo->ii_rwsem);
 }

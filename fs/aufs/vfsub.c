@@ -729,8 +729,7 @@ static void call_unlink(void *args)
 	struct unlink_args *a = args;
 	struct dentry *d = a->path->dentry;
 	struct inode *h_inode;
-	const int stop_sillyrename = (au_test_nfs(d->d_sb)
-				      && atomic_read(&d->d_count) == 1);
+	const int stop_sillyrename = au_test_nfs(d->d_sb);
 
 	IMustLock(a->dir);
 

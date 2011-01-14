@@ -14,7 +14,7 @@ index c3dee38..f529e4d 100644
  
  /*
 diff --git a/fs/inode.c b/fs/inode.c
-index ae2727a..2c8071a 100644
+index da85e56..b3dc5d8 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
 @@ -82,6 +82,7 @@ static struct hlist_head *inode_hashtable __read_mostly;
@@ -26,10 +26,10 @@ index ae2727a..2c8071a 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index a8c583f..b020c45 100644
+index 0a0371d..07a344e 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -347,6 +347,7 @@ int deny_write_access(struct file * file)
+@@ -353,6 +353,7 @@ int deny_write_access(struct file * file)
  
  	return 0;
  }
@@ -37,7 +37,7 @@ index a8c583f..b020c45 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1165,6 +1166,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1667,6 +1668,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -45,7 +45,7 @@ index a8c583f..b020c45 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1187,6 +1189,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1689,6 +1691,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
@@ -54,10 +54,10 @@ index a8c583f..b020c45 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 3dbfc07..3998762 100644
+index 3ddfd90..eecfd36 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1321,6 +1321,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
+@@ -1498,6 +1498,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
  	}
  	return 0;
  }
@@ -180,7 +180,7 @@ index 8d9c48f..29108aa 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/security.c b/security/security.c
-index 1b798d3..3b7d2ca 100644
+index 739e403..bbc4713 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -360,6 +360,7 @@ int security_path_mkdir(struct path *dir, struct dentry *dentry, int mode)
@@ -269,9 +269,9 @@ index 1b798d3..3b7d2ca 100644
  }
 +EXPORT_SYMBOL(security_inode_permission);
  
- int security_inode_setattr(struct dentry *dentry, struct iattr *attr)
+ int security_inode_exec_permission(struct inode *inode, unsigned int flags)
  {
-@@ -611,6 +622,7 @@ int security_file_permission(struct file *file, int mask)
+@@ -620,6 +631,7 @@ int security_file_permission(struct file *file, int mask)
  
  	return fsnotify_perm(file, mask);
  }
@@ -279,7 +279,7 @@ index 1b798d3..3b7d2ca 100644
  
  int security_file_alloc(struct file *file)
  {
-@@ -638,6 +650,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
+@@ -647,6 +659,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
  		return ret;
  	return ima_file_mmap(file, prot);
  }

@@ -128,7 +128,7 @@ int au_di_init(struct dentry *dentry)
 	if (dinfo) {
 		atomic_set(&dinfo->di_generation, au_sigen(sb));
 		/* smp_mb(); */ /* atomic_set */
-		dentry->d_op = &aufs_dop;
+		d_set_d_op(dentry, &aufs_dop);
 		dentry->d_fsdata = dinfo;
 	} else
 		err = -ENOMEM;
@@ -319,7 +319,7 @@ struct dentry *au_h_dptr(struct dentry *dentry, aufs_bindex_t bindex)
 		return NULL;
 	AuDebugOn(bindex < 0);
 	d = au_di(dentry)->di_hdentry[0 + bindex].hd_dentry;
-	AuDebugOn(d && (atomic_read(&d->d_count) <= 0));
+	AuDebugOn(d && d->d_count <= 0);
 	return d;
 }
 
