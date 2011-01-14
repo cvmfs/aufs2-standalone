@@ -1,3 +1,24 @@
+commit f996d6b1adcd2c677c818fdf453ba257660f74c0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 10 17:32:50 2011 +0900
+
+    aufs: bugfix, valid ptr in radix tree instead of dummy 1
+    
+    When a process whose pid is larger than 32768 (default),
+    si_pid_set_slow() crashes due to a dummy value.
+    Replace the value by a valid pointer.
+    
+    Reported-by: P.L.H.Bloom@tudelft.nl
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1cbb90f7fc05ea86e872191bc4bc3422d7ef6401
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jan 10 11:07:29 2011 +0900
+
+    aufs: tiny, version string for aufs2.1-37
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 795be8aa5ea8ac132e4ad4a0e9f1a0e33b9cd692
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sat Jan 8 02:07:07 2011 +0900
