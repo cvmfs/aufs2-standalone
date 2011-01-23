@@ -1,3 +1,11 @@
+commit b1cee06249dfa0ab30951e7f06490a75c155b620
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Jan 23 23:06:51 2011 +0900
+
+    aufs: for 2.6.38-rcN, testing, revert stop_sillyrename
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit fb742969486f39f4a7a6f0859758a42189bd38d0
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 21 16:13:16 2011 +0900
