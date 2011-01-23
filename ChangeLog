@@ -1,3 +1,74 @@
+commit fb742969486f39f4a7a6f0859758a42189bd38d0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:13:16 2011 +0900
+
+    aufs: for 2.6.38-rcN, use a new member s_d_op
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6e91ff14940eeaf587dd0386a31e1f0c718ded1d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:14:03 2011 +0900
+
+    aufs: for 2.6.38-rcN, tiny, just a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0cbbdfb0411cc28445761990079c929946f0b3b2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:02:21 2011 +0900
+
+    aufs: for 2.6.38-rcN, force write lock for rename_lock
+    
+    Because au_dcsub_pages() cannot discard the intermediate result and
+    restart the traversal, always write_lock.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 742f879080f69bd1c5bf428f74fefb1b6e38565e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:12:01 2011 +0900
+
+    aufs: for 2.6.38-rcN, protect d_unhashed() by d_lock
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 90ea0a0815b44e919737de424bce249c817ebbd6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 22 16:17:28 2011 +0900
+
+    aufs: possible bugfix, protect d_unhashed() by di_write_lock
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7489e85817cc5154c35664c794041c2582590616
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 15:58:59 2011 +0900
+
+    aufs: tiny, replace au_d_removed() by d_unlinked()
+    
+    These two small functions are identical.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 97bf43fd682b2c9aaa74eba39a405f669b4c3b31
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:15:12 2011 +0900
+
+    aufs: testing, stop unhashing in hnotify
+    
+    In aufs, all hash/unhash for dentries should follow VFS.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f1fdfd580181ae75af84d347aa13c7b3f632a7e5
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 21 16:00:14 2011 +0900
+
+    aufs: tiny, modify a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 806051bcbeec27748aae2b7957726a4e63ff308e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 14 16:05:18 2011 +0900

@@ -26,7 +26,7 @@ index da85e56..b3dc5d8 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index 0a0371d..07a344e 100644
+index bd597c9..6126963 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -353,6 +353,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index 0a0371d..07a344e 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1667,6 +1668,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1869,6 +1870,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -45,7 +45,7 @@ index 0a0371d..07a344e 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1689,6 +1691,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1891,6 +1893,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
@@ -54,10 +54,10 @@ index 0a0371d..07a344e 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 3ddfd90..eecfd36 100644
+index 9f544f3..2922b38 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1498,6 +1498,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
+@@ -1465,6 +1465,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
  	}
  	return 0;
  }
@@ -127,7 +127,7 @@ index 325185e..adede09 100644
  static int fsnotify_mark_destroy(void *ignored)
  {
 diff --git a/fs/open.c b/fs/open.c
-index 4197b9e..912817a 100644
+index 5b6ef7e..619ef8e 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -60,6 +60,7 @@ int do_truncate(struct dentry *dentry, loff_t length, unsigned int time_attrs,
@@ -139,10 +139,10 @@ index 4197b9e..912817a 100644
  static long do_sys_truncate(const char __user *pathname, loff_t length)
  {
 diff --git a/fs/splice.c b/fs/splice.c
-index ff0ae69..1c9e9b0 100644
+index 886e942..9a77a3e 100644
 --- a/fs/splice.c
 +++ b/fs/splice.c
-@@ -1116,6 +1116,7 @@ long do_splice_from(struct pipe_inode_info *pipe, struct file *out,
+@@ -1105,6 +1105,7 @@ long do_splice_from(struct pipe_inode_info *pipe, struct file *out,
  
  	return splice_write(pipe, out, ppos, len, flags);
  }
@@ -150,7 +150,7 @@ index ff0ae69..1c9e9b0 100644
  
  /*
   * Attempt to initiate a splice from a file to a pipe.
-@@ -1142,6 +1143,7 @@ long do_splice_to(struct file *in, loff_t *ppos,
+@@ -1131,6 +1132,7 @@ long do_splice_to(struct file *in, loff_t *ppos,
  
  	return splice_read(in, ppos, pipe, len, flags);
  }
