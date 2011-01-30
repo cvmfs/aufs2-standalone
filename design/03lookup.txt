@@ -34,7 +34,9 @@ NFS-export, then it has to support NULL as a nameidata parameter for
 ->create(), ->lookup() and ->d_revalidate(). So the lookup wrapper in
 aufs tests if ->s_export_op in the branch is NULL or not.
 
-When a branch is a remote filesystem, aufs trusts its ->d_revalidate().
+When a branch is a remote filesystem, aufs basically trusts its
+->d_revalidate(), also aufs forces the hardest revalidate tests for
+them.
 For d_revalidate, aufs implements three levels of revalidate tests. See
 "Revalidate Dentry and UDBA" in detail.
 

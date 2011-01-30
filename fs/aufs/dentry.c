@@ -428,10 +428,11 @@ int au_h_verify(struct dentry *h_dentry, unsigned int udba, struct inode *h_dir,
 	int err;
 
 	err = 0;
-	if (udba == AuOpt_UDBA_REVAL) {
+	if (udba == AuOpt_UDBA_REVAL
+	    && !au_test_fs_remote(h_dentry->d_sb)) {
 		IMustLock(h_dir);
 		err = (h_dentry->d_parent->d_inode != h_dir);
-	} else if (udba == AuOpt_UDBA_HNOTIFY)
+	} else if (udba != AuOpt_UDBA_NONE)
 		err = au_h_verify_dentry(h_dentry, h_parent, br);
 
 	return err;
