@@ -1,3 +1,25 @@
+commit 5caa6667bc16649365f79b441cddfd80109eb60c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 28 23:18:59 2011 +0900
+
+    aufs: force the hardest test for remote branch
+    
+    When the branch fs is remote, for the hardest (udba=notify) test even if
+    udba=notify is not specified.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2175d65a31af1c415606d7f45aeae363cf399de2
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 28 23:17:37 2011 +0900
+
+    aufs: bugfix, test in rename
+    
+    Force the test for the case when dst is a decendant of src regardless
+    its existence.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit b1cee06249dfa0ab30951e7f06490a75c155b620
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Jan 23 23:06:51 2011 +0900
