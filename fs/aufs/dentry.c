@@ -1048,9 +1048,12 @@ static int aufs_d_revalidate(struct dentry *dentry, struct nameidata *nd)
 	if (unlikely(!au_di(dentry)))
 		goto out;
 
+	inode = dentry->d_inode;
+	if (inode && is_bad_inode(inode))
+		goto out;
+
 	valid = 1;
 	sb = dentry->d_sb;
-	inode = dentry->d_inode;
 	/*
 	 * todo: very ugly
 	 * i_mutex of parent dir may be held,

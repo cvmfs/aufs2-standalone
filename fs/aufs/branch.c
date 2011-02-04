@@ -879,6 +879,7 @@ static unsigned long long au_farray_cb(void *a,
 	file_list_lock();
 	list_for_each_entry(f, head, f_u.fu_list)
 		if (au_fi(f)
+		    && file_count(f)
 		    && !special_file(f->f_dentry->d_inode->i_mode)) {
 			get_file(f);
 			*p++ = f;
