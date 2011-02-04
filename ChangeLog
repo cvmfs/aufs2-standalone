@@ -1,3 +1,33 @@
+commit 65835da20b77c98fb538c9114fc31f5de1328230
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Feb 3 04:46:48 2011 +0900
+
+    aufs: possible bugfix, exclude the freeing file
+    
+    There is a small window from VFS:file_kill() and au_farray_cb(), and
+    the freeing file may remain in s_files list when au_farray_cb()
+    traverses it.
+    Test the file count and exclude the files whose count is zero in
+    au_farray_cb().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1b2e182ba7e6e6d88b22ec25ef059bf932fe6e5b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Feb 3 04:41:12 2011 +0900
+
+    aufs: tiny, remove an unused variable
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 845a9e8515ce06e90145724eaab7b725f0a4f5ae
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Feb 3 04:40:54 2011 +0900
+
+    aufs: test bad inode in d_revalidate
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 5caa6667bc16649365f79b441cddfd80109eb60c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 28 23:18:59 2011 +0900
