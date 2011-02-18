@@ -22,10 +22,10 @@ index a7f7cef..95dd4d3 100644
  obj-$(CONFIG_CEPH_FS)		+= ceph/
 +obj-$(CONFIG_AUFS_FS)           += aufs/
 diff --git a/include/linux/Kbuild b/include/linux/Kbuild
-index 2296d8b..76f9723 100644
+index b0ada6f..5cb5837 100644
 --- a/include/linux/Kbuild
 +++ b/include/linux/Kbuild
-@@ -63,6 +63,7 @@ header-y += atmppp.h
+@@ -64,6 +64,7 @@ header-y += atmppp.h
  header-y += atmsap.h
  header-y += atmsvc.h
  header-y += audit.h

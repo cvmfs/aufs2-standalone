@@ -1,7 +1,7 @@
 aufs2.1 standalone patch for linux-2.6.
 
 diff --git a/fs/file_table.c b/fs/file_table.c
-index c3e89ad..8d71c15 100644
+index eb36b6b..12f2809 100644
 --- a/fs/file_table.c
 +++ b/fs/file_table.c
 @@ -393,6 +393,8 @@ void file_sb_list_del(struct file *file)
@@ -26,7 +26,7 @@ index da85e56..b3dc5d8 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index eed8400..d9458f5 100644
+index 0106402..f0a8efb 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -353,6 +353,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index eed8400..d9458f5 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1850,6 +1851,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1854,6 +1855,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -45,7 +45,7 @@ index eed8400..d9458f5 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1872,6 +1874,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1876,6 +1878,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
@@ -127,7 +127,7 @@ index 325185e..adede09 100644
  static int fsnotify_mark_destroy(void *ignored)
  {
 diff --git a/fs/open.c b/fs/open.c
-index e52389e..313fc41 100644
+index 5a2c6eb..f0fa5b2 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -60,6 +60,7 @@ int do_truncate(struct dentry *dentry, loff_t length, unsigned int time_attrs,
@@ -180,10 +180,10 @@ index 8d9c48f..29108aa 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/security.c b/security/security.c
-index 739e403..bbc4713 100644
+index 7b7308a..140afc7 100644
 --- a/security/security.c
 +++ b/security/security.c
-@@ -360,6 +360,7 @@ int security_path_mkdir(struct path *dir, struct dentry *dentry, int mode)
+@@ -359,6 +359,7 @@ int security_path_mkdir(struct path *dir, struct dentry *dentry, int mode)
  		return 0;
  	return security_ops->path_mkdir(dir, dentry, mode);
  }
@@ -191,7 +191,7 @@ index 739e403..bbc4713 100644
  
  int security_path_rmdir(struct path *dir, struct dentry *dentry)
  {
-@@ -367,6 +368,7 @@ int security_path_rmdir(struct path *dir, struct dentry *dentry)
+@@ -366,6 +367,7 @@ int security_path_rmdir(struct path *dir, struct dentry *dentry)
  		return 0;
  	return security_ops->path_rmdir(dir, dentry);
  }
@@ -199,7 +199,7 @@ index 739e403..bbc4713 100644
  
  int security_path_unlink(struct path *dir, struct dentry *dentry)
  {
-@@ -374,6 +376,7 @@ int security_path_unlink(struct path *dir, struct dentry *dentry)
+@@ -373,6 +375,7 @@ int security_path_unlink(struct path *dir, struct dentry *dentry)
  		return 0;
  	return security_ops->path_unlink(dir, dentry);
  }
@@ -207,7 +207,7 @@ index 739e403..bbc4713 100644
  
  int security_path_symlink(struct path *dir, struct dentry *dentry,
  			  const char *old_name)
-@@ -382,6 +385,7 @@ int security_path_symlink(struct path *dir, struct dentry *dentry,
+@@ -381,6 +384,7 @@ int security_path_symlink(struct path *dir, struct dentry *dentry,
  		return 0;
  	return security_ops->path_symlink(dir, dentry, old_name);
  }
@@ -215,7 +215,7 @@ index 739e403..bbc4713 100644
  
  int security_path_link(struct dentry *old_dentry, struct path *new_dir,
  		       struct dentry *new_dentry)
-@@ -390,6 +394,7 @@ int security_path_link(struct dentry *old_dentry, struct path *new_dir,
+@@ -389,6 +393,7 @@ int security_path_link(struct dentry *old_dentry, struct path *new_dir,
  		return 0;
  	return security_ops->path_link(old_dentry, new_dir, new_dentry);
  }
@@ -223,7 +223,7 @@ index 739e403..bbc4713 100644
  
  int security_path_rename(struct path *old_dir, struct dentry *old_dentry,
  			 struct path *new_dir, struct dentry *new_dentry)
-@@ -400,6 +405,7 @@ int security_path_rename(struct path *old_dir, struct dentry *old_dentry,
+@@ -399,6 +404,7 @@ int security_path_rename(struct path *old_dir, struct dentry *old_dentry,
  	return security_ops->path_rename(old_dir, old_dentry, new_dir,
  					 new_dentry);
  }
@@ -231,7 +231,7 @@ index 739e403..bbc4713 100644
  
  int security_path_truncate(struct path *path)
  {
-@@ -407,6 +413,7 @@ int security_path_truncate(struct path *path)
+@@ -406,6 +412,7 @@ int security_path_truncate(struct path *path)
  		return 0;
  	return security_ops->path_truncate(path);
  }
@@ -239,7 +239,7 @@ index 739e403..bbc4713 100644
  
  int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
  			mode_t mode)
-@@ -415,6 +422,7 @@ int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
+@@ -414,6 +421,7 @@ int security_path_chmod(struct dentry *dentry, struct vfsmount *mnt,
  		return 0;
  	return security_ops->path_chmod(dentry, mnt, mode);
  }
@@ -247,7 +247,7 @@ index 739e403..bbc4713 100644
  
  int security_path_chown(struct path *path, uid_t uid, gid_t gid)
  {
-@@ -422,6 +430,7 @@ int security_path_chown(struct path *path, uid_t uid, gid_t gid)
+@@ -421,6 +429,7 @@ int security_path_chown(struct path *path, uid_t uid, gid_t gid)
  		return 0;
  	return security_ops->path_chown(path, uid, gid);
  }
@@ -255,7 +255,7 @@ index 739e403..bbc4713 100644
  
  int security_path_chroot(struct path *path)
  {
-@@ -498,6 +507,7 @@ int security_inode_readlink(struct dentry *dentry)
+@@ -497,6 +506,7 @@ int security_inode_readlink(struct dentry *dentry)
  		return 0;
  	return security_ops->inode_readlink(dentry);
  }
@@ -263,7 +263,7 @@ index 739e403..bbc4713 100644
  
  int security_inode_follow_link(struct dentry *dentry, struct nameidata *nd)
  {
-@@ -512,6 +522,7 @@ int security_inode_permission(struct inode *inode, int mask)
+@@ -511,6 +521,7 @@ int security_inode_permission(struct inode *inode, int mask)
  		return 0;
  	return security_ops->inode_permission(inode, mask);
  }
@@ -271,7 +271,7 @@ index 739e403..bbc4713 100644
  
  int security_inode_exec_permission(struct inode *inode, unsigned int flags)
  {
-@@ -620,6 +631,7 @@ int security_file_permission(struct file *file, int mask)
+@@ -619,6 +630,7 @@ int security_file_permission(struct file *file, int mask)
  
  	return fsnotify_perm(file, mask);
  }
@@ -279,7 +279,7 @@ index 739e403..bbc4713 100644
  
  int security_file_alloc(struct file *file)
  {
-@@ -647,6 +659,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
+@@ -646,6 +658,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
  		return ret;
  	return ima_file_mmap(file, prot);
  }
