@@ -1,3 +1,35 @@
+commit f4f4f752d0e83a59b8b36cc6870ca8635ff6f8af
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Feb 14 20:57:35 2011 +0900
+
+    aufs: tiny, support verbose by au_br_mod()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6c2bad0b72d2299476a6fa8f6a6da0b4a2e115eb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Feb 14 15:32:24 2011 +0900
+
+    aufs: new ioctl AUFS_CTL_IBUSY
+    
+    This new ioctl interface receives an inode number and a branch index.
+    When the actual (hidden) ino on that branch is in use and makes the
+    branch busy (un-removable), returns the h_ino.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5c0aa28ddfc1510834a5eac418e71f242d6061c9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Feb 14 14:22:18 2011 +0900
+
+    aufs: new functions to test EBUSY
+    
+    Extract parts from test_dentry_busy() and test_inode_busy() and create
+    new helper functions au_test_dbusy() and au_test_ibusy().
+    These functions will be used by a new ioctl to test EBUSY in the future.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 65835da20b77c98fb538c9114fc31f5de1328230
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Feb 3 04:46:48 2011 +0900
