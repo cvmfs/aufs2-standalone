@@ -26,7 +26,7 @@ index da85e56..b3dc5d8 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index 0106402..f0a8efb 100644
+index cd39cdf..db4290c 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -353,6 +353,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index 0106402..f0a8efb 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1854,6 +1855,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1845,6 +1846,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -45,7 +45,7 @@ index 0106402..f0a8efb 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1876,6 +1878,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1867,6 +1869,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
