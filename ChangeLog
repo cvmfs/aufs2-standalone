@@ -1,3 +1,59 @@
+commit 1c0c29f20a09d1767bfb97348f28b23a056ca5c7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 2 13:36:35 2011 +0900
+
+    aufs: refine a mutex for mmap 3/3, add a condition
+    
+    Acquire fi_mmap mutex lock only when necessary, ie. the file is not
+    mmapped yet.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6c4dbe7a9a28134e0246bafbcbdfac1614539fbd
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 2 13:34:55 2011 +0900
+
+    aufs: refine a mutex for mmap 2/3, replace lockdep_off by dep_map
+    
+    Since it can hide an important debug message, calling lockdep_off/on is
+    a bad approach. But aufs_mmap() does it in switching the owner of
+    fi_mmap mutex lock. Delegating a top-half of aufs_mmap() and switching
+    the owner of fi_mmap is still an ugly approach, but I don't find another
+    way.
+    Without lockdep_off, the kernel debugging feature produces a false
+    message.
+    Stop calling lockdep_off/on, use lockdep_acquire/release instead thus we
+    can get benefit from the debugging feature.
+    This is slightly tricky and a feature for debugging only.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit dcdfe3b9d0e67b2a9636813d452159495d205e92
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 2 13:26:14 2011 +0900
+
+    aufs: refine a mutex for mmap 1/3, move functions and make them static
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit dcb6ad5eba7d9ef18909068285eefbb1cfe5e589
+Author: John Johansen <john.johansen@canonical.com>
+Date:   Mon Feb 28 22:19:38 2011 -0800
+
+    Fix aufs call of security_path_mknod
+    
+    The security_path_mknod hook requires an encoded 'dev' for its 'dev' paramet
+    but aufs is calling security_path_mknod with a 'dev' that was already
+    converted by 'new_decode_dev(dev)'.  However security_path_mknod and its
+    consumer TOMOYO is expecting 'dev' rather than 'new_decode_dev(dev)'.
+    
+    This will result in TOMOYO doing new_decode_dev(new_decode_dev(dev))
+    (which is wrong) when security_path_mknod() is called from aufs' vfsub_mknod
+    
+    Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+    Signed-off-by: John Johansen <john.johansen@canonical.com>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 36d328cd7d0a68b79b4cbc9dad0af7653b403d36
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Feb 23 01:25:05 2011 +0900
