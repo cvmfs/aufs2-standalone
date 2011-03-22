@@ -61,7 +61,7 @@ index 6e92c81..334130e 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 88058de..6e39b69 100644
+index 88058de..6e39b694 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -39,6 +39,7 @@
