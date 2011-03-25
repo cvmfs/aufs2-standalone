@@ -1,4 +1,4 @@
-aufs2.1 standalone patch for linux-2.6.
+aufs2.1 standalone patch for linux-2.6.38
 
 diff --git a/fs/file_table.c b/fs/file_table.c
 index eb36b6b..12f2809 100644
@@ -26,7 +26,7 @@ index 0647d80..294b8ad 100644
  /*
   * iprune_sem provides exclusion between the kswapd or try_to_free_pages
 diff --git a/fs/namei.c b/fs/namei.c
-index cd39cdf..db4290c 100644
+index 0513563..e1d996e 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -353,6 +353,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index cd39cdf..db4290c 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1845,6 +1846,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1846,6 +1847,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -45,7 +45,7 @@ index cd39cdf..db4290c 100644
  
  int __lookup_one_len(const char *name, struct qstr *this,
  		struct dentry *base, int len)
-@@ -1867,6 +1869,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
+@@ -1868,6 +1870,7 @@ int __lookup_one_len(const char *name, struct qstr *this,
  	this->hash = end_name_hash(hash);
  	return 0;
  }
@@ -127,7 +127,7 @@ index 325185e..adede09 100644
  static int fsnotify_mark_destroy(void *ignored)
  {
 diff --git a/fs/open.c b/fs/open.c
-index 5a2c6eb..f0fa5b2 100644
+index b47aab3..cf7b1ac 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -60,6 +60,7 @@ int do_truncate(struct dentry *dentry, loff_t length, unsigned int time_attrs,
