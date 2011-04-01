@@ -1,3 +1,11 @@
+commit 5ec0835848ad10501993a1ef21ab69c9a6a6b01c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Mar 29 16:26:35 2011 +0900
+
+    aufs: tiny, support for new fmode macros
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit eef0b4de3c91b95cb48d33286500a486ea3f4424
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Mar 23 02:13:27 2011 +0900

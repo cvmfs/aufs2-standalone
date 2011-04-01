@@ -68,7 +68,7 @@ static int au_conv_oflags(int flags)
 	 * if (flags & O_APPEND)
 	 *	mask |= MAY_APPEND;
 	 */
-	if (flags & vfsub_fmode_to_uint(FMODE_EXEC))
+	if (flags & __FMODE_EXEC)
 		mask |= MAY_EXEC;
 
 	AuDbg("flags 0x%x, mask 0x%x\n", flags, mask);
@@ -84,7 +84,7 @@ struct file *vfsub_dentry_open(struct path *path, int flags)
 
 	path_get(path);
 	file = dentry_open(path->dentry, path->mnt,
-			   flags /* | vfsub_fmode_to_uint(FMODE_NONOTIFY) */,
+			   flags /* | __FMODE_NONOTIFY */,
 			   current_cred());
 	if (IS_ERR(file))
 		goto out;
@@ -103,7 +103,7 @@ struct file *vfsub_filp_open(const char *path, int oflags, int mode)
 	struct file *file;
 
 	file = filp_open(path,
-			 oflags /* | vfsub_fmode_to_uint(FMODE_NONOTIFY) */,
+			 oflags /* | __FMODE_NONOTIFY */,
 			 mode);
 	if (IS_ERR(file))
 		goto out;

@@ -66,7 +66,7 @@ struct file *au_h_open(struct dentry *dentry, aufs_bindex_t bindex, int flags,
 	sb = dentry->d_sb;
 	br = au_sbr(sb, bindex);
 	h_file = ERR_PTR(-EACCES);
-	exec_flag = flags & vfsub_fmode_to_uint(FMODE_EXEC);
+	exec_flag = flags & __FMODE_EXEC;
 	if (exec_flag && (br->br_mnt->mnt_flags & MNT_NOEXEC))
 		goto out;
 
