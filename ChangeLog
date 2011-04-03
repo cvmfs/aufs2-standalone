@@ -1,3 +1,11 @@
+commit 27e557259bad6ebc48d4a811d5ef9db94070aa8b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Apr 4 02:35:07 2011 +0900
+
+    aufs: tiny, delete an unnecessary space
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit cfab7ccc2ecc838898a3f1a6bb6203ac433791a9
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Apr 1 14:25:49 2011 +0900
