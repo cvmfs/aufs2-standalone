@@ -26,7 +26,7 @@
 void au_hfput(struct au_hfile *hf, struct file *file)
 {
 	/* todo: direct access f_flags */
-	if (vfsub_file_flags(file) & vfsub_fmode_to_uint(FMODE_EXEC))
+	if (vfsub_file_flags(file) & __FMODE_EXEC)
 		allow_write_access(hf->hf_file);
 	fput(hf->hf_file);
 	hf->hf_file = NULL;

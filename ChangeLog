@@ -1,3 +1,83 @@
+commit cfab7ccc2ecc838898a3f1a6bb6203ac433791a9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:25:49 2011 +0900
+
+    aufs: for 2.6.39, lockdep upgrades
+    
+    Simply insert lockdef_off/on() calls in "sub-VFS" character of aufs.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 17eac367b03334e57a93e8051eb712add24d2534
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 16:31:22 2011 +0900
+
+    aufs: for 2.6.39, limit the support for IMA
+    
+    Since it acquires i_mutex and causes a deadlock, replace a
+    ima_file_check() call by i_readcount_inc().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4b09fd3cf305c00199059dddb977eea15b43bd47
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:18:28 2011 +0900
+
+    aufs: for 2.6.39, a_op->sync_page is removed
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8c6f250f54267fd05c2213d5e4a424ea5927dc3b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:17:44 2011 +0900
+
+    aufs stdalone: for 2.6.39, CONFIG_EXPORTFS becomes boolean
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0932903afb6ceda5523240a9187b7896c446432d
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:17:03 2011 +0900
+
+    aufs stdalone: for 2.6.39, export inode_sb_list_lock
+    
+    The role of inode_lock is split into several locks.
+    Simply aufs follows it.
+    Export inode_sb_list_lock for modules.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 102c58ce81b28613a53b65657bc45e6c52d56534
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:16:22 2011 +0900
+
+    aufs: for 2.6.39, split inode_lock into several locks
+    
+    The role of inode_lock was split into several locks.
+    Simply aufs follows it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a2235254f63941d7bcd4099bfbabd134465c3600
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 1 14:11:11 2011 +0900
+
+    aufs: for 2.6.39, replace __lookup_one_len by vfsub_name_hash
+    
+    By the commit,
+        6a96ba5 2011-03-14 kill __lookup_one_len()
+    the function was removed and merged into lookup_one_len().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 5ec0835848ad10501993a1ef21ab69c9a6a6b01c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Mar 29 16:26:35 2011 +0900
+
+    aufs: tiny, support for new fmode macros
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 26a0f8af5829c88d42db3446ae3778127c7a3f0c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Mar 23 02:27:17 2011 +0900

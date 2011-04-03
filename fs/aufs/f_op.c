@@ -225,7 +225,9 @@ static ssize_t au_do_aio(struct file *h_file, int rw, struct kiocb *kio,
 	if (func) {
 		file = kio->ki_filp;
 		kio->ki_filp = h_file;
+		lockdep_off();
 		err = func(kio, iov, nv, pos);
+		lockdep_on();
 		kio->ki_filp = file;
 	} else
 		/* currently there is no such fs */
