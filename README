@@ -222,7 +222,7 @@ If you don't like aufs2-standalone.patch, then try aufs2-2.6 tree.
 - apply ./aufs2-standalone.patch too, if you have a plan to set
   CONFIG_AUFS_FS=m. otherwise you don't need ./aufs2-standalone.patch.
 - copy ./{Documentation,fs,include/linux/aufs_type.h} files to your
-  kernel source tree.
+  kernel source tree. Never copy ./include/linux/Kbuild.
 - enable CONFIG_EXPERIMENTAL and CONFIG_AUFS_FS, you can select either
   =m or =y.
 - and build your kernel as usual.
