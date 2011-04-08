@@ -521,7 +521,13 @@ int vfsub_flush(struct file *file, fl_owner_t id)
 
 	err = 0;
 	if (file->f_op && file->f_op->flush) {
-		err = file->f_op->flush(file, id);
+		if (!au_test_nfs(file->f_dentry->d_sb))
+			err = file->f_op->flush(file, id);
+		else {
+			lockdep_off();
+			err = file->f_op->flush(file, id);
+			lockdep_on();
+		}
 		if (!err)
 			vfsub_update_h_iattr(&file->f_path, /*did*/NULL);
 		/*ignore*/
@@ -547,7 +553,9 @@ long vfsub_splice_to(struct file *in, loff_t *ppos,
 {
 	long err;
 
+	lockdep_off();
 	err = do_splice_to(in, ppos, pipe, len, flags);
+	lockdep_on();
 	file_accessed(in);
 	if (err >= 0)
 		vfsub_update_h_iattr(&in->f_path, /*did*/NULL); /*ignore*/
@@ -559,7 +567,9 @@ long vfsub_splice_from(struct pipe_inode_info *pipe, struct file *out,
 {
 	long err;
 
+	lockdep_off();
 	err = do_splice_from(pipe, out, ppos, len, flags);
+	lockdep_on();
 	if (err >= 0)
 		vfsub_update_h_iattr(&out->f_path, /*did*/NULL); /*ignore*/
 	return err;
