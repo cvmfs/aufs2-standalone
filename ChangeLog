@@ -1,3 +1,46 @@
+commit c6b76974311efc5bf3eddf921cd015b6aae46935
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Apr 15 18:14:01 2011 +0900
+
+    aufs: for .38, replace dcache_lock by i_lock
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 02687391b4084d24af377a774ae25911df49b9e3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Apr 14 10:47:58 2011 +0900
+
+    aufs: possible bugfix, aufs_link supports for a flushed plink
+    
+    In aufs_link(), the given dentry may be a psuedo-link. In this case,
+    aufs should detect it and call vfs_link() for the real inode on the
+    highest branch.
+    A new function au_h_d_alias() is introduced.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit a74d7008d25093b5d1fecb7f33df98570fddbf7e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Apr 13 23:10:40 2011 +0900
+
+    aufs: debug, new debug print au_dpri_dalias
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ad8f42b1ece790644d3a050907009a48153de71c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Apr 12 23:38:58 2011 +0900
+
+    aufs: possible bugfix, decode_by_ino support for obsolete dentry
+    
+    In decoding the NFS file handle, the cached dentry may be obsoleted by
+    aufs branch mgmt. To support this case, decode_by_ino() returns NULL to
+    force falling to the next level of decoding, eg decode_by_dir_ino.
+    In decode_by_dir_ino(), a new lookup is issued and the dentry will be
+    refreshed.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 1f2bca01f562d4247494bbf20bcd8860b341d30c
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Apr 7 22:07:34 2011 +0900

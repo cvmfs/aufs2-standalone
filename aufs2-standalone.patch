@@ -14,7 +14,7 @@ index 01e4c1e..0e800e2 100644
  
  /*
 diff --git a/fs/inode.c b/fs/inode.c
-index 5f4e11a..26d76b3 100644
+index 33c963d..e31e8d5 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
 @@ -112,6 +112,7 @@ static DEFINE_SPINLOCK(inode_lru_lock);
@@ -26,7 +26,7 @@ index 5f4e11a..26d76b3 100644
  /*
   * iprune_sem provides exclusion between the icache shrinking and the
 diff --git a/fs/namei.c b/fs/namei.c
-index 6de05a2..488fd82 100644
+index 27d7dc7..3c72fd5 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -364,6 +364,7 @@ int deny_write_access(struct file * file)
@@ -83,7 +83,7 @@ index d309f38..f0e9568 100644
  }
 +EXPORT_SYMBOL(fsnotify_alloc_group);
 diff --git a/fs/notify/mark.c b/fs/notify/mark.c
-index 50c0085..1efd570 100644
+index 252ab1f..2199b9b 100644
 --- a/fs/notify/mark.c
 +++ b/fs/notify/mark.c
 @@ -112,6 +112,7 @@ void fsnotify_put_mark(struct fsnotify_mark *mark)
