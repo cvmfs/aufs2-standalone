@@ -1,3 +1,19 @@
+commit 1ff923dab46675db350cd5badd6214a549149a80
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 16 21:30:53 2011 +0900
+
+    aufs: version string for linux-3.0
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 458e5469315321cf5c72f251343488189091c73a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 16 21:22:39 2011 +0900
+
+    aufs: version string for 2.1-39
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit c6b76974311efc5bf3eddf921cd015b6aae46935
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Apr 15 18:14:01 2011 +0900

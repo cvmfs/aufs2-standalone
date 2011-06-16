@@ -14,10 +14,10 @@ index 01e4c1e..0e800e2 100644
  
  /*
 diff --git a/fs/inode.c b/fs/inode.c
-index 33c963d..e31e8d5 100644
+index 0f7e88a..d0a1005 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -112,6 +112,7 @@ static DEFINE_SPINLOCK(inode_lru_lock);
+@@ -69,6 +69,7 @@ static DEFINE_SPINLOCK(inode_lru_lock);
  
  __cacheline_aligned_in_smp DEFINE_SPINLOCK(inode_sb_list_lock);
  __cacheline_aligned_in_smp DEFINE_SPINLOCK(inode_wb_list_lock);
@@ -26,7 +26,7 @@ index 33c963d..e31e8d5 100644
  /*
   * iprune_sem provides exclusion between the icache shrinking and the
 diff --git a/fs/namei.c b/fs/namei.c
-index 27d7dc7..3c72fd5 100644
+index 4676d47..8573bee 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -364,6 +364,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index 27d7dc7..3c72fd5 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1772,6 +1773,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1688,6 +1689,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
@@ -46,10 +46,10 @@ index 27d7dc7..3c72fd5 100644
  /**
   * lookup_one_len - filesystem helper to lookup single pathname component
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 7dba2ed..d7570d1 100644
+index fe59bd1..7d3843f 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1524,6 +1524,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
+@@ -1508,6 +1508,7 @@ int iterate_mounts(int (*f)(struct vfsmount *, void *), void *arg,
  	}
  	return 0;
  }
@@ -131,10 +131,10 @@ index b52cf01..c1b341c 100644
  static long do_sys_truncate(const char __user *pathname, loff_t length)
  {
 diff --git a/fs/splice.c b/fs/splice.c
-index 886e942..9a77a3e 100644
+index 19afec6..11f07f8 100644
 --- a/fs/splice.c
 +++ b/fs/splice.c
-@@ -1105,6 +1105,7 @@ long do_splice_from(struct pipe_inode_info *pipe, struct file *out,
+@@ -1109,6 +1109,7 @@ long do_splice_from(struct pipe_inode_info *pipe, struct file *out,
  
  	return splice_write(pipe, out, ppos, len, flags);
  }
@@ -142,7 +142,7 @@ index 886e942..9a77a3e 100644
  
  /*
   * Attempt to initiate a splice from a file to a pipe.
-@@ -1131,6 +1132,7 @@ long do_splice_to(struct file *in, loff_t *ppos,
+@@ -1135,6 +1136,7 @@ long do_splice_to(struct file *in, loff_t *ppos,
  
  	return splice_read(in, ppos, pipe, len, flags);
  }
@@ -151,19 +151,19 @@ index 886e942..9a77a3e 100644
  /**
   * splice_direct_to_actor - splices data directly between two non-pipes
 diff --git a/security/commoncap.c b/security/commoncap.c
-index f20e984..d39acd9 100644
+index a93b3b7..024282c 100644
 --- a/security/commoncap.c
 +++ b/security/commoncap.c
-@@ -976,3 +976,4 @@ int cap_file_mmap(struct file *file, unsigned long reqprot,
+@@ -971,3 +971,4 @@ int cap_file_mmap(struct file *file, unsigned long reqprot,
  	}
  	return ret;
  }
 +EXPORT_SYMBOL(cap_file_mmap);
 diff --git a/security/device_cgroup.c b/security/device_cgroup.c
-index 8d9c48f..29108aa 100644
+index cd1f779..ee633e7 100644
 --- a/security/device_cgroup.c
 +++ b/security/device_cgroup.c
-@@ -515,6 +515,7 @@ found:
+@@ -514,6 +514,7 @@ found:
  
  	return -EPERM;
  }
@@ -172,7 +172,7 @@ index 8d9c48f..29108aa 100644
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
 diff --git a/security/security.c b/security/security.c
-index 1011423..3bb850b 100644
+index 4ba6d4c..9f64bb8 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -373,6 +373,7 @@ int security_path_rmdir(struct path *dir, struct dentry *dentry)
@@ -233,13 +233,13 @@ index 1011423..3bb850b 100644
  {
 @@ -520,6 +527,7 @@ int security_inode_permission(struct inode *inode, int mask)
  		return 0;
- 	return security_ops->inode_permission(inode, mask);
+ 	return security_ops->inode_permission(inode, mask, 0);
  }
 +EXPORT_SYMBOL(security_inode_permission);
  
  int security_inode_exec_permission(struct inode *inode, unsigned int flags)
  {
-@@ -628,6 +636,7 @@ int security_file_permission(struct file *file, int mask)
+@@ -626,6 +634,7 @@ int security_file_permission(struct file *file, int mask)
  
  	return fsnotify_perm(file, mask);
  }
@@ -247,7 +247,7 @@ index 1011423..3bb850b 100644
  
  int security_file_alloc(struct file *file)
  {
-@@ -655,6 +664,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
+@@ -653,6 +662,7 @@ int security_file_mmap(struct file *file, unsigned long reqprot,
  		return ret;
  	return ima_file_mmap(file, prot);
  }
