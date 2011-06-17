@@ -1,3 +1,19 @@
+commit c94e2dda3f44d30237d0272e12a138a8330b897e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jun 17 20:06:08 2011 +0900
+
+    aufs stdalone: for 3.0, type of lock->owner
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 7cabd9e84f1f7e3fa9abaf3446ac43cd8f8d3249
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jun 17 20:05:04 2011 +0900
+
+    aufs: for 3.0, type of i_state
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 1ff923dab46675db350cd5badd6214a549149a80
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Jun 16 21:30:53 2011 +0900
