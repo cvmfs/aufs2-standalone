@@ -26,7 +26,7 @@ index 0f7e88a..d0a1005 100644
  /*
   * iprune_sem provides exclusion between the icache shrinking and the
 diff --git a/fs/namei.c b/fs/namei.c
-index 4676d47..8573bee 100644
+index cc4c4a8..925dc2b 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -364,6 +364,7 @@ int deny_write_access(struct file * file)
@@ -37,7 +37,7 @@ index 4676d47..8573bee 100644
  
  /**
   * path_get - get a reference to a path
-@@ -1688,6 +1689,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
+@@ -1696,6 +1697,7 @@ struct dentry *lookup_hash(struct nameidata *nd)
  {
  	return __lookup_hash(&nd->last, nd->path.dentry, nd);
  }
