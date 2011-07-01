@@ -25,6 +25,7 @@
 
 #ifdef __KERNEL__
 
+#include <linux/file.h>
 #include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/aufs_type.h>
@@ -59,9 +60,7 @@ struct au_finfo {
 	/* do not union them */
 	struct {				/* for non-dir */
 		struct au_hfile			fi_htop;
-		struct vm_operations_struct	*fi_hvmop;
-		struct mutex			fi_vm_mtx;
-		struct mutex			fi_mmap;
+		atomic_t			fi_mmapped;
 	};
 	struct au_fidir		*fi_hdir;	/* for dir only */
 } ____cacheline_aligned_in_smp;
@@ -106,7 +105,6 @@ AuStubVoid(au_h_open_post, struct dentry *dentry, aufs_bindex_t bindex,
 
 /* f_op.c */
 extern const struct file_operations aufs_file_fop;
-extern const struct vm_operations_struct aufs_vm_ops;
 int au_do_open_nondir(struct file *file, int flags);
 int aufs_release_nondir(struct inode *inode __maybe_unused, struct file *file);
 
@@ -226,10 +224,69 @@ static inline unsigned int au_figen(struct file *f)
 	return atomic_read(&au_fi(f)->fi_generation);
 }
 
+static inline void au_set_mmapped(struct file *f)
+{
+	if (atomic_inc_return(&au_fi(f)->fi_mmapped))
+		return;
+	pr_warning("fi_mmapped wrapped around\n");
+	while (!atomic_inc_return(&au_fi(f)->fi_mmapped))
+		;
+}
+
+static inline void au_unset_mmapped(struct file *f)
+{
+	atomic_dec(&au_fi(f)->fi_mmapped);
+}
+
 static inline int au_test_mmapped(struct file *f)
 {
-	FiMustAnyLock(f);
-	return !!(au_fi(f)->fi_hvmop);
+	return atomic_read(&au_fi(f)->fi_mmapped);
+}
+
+/* customize vma->vm_file */
+
+static inline void au_do_vm_file_reset(struct vm_area_struct *vma,
+				       struct file *file)
+{
+	fput(vma->vm_file);
+	get_file(file);
+	vma->vm_file = file;
+}
+
+#ifdef CONFIG_MMU
+#define AuDbgVmRegion(file, vma) do {} while (0)
+
+static inline void au_vm_file_reset(struct vm_area_struct *vma,
+				    struct file *file)
+{
+	au_do_vm_file_reset(vma, file);
+}
+#else
+#define AuDbgVmRegion(file, vma) \
+	AuDebugOn((vma)->vm_region && (vma)->vm_region->vm_file != (file))
+
+static inline void au_vm_file_reset(struct vm_area_struct *vma,
+				    struct file *file)
+{
+	au_do_vm_file_reset(vma, file);
+	fput(vma->vm_region->vm_file);
+	get_file(file);
+	vma->vm_region->vm_file = file;
+}
+#endif /* CONFIG_MMU */
+
+/* handle vma->vm_prfile */
+static inline void au_vm_prfile_set(struct vm_area_struct *vma,
+				    struct file *file)
+{
+#ifdef CONFIG_AUFS_PROC_MAP
+	get_file(file);
+	vma->vm_prfile = file;
+#ifndef CONFIG_MMU
+	get_file(file);
+	vma->vm_region->vm_prfile = file;
+#endif
+#endif
 }
 
 #endif /* __KERNEL__ */
