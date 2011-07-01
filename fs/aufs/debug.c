@@ -98,7 +98,7 @@ static int do_pri_inode(aufs_bindex_t bindex, struct inode *inode,
 	}
 
 	dpri("i%d: i%lu, %s, cnt %d, nl %u, 0%o, sz %llu, blk %llu,"
-	     " ct %lld, np %lu, st 0x%x, f 0x%x, v %llu, g %x%s%.*s\n",
+	     " ct %lld, np %lu, st 0x%lx, f 0x%x, v %llu, g %x%s%.*s\n",
 	     bindex,
 	     inode->i_ino, inode->i_sb ? au_sbtype(inode->i_sb) : "??",
 	     atomic_read(&inode->i_count), inode->i_nlink, inode->i_mode,
@@ -205,7 +205,7 @@ static int do_pri_file(aufs_bindex_t bindex, struct file *file)
 	    && au_test_aufs(file->f_dentry->d_sb)
 	    && au_fi(file))
 		snprintf(a, sizeof(a), ", gen %d, mmapped %d",
-			 au_figen(file), !!au_fi(file)->fi_hvmop);
+			 au_figen(file), atomic_read(&au_fi(file)->fi_mmapped));
 	dpri("f%d: mode 0x%x, flags 0%o, cnt %ld, v %llu, pos %llu%s\n",
 	     bindex, file->f_mode, file->f_flags, (long)file_count(file),
 	     file->f_version, file->f_pos, a);
