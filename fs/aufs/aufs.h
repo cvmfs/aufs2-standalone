@@ -47,7 +47,6 @@
 #include "inode.h"
 #include "loop.h"
 #include "module.h"
-/* never include ./mtx.h */
 #include "opts.h"
 #include "rwsem.h"
 #include "spl.h"

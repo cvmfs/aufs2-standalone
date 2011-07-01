@@ -120,14 +120,10 @@ void au_finfo_fin(struct file *file)
 void au_fi_init_once(void *_finfo)
 {
 	struct au_finfo *finfo = _finfo;
-	static struct lock_class_key aufs_fi, aufs_fi_vm, aufs_fi_mmap;
+	static struct lock_class_key aufs_fi;
 
 	au_rw_init(&finfo->fi_rwsem);
 	au_rw_class(&finfo->fi_rwsem, &aufs_fi);
-	mutex_init(&finfo->fi_vm_mtx);
-	lockdep_set_class(&finfo->fi_vm_mtx, &aufs_fi_vm);
-	mutex_init(&finfo->fi_mmap);
-	lockdep_set_class(&finfo->fi_mmap, &aufs_fi_mmap);
 }
 
 int au_finfo_init(struct file *file, struct au_fidir *fidir)
