@@ -1,3 +1,137 @@
+commit 8b0461c7698d5cd08cb5510e8e8a7145b9abbc4a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 30 02:56:33 2011 +0900
+
+    aufs: for .38, maintain vm_prfile
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 02d99021a2d3eb9c0addc1b7c1f1c7bad2a91cb6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 30 02:15:55 2011 +0900
+
+    aufs: for .34, maintain vm_prfile
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 696bdae993c4ff299b03f62d0c7748e221b16e32
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 30 19:21:46 2011 +0900
+
+    aufs stdalone: new mmapping, support for AUFS_PROC_MAP
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 326b883403f8c7f91c9ac20980825a79000f8462
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 29 20:12:28 2011 +0900
+
+    aufs: new mmapping, support for AUFS_PROC_MAP and vm_prfile
+    
+    In previous commit, a new member called vm_prfile was introduce in
+    struct vm_area_struct. This patch sets it.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 602f6ab481679f25aea8d49c3c8093a16d247c53
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 29 13:13:09 2011 +0900
+
+    introduce vm_prfile for aufs
+    
+    There are two basic approaches to implement mmap(2) in aufs
+    - aufs_mmap() calls the lower file->mmap()
+    - aufs_mmap() calls generic_file_mmap()
+    
+    The first one is simple, but the printed file path under /proc is not
+    aufs's. For file-memory mapping, struct vm_area_struct has a member
+    called vm_file which is also used when printing its path via /proc.
+    As long as aufs doesn't change vm_file, the printed path under /proc
+    points to the one on the branchfs instead of virtual aufs's.
+    This incorrect path makes some utilities (lsof(1) or something) unusable
+    which relies on /proc/PID/{maps,smaps}.
+    Before linux-2.6.26 /proc/PID/exe uses vm_file too, and the incorrect
+    path for /proc/PID/exe made debian's start-stop-daemon(1) unusable. In
+    linux-2.6.26 struct mm_struct.exe_file as introduced and /proc/PID/exe
+    is not a problem anymore.
+    
+    The second one is complicated since aufs has to implement struct
+    vm_operations_struct in order to redirect its ->fault call (and others)
+    to the lower file's ->fault call. This works most cases, but aufs also
+    has to set file->f_mapping to the lower f_mapping for some
+    filesystems. Oh I don't remember its detail. It was early aufs1 era.
+    Anyway some filesystems may not pay enough attention their
+    inode->i_mapping and file->f_mapping, particulary getting inode via
+    f_dentry->d_inode or f_maping->host. Generally they are equivalent, and
+    if aufs changes f_mapping, they may not work correctly.
+    
+    In other words, the first approach (with making vm_file points to the
+    file on branch fs) works well, but the file path printed via /proc is a
+    problem. The second approach sets vm_file pointing to the file on aufs,
+    so the printed path under /proc is not a problem, but it is difficult to
+    keep the behaviour correct.
+    
+    In aufs1 era, aufs took the second complicated approach and keeps it
+    until now. Now aufs decides to switch to the first simple approach. And
+    in order to solve the printed path problem, aufs also decides to
+    introduce a new member called vm_prfile to struct vm_area_struct (and
+    struct vm_region). Yes, this patch is for upstream, and I can guess some
+    of users don't like modifying upstream. I just simply have no other
+    approaches.
+    
+    The normal vm_file points to the file on branch fs, and the new
+    vm_prfile points to the aufs virtual file. Every vm_file print function
+    should refer vm_prfile instead of vm_file when vm_prfile is set.
+    This patch desn't affect the other modules in kernel since nobody else
+    know about the newly added vm_prfile.
+    
+    This approach is ugly since it is just faking the printed path.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8b47da9679d51487f53221a3b95d9a259a727637
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jun 30 00:39:56 2011 +0900
+
+    aufs stdalone: new mmapping, remove obsoleted things
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 38293de6d9c662cd91971a0ece8a8370cdd7f7c4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 29 20:11:36 2011 +0900
+
+    aufs: new mmapping, remove obsoleted things
+    
+    By previous commit in this series, many things became obsoleted.
+    Simply remove them.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 82d02726df5b2d5cc914f2e2b3cefe483b522593
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jun 29 20:07:54 2011 +0900
+
+    aufs: new mmapping
+    
+    Give up the generic_file_mmap()+struct vm_operations_struct approach.
+    Instead adopt the simpler lower file->mmap() approach.
+    But this approach doesn't support the correct file path in
+    /proc/PID/{maps,smaps}. It will show the file path on the branch fs
+    instead of the path on aufs.
+    This issue will be solved by later patch in this series which introduces
+    vm_prfile.
+    
+    Before linux-2.6.26 /proc/PID/exe uses vm_file too, and the incorrect
+    path for /proc/PID/exe made debian's start-stop-daemon(1) unusable. In
+    linux-2.6.26 struct mm_struct.exe_file as introduced and /proc/PID/exe
+    is not a problem anymore.
+    
+    By this patch, many things become obsolete and they will be removed by
+    later commit.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 1234731ea08d661b1e28f4c6d58a19653533d083
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Jun 21 13:54:40 2011 +0900

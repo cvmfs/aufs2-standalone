@@ -199,34 +199,6 @@ static void dy_aop(struct au_dykey *key, const void *h_op,
 	dyaop->da_get_xip_mem = h_aop->get_xip_mem;
 }
 
-#define DySetVmop(func) \
-	DySet(func, dyvmop->dv_op, aufs_vm_ops, h_vmop, h_sb)
-#define DySetVmopForce(func) \
-	DySetForce(func, dyvmop->dv_op, aufs_vm_ops)
-
-static void dy_vmop(struct au_dykey *key, const void *h_op,
-		    struct super_block *h_sb __maybe_unused)
-{
-	struct au_dyvmop *dyvmop = (void *)key;
-	const struct vm_operations_struct *h_vmop = h_op;
-	DyDbgDeclare(cnt);
-
-	AuDbg("%s\n", au_sbtype(h_sb));
-
-	DySetVmop(open);
-	DySetVmop(close);
-	DySetVmop(fault);
-	DySetVmop(page_mkwrite);
-	DySetVmop(access);
-#ifdef CONFIG_NUMA
-	DySetVmop(set_policy);
-	DySetVmop(get_policy);
-	DySetVmop(migrate);
-#endif
-
-	DyDbgSize(cnt, *h_vmop);
-}
-
 /* ---------------------------------------------------------------------- */
 
 static void dy_bug(struct kref *kref)
@@ -247,10 +219,6 @@ static struct au_dykey *dy_get(struct au_dynop *op, struct au_branch *br)
 		[AuDy_AOP] = {
 			.sz	= sizeof(struct au_dyaop),
 			.set	= dy_aop
-		},
-		[AuDy_VMOP] = {
-			.sz	= sizeof(struct au_dyvmop),
-			.set	= dy_vmop
 		}
 	};
 	const struct op *p;
@@ -387,21 +355,6 @@ void au_dy_arefresh(int do_dx)
 	spin_unlock(&spl->spin);
 }
 
-const struct vm_operations_struct *
-au_dy_vmop(struct file *file, struct au_branch *br,
-	   const struct vm_operations_struct *h_vmop)
-{
-	struct au_dyvmop *dyvmop;
-	struct au_dynop op;
-
-	op.dy_type = AuDy_VMOP;
-	op.dy_hvmop = h_vmop;
-	dyvmop = (void *)dy_get(&op, br);
-	if (IS_ERR(dyvmop))
-		return (void *)dyvmop;
-	return &dyvmop->dv_op;
-}
-
 /* ---------------------------------------------------------------------- */
 
 void __init au_dy_init(void)
@@ -410,7 +363,6 @@ void __init au_dy_init(void)
 
 	/* make sure that 'struct au_dykey *' can be any type */
 	BUILD_BUG_ON(offsetof(struct au_dyaop, da_key));
-	BUILD_BUG_ON(offsetof(struct au_dyvmop, dv_key));
 
 	for (i = 0; i < AuDyLast; i++)
 		au_spl_init(dynop + i);
