@@ -11,7 +11,7 @@ $(warning could not find kernel config file. internal auto-config may fail)
 endif
 
 CONFIG_AUFS_FS = m
-AUFS_DEF_CONFIG = -DCONFIG_AUFS_MODULE -UCONFIG_AUFS
+AUFS_DEF_CONFIG = -DCONFIG_AUFS_FS_MODULE -UCONFIG_AUFS
 include config.mk
 export CONFIG_AUFS_FS
 
