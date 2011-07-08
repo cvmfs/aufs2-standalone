@@ -14,7 +14,7 @@ index 01e4c1e..0e800e2 100644
  
  /*
 diff --git a/fs/inode.c b/fs/inode.c
-index 0f7e88a..d0a1005 100644
+index 43566d1..4291eae 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
 @@ -69,6 +69,7 @@ static DEFINE_SPINLOCK(inode_lru_lock);
@@ -160,14 +160,14 @@ index a93b3b7..024282c 100644
  }
 +EXPORT_SYMBOL(cap_file_mmap);
 diff --git a/security/device_cgroup.c b/security/device_cgroup.c
-index 1be6826..682fa26 100644
+index 1be6826..215278c 100644
 --- a/security/device_cgroup.c
 +++ b/security/device_cgroup.c
 @@ -508,6 +508,7 @@ found:
  
  	return -EPERM;
  }
-+EXPORT_SYMBOL(devcgroup_inode_permission);
++EXPORT_SYMBOL(__devcgroup_inode_permission);
  
  int devcgroup_inode_mknod(int mode, dev_t dev)
  {
