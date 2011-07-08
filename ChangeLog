@@ -1,3 +1,23 @@
+commit eead3519423a6a1760e8faf6a41dde71c8444f18
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Jul 7 15:58:10 2011 +0900
+
+    aufs doc: proc_map.patch
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4bb04546017bcf4cd53415b76ffa3cbdab98c727
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 4 20:50:09 2011 +0900
+
+    for aufs, vm_prfile supports NUMA
+    
+    The commit
+    	602f6ab 2011-06-30 introduce vm_prfile for aufs
+    simply ignored CONFIG_NUMA, but it is necessary.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 696bdae993c4ff299b03f62d0c7748e221b16e32
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Thu Jun 30 19:21:46 2011 +0900
