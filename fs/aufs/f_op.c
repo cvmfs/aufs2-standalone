@@ -695,12 +695,7 @@ static ssize_t aufs_sendpage(struct file *file, struct page *page, int offset,
 
 const struct file_operations aufs_file_fop = {
 	.owner		= THIS_MODULE,
-	/*
-	 * while generic_file_llseek/_unlocked() don't use BKL,
-	 * don't use it since it operates file->f_mapping->host.
-	 * in aufs, it may be a real file and may confuse users by UDBA.
-	 */
-	/* .llseek		= generic_file_llseek, */
+
 	.llseek		= default_llseek,
 
 	.read		= aufs_read,
