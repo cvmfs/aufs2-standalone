@@ -90,10 +90,10 @@ index 0276c30..39d8176 100644
  				atomic_dec(&inode->i_writecount);
  			mutex_lock(&mapping->i_mmap_mutex);
 diff --git a/mm/memory.c b/mm/memory.c
-index 40b7531..6d401c8 100644
+index 9b8a01d..8902d06 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -2576,6 +2576,8 @@ reuse:
+@@ -2577,6 +2577,8 @@ reuse:
  		/* file_update_time outside page_lock */
  		if (vma->vm_file)
  			file_update_time(vma->vm_file);
@@ -102,7 +102,7 @@ index 40b7531..6d401c8 100644
  
  		return ret;
  	}
-@@ -3256,6 +3258,8 @@ out:
+@@ -3257,6 +3259,8 @@ out:
  		/* file_update_time outside page_lock */
  		if (vma->vm_file)
  			file_update_time(vma->vm_file);
@@ -161,7 +161,7 @@ index d49736f..0290c8e 100644
  					added_exe_file_vma(mm);
  			}
 diff --git a/mm/nommu.c b/mm/nommu.c
-index 1fd0c51..0601983 100644
+index 9edc897..72631ebe 100644
 --- a/mm/nommu.c
 +++ b/mm/nommu.c
 @@ -634,6 +634,8 @@ static void __put_nommu_region(struct vm_region *region)
