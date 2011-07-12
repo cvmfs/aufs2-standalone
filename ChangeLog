@@ -1,3 +1,21 @@
+commit 8c0c4f7899f9ac1c9946e54f99aee059d9020bdb
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jul 12 00:57:31 2011 +0900
+
+    aufs: another support for loopback mount in aufs
+    
+    When the backend file of loopback mount exists in aufs, aufs should
+    handle it differently. Currently it is supported by setting
+    file->f_mapping. But this is ugly, additionally it is known that there
+    exists a problem when the backend file exists on the nfs branch in aufs.
+    At the same time, it works for most other branch fs-es.
+    
+    Finally aufs decides keeping current approach and introducing another
+    patch in aufs2-standalone.git tree. If you want more strict support for
+    loopback mount in aufs, try another patch.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit cdd2ded1e37e19ce3fed77264c069f43c6aa452e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jul 8 12:20:51 2011 +0900
