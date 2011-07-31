@@ -679,18 +679,46 @@ static void au_call_cpup_single(void *args)
 				  a->flags, a->dst_parent);
 }
 
+/*
+ * prevent SIGXFSZ in copy-up.
+ * testing CAP_MKNOD is for generic fs,
+ * but CAP_FSETID is for xfs only, currently.
+ */
+static int au_cpup_sio_test(struct super_block *sb, umode_t mode)
+{
+	int do_sio;
+
+	do_sio = 0;
+	if (!au_wkq_test()
+	    && (!au_sbi(sb)->si_plink_maint_pid
+		|| au_plink_maint(sb, AuLock_NOPLM))) {
+		switch (mode & S_IFMT) {
+		case S_IFREG:
+			/* no condition about RLIMIT_FSIZE and the file size */
+			do_sio = 1;
+			break;
+		case S_IFCHR:
+		case S_IFBLK:
+			do_sio = !capable(CAP_MKNOD);
+			break;
+		}
+		if (!do_sio)
+			do_sio = ((mode & (S_ISUID | S_ISGID))
+				  && !capable(CAP_FSETID));
+	}
+
+	return do_sio;
+}
+
 int au_sio_cpup_single(struct dentry *dentry, aufs_bindex_t bdst,
 		       aufs_bindex_t bsrc, loff_t len, unsigned int flags,
 		       struct dentry *dst_parent)
 {
 	int err, wkq_err;
-	umode_t mode;
 	struct dentry *h_dentry;
 
 	h_dentry = au_h_dptr(dentry, bsrc);
-	mode = h_dentry->d_inode->i_mode & S_IFMT;
-	if ((mode != S_IFCHR && mode != S_IFBLK)
-	    || capable(CAP_MKNOD))
+	if (!au_cpup_sio_test(dentry->d_sb, h_dentry->d_inode->i_mode))
 		err = au_cpup_single(dentry, bdst, bsrc, len, flags,
 				     dst_parent);
 	else {
@@ -758,25 +786,13 @@ int au_sio_cpup_simple(struct dentry *dentry, aufs_bindex_t bdst, loff_t len,
 		       unsigned int flags)
 {
 	int err, wkq_err;
-	unsigned char do_sio;
 	struct dentry *parent;
 	struct inode *h_dir;
 
 	parent = dget_parent(dentry);
 	h_dir = au_h_iptr(parent->d_inode, bdst);
-	do_sio = !!au_test_h_perm_sio(h_dir, MAY_EXEC | MAY_WRITE);
-	if (!do_sio) {
-		/*
-		 * testing CAP_MKNOD is for generic fs,
-		 * but CAP_FSETID is for xfs only, currently.
-		 */
-		umode_t mode = dentry->d_inode->i_mode;
-		do_sio = (((mode & (S_IFCHR | S_IFBLK))
-			   && !capable(CAP_MKNOD))
-			  || ((mode & (S_ISUID | S_ISGID))
-			      && !capable(CAP_FSETID)));
-	}
-	if (!do_sio)
+	if (!au_test_h_perm_sio(h_dir, MAY_EXEC | MAY_WRITE)
+	    && !au_cpup_sio_test(dentry->d_sb, dentry->d_inode->i_mode))
 		err = au_cpup_simple(dentry, bdst, len, flags);
 	else {
 		struct au_cpup_simple_args args = {
@@ -930,7 +946,8 @@ int au_sio_cpup_wh(struct dentry *dentry, aufs_bindex_t bdst, loff_t len,
 		/* todo: au_h_open_pre()? */
 	}
 
-	if (!au_test_h_perm_sio(h_tmpdir, MAY_EXEC | MAY_WRITE))
+	if (!au_test_h_perm_sio(h_tmpdir, MAY_EXEC | MAY_WRITE)
+	    && !au_cpup_sio_test(dentry->d_sb, dentry->d_inode->i_mode))
 		err = au_cpup_wh(dentry, bdst, len, file);
 	else {
 		struct au_cpup_wh_args args = {
