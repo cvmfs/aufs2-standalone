@@ -346,7 +346,7 @@ static void xino_try_trunc(struct super_block *sb, struct au_branch *br)
 	atomic_inc(&br->br_count);
 	args->sb = sb;
 	args->br = br;
-	wkq_err = au_wkq_nowait(xino_do_trunc, args, sb);
+	wkq_err = au_wkq_nowait(xino_do_trunc, args, sb, /*flags*/0);
 	if (!wkq_err)
 		return; /* success */
 
