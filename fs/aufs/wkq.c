@@ -111,15 +111,21 @@ static void au_wkq_comp_free(struct completion *comp __maybe_unused)
 }
 #endif /* 4KSTACKS */
 
-static void au_wkq_run(struct au_wkinfo *wkinfo, unsigned int flags)
+static void au_wkq_run(struct au_wkinfo *wkinfo)
 {
 	struct workqueue_struct *wkq;
 
-	au_dbg_verify_kthread();
+	if (au_ftest_wkq(wkinfo->flags, NEST)) {
+		if (au_wkq_test()) {
+			AuWarn1("wkq from wkq, due to a dead dir by UDBA?\n");
+			AuDebugOn(au_ftest_wkq(wkinfo->flags, WAIT));
+		}
+	} else
+		au_dbg_verify_kthread();
 	INIT_WORK(&wkinfo->wk, wkq_func);
-	if (flags & AuWkq_WAIT) {
+	if (au_ftest_wkq(wkinfo->flags, WAIT)) {
 		wkq = au_wkq[AuWkq_INORMAL].wkq;
-		if (flags & AuWkq_PRE)
+		if (au_ftest_wkq(wkinfo->flags, PRE))
 			wkq = au_wkq[AuWkq_IPRE].wkq;
 		queue_work(wkq, &wkinfo->wk);
 	} else
@@ -144,7 +150,7 @@ int au_wkq_do_wait(unsigned int flags, au_wkq_func_t func, void *args)
 
 	err = au_wkq_comp_alloc(&wkinfo, &comp);
 	if (!err) {
-		au_wkq_run(&wkinfo, flags);
+		au_wkq_run(&wkinfo);
 		/* no timeout, no interrupt */
 		wait_for_completion(wkinfo.comp);
 		au_wkq_comp_free(comp);
@@ -158,7 +164,8 @@ int au_wkq_do_wait(unsigned int flags, au_wkq_func_t func, void *args)
  * Note: dget/dput() in func for aufs dentries are not supported. It will be a
  * problem in a concurrent umounting.
  */
-int au_wkq_nowait(au_wkq_func_t func, void *args, struct super_block *sb)
+int au_wkq_nowait(au_wkq_func_t func, void *args, struct super_block *sb,
+		  unsigned int flags)
 {
 	int err;
 	struct au_wkinfo *wkinfo;
@@ -173,14 +180,14 @@ int au_wkq_nowait(au_wkq_func_t func, void *args, struct super_block *sb)
 	wkinfo = kmalloc(sizeof(*wkinfo), GFP_NOFS);
 	if (wkinfo) {
 		wkinfo->kobj = &au_sbi(sb)->si_kobj;
-		wkinfo->flags = !AuWkq_WAIT;
+		wkinfo->flags = flags & ~AuWkq_WAIT;
 		wkinfo->func = func;
 		wkinfo->args = args;
 		wkinfo->comp = NULL;
 		kobject_get(wkinfo->kobj);
 		__module_get(THIS_MODULE);
 
-		au_wkq_run(wkinfo, !AuWkq_WAIT);
+		au_wkq_run(wkinfo);
 	} else {
 		err = -ENOMEM;
 		au_nwt_done(&au_sbi(sb)->si_nowait);
