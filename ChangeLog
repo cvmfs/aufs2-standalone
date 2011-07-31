@@ -1,3 +1,83 @@
+commit c5a88fcef606eb6afa82ab66e2b34c3f4d4f8de9
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jul 29 22:19:51 2011 +0900
+
+    aufs: possible bugfix, race between remount and sysrq
+    
+    Introduce au_sbilist_lock(), au_sbilist_unlock(), and a GFP wrapper
+    AuGFP_SBILIST.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 6fbc8128aa89bda340cae797f247f0e9936eb4c6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jul 27 11:30:42 2011 +0900
+
+    aufs: update donators list
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 26724b62f7d771f737c939c8f863c3b6659d3de1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 18 21:08:34 2011 +0900
+
+    aufs: possible bugfix, always force cpup to pass workqueue
+    
+    Since process credentials and other status can be changed anytime,
+    aufs should always pass the cpup work to the internal workqueue which
+    has superuser privilege.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2fe06c7c3761ad04f248562523e85a491bf64266
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 25 21:49:06 2011 +0900
+
+    aufs: allow hnotify to call another nowait task
+    
+    By next commit, copy-up may become done sio task which were not sio,
+    and hnotify may be fired to the UDBA-removed direcotry. This situation
+    brings "sio-cpup wkq task --> hnotify --> nowait wkq task" which wkq
+    calls wkq.
+    Use the new AuWkq_NEST flag (which was introduce previous commit) for
+    this case.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0f0e68392bac45ca02c7000b8e6b8361fafd25a6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 25 21:42:12 2011 +0900
+
+    aufs: tiny, support nested wkq
+    
+    Add a new flag AuWkq_NEST to allow the auwkq task calls another nowait
+    task.
+    - extract a part of au_dbg_verify_kthread() and create a new function
+      au_wkq_test().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 4d42007a664b03c0722b6e7b81304b0e9122e1fc
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 25 21:33:39 2011 +0900
+
+    aufs: tiny, remove a parameter from au_wkq_run()
+    
+    Merge the parameter "flags" of au_wkq_run() into wkinfo->flags.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 68ef173166b723864133c378219886094ea32fd8
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Mon Jul 25 21:26:35 2011 +0900
+
+    aufs: tiny, debug print hnotify
+    
+    In do_pri_inode(), print the setting of hnotify too.
+    Introduce a tiny function au_hn().
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 8c0c4f7899f9ac1c9946e54f99aee059d9020bdb
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Jul 12 00:57:31 2011 +0900

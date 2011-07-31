@@ -489,12 +489,22 @@ void au_hn_init(struct au_hinode *hinode)
 	hinode->hi_notify = NULL;
 }
 
+static inline struct au_hnotify *au_hn(struct au_hinode *hinode)
+{
+	return hinode->hi_notify;
+}
+
 #else
 static inline
 int au_hn_alloc(struct au_hinode *hinode __maybe_unused,
 		struct inode *inode __maybe_unused)
 {
 	return -EOPNOTSUPP;
+}
+
+static inline struct au_hnotify *au_hn(struct au_hinode *hinode)
+{
+	return NULL;
 }
 
 AuStubVoid(au_hn_free, struct au_hinode *hinode __maybe_unused)
