@@ -532,7 +532,7 @@ int au_hnotify(struct inode *h_dir, struct au_hnotify *hnotify, u32 mask,
 	       struct qstr *h_child_qstr, struct inode *h_child_inode)
 {
 	int err, len;
-	unsigned int flags[AuHnLast];
+	unsigned int flags[AuHnLast], f;
 	unsigned char isdir, isroot, wh;
 	struct inode *dir;
 	struct au_hnotify_args *args;
@@ -618,7 +618,10 @@ int au_hnotify(struct inode *h_dir, struct au_hnotify *hnotify, u32 mask,
 		p[len] = 0;
 	}
 
-	err = au_wkq_nowait(au_hn_bh, args, dir->i_sb);
+	f = 0;
+	if (!dir->i_nlink)
+		f = AuWkq_NEST;
+	err = au_wkq_nowait(au_hn_bh, args, dir->i_sb, f);
 	if (unlikely(err)) {
 		pr_err("wkq %d\n", err);
 		iput(args->h_child_inode);

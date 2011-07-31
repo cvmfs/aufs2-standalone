@@ -49,6 +49,11 @@ typedef void (*au_wkq_func_t)(void *args);
 /* wkq flags */
 #define AuWkq_WAIT	1
 #define AuWkq_PRE	(1 << 1)
+#ifdef CONFIG_AUFS_HNOTIFY
+#define AuWkq_NEST	(1 << 2)
+#else
+#define AuWkq_NEST	0
+#endif
 #define au_ftest_wkq(flags, name)	((flags) & AuWkq_##name)
 #define au_fset_wkq(flags, name) \
 	do { (flags) |= AuWkq_##name; } while (0)
@@ -57,12 +62,22 @@ typedef void (*au_wkq_func_t)(void *args);
 
 /* wkq.c */
 int au_wkq_do_wait(unsigned int flags, au_wkq_func_t func, void *args);
-int au_wkq_nowait(au_wkq_func_t func, void *args, struct super_block *sb);
+int au_wkq_nowait(au_wkq_func_t func, void *args, struct super_block *sb,
+		  unsigned int flags);
 void au_nwt_init(struct au_nowait_tasks *nwt);
 int __init au_wkq_init(void);
 void au_wkq_fin(void);
 
 /* ---------------------------------------------------------------------- */
+
+static inline int au_wkq_test(void)
+{
+	struct task_struct *tsk = current;
+
+	return (tsk->flags & PF_KTHREAD)
+		&& !strncmp(tsk->comm, AUFS_WKQ_NAME "/",
+			    sizeof(AUFS_WKQ_NAME));
+}
 
 static inline int au_wkq_wait_pre(au_wkq_func_t func, void *args)
 {

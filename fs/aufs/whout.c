@@ -634,7 +634,7 @@ static void kick_reinit_br_wh(struct super_block *sb, struct au_branch *br)
 		arg->sb = sb;
 		arg->br = br;
 		atomic_inc(&br->br_count);
-		wkq_err = au_wkq_nowait(reinit_br_wh, arg, sb);
+		wkq_err = au_wkq_nowait(reinit_br_wh, arg, sb, /*flags*/0);
 		if (unlikely(wkq_err)) {
 			atomic_dec(&br->br_wbr->wbr_wh_running);
 			atomic_dec(&br->br_count);
@@ -1053,7 +1053,7 @@ void au_whtmp_kick_rmdir(struct inode *dir, aufs_bindex_t bindex,
 	args->br = au_sbr(sb, bindex);
 	atomic_inc(&args->br->br_count);
 	args->wh_dentry = dget(wh_dentry);
-	wkq_err = au_wkq_nowait(call_rmdir_whtmp, args, sb);
+	wkq_err = au_wkq_nowait(call_rmdir_whtmp, args, sb, /*flags*/0);
 	if (unlikely(wkq_err)) {
 		pr_warning("rmdir error %.*s (%d), ignored\n",
 			   AuDLNPair(wh_dentry), wkq_err);
