@@ -448,12 +448,14 @@ static void au_br_do_add(struct super_block *sb, struct dentry *h_dentry,
 	root_inode = root->d_inode;
 	bend = au_sbend(sb);
 	amount = bend + 1 - bindex;
+	au_sbilist_lock();
 	au_br_do_add_brp(au_sbi(sb), bindex, br, bend, amount);
 	au_br_do_add_hdp(au_di(root), bindex, bend, amount);
 	au_br_do_add_hip(au_ii(root_inode), bindex, bend, amount);
 	au_set_h_dptr(root, bindex, dget(h_dentry));
 	au_set_h_iptr(root_inode, bindex, au_igrab(h_dentry->d_inode),
 		      /*flags*/0);
+	au_sbilist_unlock();
 }
 
 int au_br_add(struct super_block *sb, struct au_opt_add *add, int remount)
@@ -695,7 +697,7 @@ static void au_br_do_del_brp(struct au_sbinfo *sbinfo,
 	sbinfo->si_branch[0 + bend] = NULL;
 	sbinfo->si_bend--;
 
-	p = krealloc(sbinfo->si_branch, sizeof(*p) * bend, GFP_NOFS);
+	p = krealloc(sbinfo->si_branch, sizeof(*p) * bend, AuGFP_SBILIST);
 	if (p)
 		sbinfo->si_branch = p;
 	/* harmless error */
@@ -715,7 +717,7 @@ static void au_br_do_del_hdp(struct au_dinfo *dinfo, const aufs_bindex_t bindex,
 	hdp[0 + bend].hd_dentry = NULL;
 	dinfo->di_bend--;
 
-	p = krealloc(hdp, sizeof(*p) * bend, GFP_NOFS);
+	p = krealloc(hdp, sizeof(*p) * bend, AuGFP_SBILIST);
 	if (p)
 		dinfo->di_hdentry = p;
 	/* harmless error */
@@ -735,7 +737,7 @@ static void au_br_do_del_hip(struct au_iinfo *iinfo, const aufs_bindex_t bindex,
 	au_hn_init(iinfo->ii_hinode + bend);
 	iinfo->ii_bend--;
 
-	p = krealloc(iinfo->ii_hinode, sizeof(*p) * bend, GFP_NOFS);
+	p = krealloc(iinfo->ii_hinode, sizeof(*p) * bend, AuGFP_SBILIST);
 	if (p)
 		iinfo->ii_hinode = p;
 	/* harmless error */
@@ -746,8 +748,9 @@ static void au_br_do_del(struct super_block *sb, aufs_bindex_t bindex,
 {
 	aufs_bindex_t bend;
 	struct au_sbinfo *sbinfo;
-	struct dentry *root;
-	struct inode *inode;
+	struct dentry *root, *h_root;
+	struct inode *inode, *h_inode;
+	struct au_hinode *hinode;
 
 	SiMustWriteLock(sb);
 
@@ -756,13 +759,20 @@ static void au_br_do_del(struct super_block *sb, aufs_bindex_t bindex,
 	sbinfo = au_sbi(sb);
 	bend = sbinfo->si_bend;
 
-	dput(au_h_dptr(root, bindex));
-	au_hiput(au_hi(inode, bindex));
-	au_br_do_free(br);
+	h_root = au_h_dptr(root, bindex);
+	hinode = au_hi(inode, bindex);
+	h_inode = au_igrab(hinode->hi_inode);
+	au_hiput(hinode);
 
+	au_sbilist_lock();
 	au_br_do_del_brp(sbinfo, bindex, bend);
 	au_br_do_del_hdp(au_di(root), bindex, bend);
 	au_br_do_del_hip(au_ii(inode), bindex, bend);
+	au_sbilist_unlock();
+
+	dput(h_root);
+	iput(h_inode);
+	au_br_do_free(br);
 }
 
 int au_br_del(struct super_block *sb, struct au_opt_del *del, int remount)

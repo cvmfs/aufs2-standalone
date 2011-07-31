@@ -537,6 +537,7 @@ static int sio_test_empty(struct dentry *dentry, struct test_empty_arg *arg)
 
 	h_dentry = au_h_dptr(dentry, arg->bindex);
 	h_inode = h_dentry->d_inode;
+	/* todo: i_mode changes anytime? */
 	mutex_lock_nested(&h_inode->i_mutex, AuLsc_I_CHILD);
 	err = au_test_h_perm_sio(h_inode, MAY_EXEC | MAY_READ);
 	mutex_unlock(&h_inode->i_mutex);

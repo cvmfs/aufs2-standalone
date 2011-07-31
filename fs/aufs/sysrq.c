@@ -110,10 +110,10 @@ static void au_sysrq(int key __maybe_unused,
 	struct au_sbinfo *sbinfo;
 
 	lockdep_off();
-	spin_lock(&au_sbilist.spin);
+	au_sbilist_lock();
 	list_for_each_entry(sbinfo, &au_sbilist.head, si_list)
 		sysrq_sb(sbinfo->si_sb);
-	spin_unlock(&au_sbilist.spin);
+	au_sbilist_unlock();
 	lockdep_on();
 }
 
