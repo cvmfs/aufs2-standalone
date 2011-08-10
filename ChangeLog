@@ -1,3 +1,11 @@
+commit ecabe21f85b676e2a6f96e58dfb69214f4892c92
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Aug 9 01:09:42 2011 +0900
+
+    aufs: version string for aufs2.2
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit c5a88fcef606eb6afa82ab66e2b34c3f4d4f8de9
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jul 29 22:19:51 2011 +0900
