@@ -1,3 +1,15 @@
+commit 8561df7c104a9ade6688d2ddd4110b7f89ab8c9b
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Aug 2 21:36:22 2011 +0900
+
+    aufs lktr: tiny, forgot to remove
+    
+    It should be removed by the commit
+    	3622a2b 2011-04-08 aufs lktr: remove __ima_file_ro()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+    (cherry picked from commit 1772a24e81188e40b204f36d5ec82f9e64270544)
+
 commit 08b33315cfdfc93b668f2e2308a23d54ce0a41c3
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Jul 12 01:18:09 2011 +0900
