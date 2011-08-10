@@ -1,4 +1,4 @@
-aufs2.1 standalone patch for linux-2.6.38
+aufs2.2 standalone patch for linux-2.6.38
 
 diff --git a/fs/file_table.c b/fs/file_table.c
 index eb36b6b..12f2809 100644

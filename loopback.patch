@@ -277,7 +277,7 @@ index d5de213..f8620ae 100644
  
  /* ---------------------------------------------------------------------- */
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index e38b50a..584803c 100644
+index e38b50a4..584803c 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1627,6 +1627,9 @@ struct super_operations {
