@@ -1,3 +1,25 @@
+commit a80d83a3c3809971d1fb296521de0abdcad26e8f
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 11 11:06:50 2011 +0900
+
+    aufs: maintain fsync
+    
+    In linux-2.6.32, vfs_fsync() changed. Aufs just follows it.
+    
+    This commit is applied to aufs2.2 only, which is for
+    linux-2.6.35..linux-2.6.39. It means there may exist a problem around
+    fsync in aufs2.1-32..aufs2.1-34.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 2a881ede88db82823e5ae880c00d4c31e4cbe9c6
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 11 10:59:40 2011 +0900
+
+    aufs: doc for aufs2.2
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit ecabe21f85b676e2a6f96e58dfb69214f4892c92
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Aug 9 01:09:42 2011 +0900
