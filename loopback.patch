@@ -224,7 +224,7 @@ index a076a14..77530cf 100644
  }
  
 diff --git a/fs/aufs/f_op.c b/fs/aufs/f_op.c
-index b75aab2..fcd059a 100644
+index 5ddd972..b14ae02 100644
 --- a/fs/aufs/f_op.c
 +++ b/fs/aufs/f_op.c
 @@ -327,7 +327,7 @@ static ssize_t aufs_splice_read(struct file *file, loff_t *ppos,
