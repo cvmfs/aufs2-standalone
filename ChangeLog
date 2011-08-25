@@ -1,3 +1,11 @@
+commit cca225a0cc4b350274ee8f182de7a69d94a49fa0
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Thu Aug 25 01:20:44 2011 +0900
+
+    aufs: tiny, a comment on write() and mmap()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 903b9e2947c18e38d682ae9bc74fe682d8998412
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Aug 16 20:52:05 2011 +0900
