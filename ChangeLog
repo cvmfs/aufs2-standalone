@@ -1,3 +1,11 @@
+commit 5a0132f661b4463520fe849c03a76947b639cf2e
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Oct 2 14:05:36 2011 +0900
+
+    aufs: tiny, reset si_sb
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 149e70c028b766b8691427f3fb75abd0c0aa55dc
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Sep 9 11:57:46 2011 +0900
