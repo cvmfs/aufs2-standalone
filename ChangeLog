@@ -1,3 +1,67 @@
+commit 55fe18344125c6227697dca40f1d5ca1bd3b782c
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sun Oct 23 10:52:03 2011 +0900
+
+    aufs: bugfix, parameter fo au_sio_cpup_simple
+    
+    au_cpup_before_link() passes an incorrect value of 'length' to
+    au_sio_cpup_simple().
+    This bug was introduced by the commit
+    e2ceff5 2010-03-05 aufs: begin supporting hfsplus, call au_h_open_{pre,post}()
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0daceac7c64011f81a0016a6048d882f81cd6cd7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Oct 22 21:26:36 2011 +0900
+
+    aufs: add an parameter to AUFS_CTL_WBR_FD
+    
+    Mainly for future use.
+    This new parameter should not affect the previous parameter-less call,
+    I hope.
+    Anyway aufs2-util.git will follow this change too.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e6d63eb56a288534eaca7580fc5520ac82dff9e3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Oct 22 21:17:03 2011 +0900
+
+    aufs: strict semantics of AUFS_CTL_WBR_FD
+    
+    Now prohibit returning the fd for any readonly branch, but allow
+    readonly aufs mount.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit e6bb890f832d3b68c6b2191cbe7607199d1e216a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Oct 22 17:09:21 2011 +0900
+
+    aufs: possible bugfix, allow the nested aufsd between several aufs mounts
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ecce0a4a751649b5cdd081d6203ed8e892c32213
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Oct 22 17:07:07 2011 +0900
+
+    aufs: tiny, debug print the branch id
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit ecbefc460844a872b460b14a2ed2b2ebab2ce132
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Oct 22 17:04:52 2011 +0900
+
+    aufs: convert branch attributes to bit flags
+    
+    This is just to support future attributes.
+    The behaviour doesn't change.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 5a0132f661b4463520fe849c03a76947b639cf2e
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Sun Oct 2 14:05:36 2011 +0900
