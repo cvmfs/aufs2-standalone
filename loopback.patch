@@ -224,13 +224,13 @@ index a076a14..77530cf 100644
  }
  
 diff --git a/fs/aufs/f_op.c b/fs/aufs/f_op.c
-index 5ddd972..b14ae02 100644
+index 891fd46..5df77f4 100644
 --- a/fs/aufs/f_op.c
 +++ b/fs/aufs/f_op.c
-@@ -327,7 +327,7 @@ static ssize_t aufs_splice_read(struct file *file, loff_t *ppos,
- 
+@@ -362,7 +362,7 @@ static ssize_t aufs_splice_read(struct file *file, loff_t *ppos,
  	err = -EINVAL;
  	h_file = au_hf_top(file);
+ 	get_file(h_file);
 -	if (au_test_loopback_kthread()) {
 +	if (0 && au_test_loopback_kthread()) {
  		au_warn_loopback(h_file->f_dentry->d_sb);

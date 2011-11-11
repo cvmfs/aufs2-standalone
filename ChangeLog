@@ -1,3 +1,75 @@
+commit 7d514cf4b919ede135e35cde951b8beddfdff9a7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 21:00:38 2011 +0900
+
+    aufs: bugfix mmap_sem 4/4, remove a separated workqueue for mmap
+    
+    Now it becomes unnecessary.
+    You may want to see the past commit too.
+    396a2f0 2010-06-29 aufs: bugfix, separate the workqueue for preprocessing mmap
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 40e40b6cbd4980a29a15c00d777f7ecb37dac5a4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 21:01:26 2011 +0900
+
+    aufs: bugfix mmap_sem 3/4, just leave a comment
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0f5db9457c4b6ff47466a65aafc45d2dd30806a3
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 21:21:55 2011 +0900
+
+    aufs: bugfix mmap_sem 2/4, hold si_rwsem in aufs_mmap()
+    
+    See the comment in the patch.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 0a118fbd1867734fbe1cf1a54907b0150fe9e1b4
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 21:21:18 2011 +0900
+
+    aufs: bugfix mmap_sem 1/4, release [fdi]i_rwsem in file I/O
+    
+    mmap(2) acquires mm->mmap_sem before ->mmap(), and aufs mmap() acquires
+    aufs rwsem. On the other hand, aufs file I/O functions including
+    ->read(), ->write() acquire aufs rwsem and then mmap_sem.
+    This AB-BA problem will cause deadlock.
+    By this commit, aufs file I/O functions release aufs rwsem before
+    mmap_sem except si_rwsem. Holding si_rwsem is necessary to protect the
+    operation from aufs branch management.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit c0492424179a0a835c801fb678add75b969d38c1
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 20:49:35 2011 +0900
+
+    aufs: tiny, lockdep sub-classing
+    
+    Introduce the locking orders of dir, regular-file and symlink
+    individually.
+    It will be necessary to fix a bug around mm->mmap_sem and aufs rwsem in
+    file I/O and mmap(2) in next commits.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 445421f1d9c51218f5b34ced8267a968ad75e217
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Nov 9 20:56:16 2011 +0900
+
+    aufs: possible bugfix, i_count in aufs_readdir()
+    
+    In order to support NFSD, aufs_readdir() has to release aufs
+    ii_rwsem. After releasing it, it is possible that the topmost
+    inode (which is the origin of atime) is gone. To protect it,
+    aufs_readdir() operates on i_count.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 4828d1df8847a6639ce35afb2ec5110e07db4e44
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Nov 1 15:20:10 2011 +0900
