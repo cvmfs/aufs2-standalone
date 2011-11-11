@@ -29,7 +29,7 @@
 #include <sys/types.h>
 #endif
 
-#define AUFS_VERSION	"2.2-standalone.tree-35-20111107"
+#define AUFS_VERSION	"2.2-standalone.tree-35-20111114"
 
 /* todo? move this to linux-2.6.19/include/magic.h */
 #define AUFS_SUPER_MAGIC	('a' << 24 | 'u' << 16 | 'f' << 8 | 's')
@@ -82,7 +82,6 @@ typedef int16_t aufs_bindex_t;
 #define AUFS_RDBLK_DEF		512 /* bytes */
 #define AUFS_RDHASH_DEF		32
 #define AUFS_WKQ_NAME		AUFS_NAME "d"
-#define AUFS_WKQ_PRE_NAME	AUFS_WKQ_NAME "_pre"
 #define AUFS_MFS_DEF_SEC	30 /* seconds */
 #define AUFS_MFS_MAX_SEC	3600 /* seconds */
 #define AUFS_PLINK_WARN		100 /* number of plinks */
