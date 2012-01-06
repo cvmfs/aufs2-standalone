@@ -19,17 +19,27 @@
 #ifndef __AUFS_TYPE_H__
 #define __AUFS_TYPE_H__
 
-#include <linux/ioctl.h>
-#include <linux/kernel.h>
-#include <linux/limits.h>
+#define AUFS_NAME	"aufs"
+
 #ifdef __KERNEL__
-#include <linux/types.h>
+/*
+ * define it before including all other headers.
+ * sched.h may use pr_* macros before defining "current", so define the
+ * no-current version first, and re-define later.
+ */
+#define pr_fmt(fmt)	AUFS_NAME " %s:%d: " fmt, __func__, __LINE__
+#include <linux/sched.h>
+#undef pr_fmt
+#define pr_fmt(fmt)	AUFS_NAME " %s:%d:%s[%d]: " fmt, \
+		__func__, __LINE__, current->comm, current->pid
 #else
 #include <stdint.h>
 #include <sys/types.h>
-#endif
+#endif /* __KERNEL__ */
 
-#define AUFS_VERSION	"2.2-standalone.tree-37-20111114"
+#include <linux/limits.h>
+
+#define AUFS_VERSION	"2.2-standalone.tree-37-20120109"
 
 /* todo? move this to linux-2.6.19/include/magic.h */
 #define AUFS_SUPER_MAGIC	('a' << 24 | 'u' << 16 | 'f' << 8 | 's')
@@ -58,7 +68,6 @@ typedef int16_t aufs_bindex_t;
 
 /* ---------------------------------------------------------------------- */
 
-#define AUFS_NAME		"aufs"
 #define AUFS_FSTYPE		AUFS_NAME
 
 #define AUFS_ROOT_INO		2
