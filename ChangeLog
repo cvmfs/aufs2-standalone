@@ -1,3 +1,11 @@
+commit 65767f3663686f5c8cc2dbd47f9b64e2c673b1a7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 7 00:56:11 2012 +0900
+
+    aufs: tiny, remove a duplicated header by accident
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 842c8a83a2a820c7434cb8931e967ea5fe577679
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 6 23:57:58 2012 +0900
