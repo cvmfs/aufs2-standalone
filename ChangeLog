@@ -1,3 +1,11 @@
+commit 842c8a83a2a820c7434cb8931e967ea5fe577679
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 6 23:57:58 2012 +0900
+
+    aufs: tiny, update the year
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 9dd922b563ae5e45d6a47a8061a2b1e79c00349a
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Fri Jan 6 17:59:07 2012 +0900
