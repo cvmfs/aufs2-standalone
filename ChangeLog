@@ -1,3 +1,78 @@
+commit 54863bafb28ce031e2760d8653218f7500f5a9ea
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 7 13:35:13 2012 +0900
+
+    aufs: tiny, restore the removed header files for 2.6.38
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 65767f3663686f5c8cc2dbd47f9b64e2c673b1a7
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Sat Jan 7 00:56:11 2012 +0900
+
+    aufs: tiny, remove a duplicated header by accident
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 842c8a83a2a820c7434cb8931e967ea5fe577679
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 6 23:57:58 2012 +0900
+
+    aufs: tiny, update the year
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 9dd922b563ae5e45d6a47a8061a2b1e79c00349a
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Fri Jan 6 17:59:07 2012 +0900
+
+    aufs stdalone: include path in Makefile
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 8e55aefaa8302539ee3f50ee2bf834746d55bbea
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Jan 4 11:59:58 2012 +0900
+
+    aufs: update the donator
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 73b1c4fbcdf19ea03e79aaa231eee4264f16fd36
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 3 13:07:48 2012 +0900
+
+    aufs: tiny, update the year
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit f52a9bd9c530677097a0977f225ef8da5595f5fe
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 3 12:47:36 2012 +0900
+
+    aufs: headers 2/2, simply refined
+    
+    By the previous commit,
+    8dc5387 2012-01-03 aufs: bugfix, headers 1/2, where the pr_fmt macro definition
+    several header file inclusion in other files became unnecessary.
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 1fc54f788bc9f612c7890148ae10af5f7136c2d5
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Tue Jan 3 12:44:50 2012 +0900
+
+    aufs: headers 1/2, bugfix, where the pr_fmt macro definition
+    
+    The pr_fmt macro is defined in fs/aufs/Makefile and it refers to the
+    AUFS_NAME macro, which caused a compilation error in m68k architecture.
+    Also it refers to the "current" macro which will be a problem too.
+    
+    See-also: http://sourceforge.net/mailarchive/message.php?msg_id=28608043
+    Reported-by: Ben Hutchings <ben@decadent.org.uk>
+    Suggested-by: Thorsten Glaser <tg@mirbsd.de>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
 commit 7d514cf4b919ede135e35cde951b8beddfdff9a7
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Wed Nov 9 21:00:38 2011 +0900
