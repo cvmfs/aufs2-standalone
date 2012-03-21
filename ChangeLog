@@ -1,3 +1,56 @@
+commit 724a7be5e4d35a6642f5002c209f2973b678eda9
+Author: Daniel Alder <hackie@wolke7.net>
+Date:   Tue Mar 20 11:39:25 2012 +0100
+
+    aufs: au_statfs_sum calculates wrong sums when different block sizes are in use
+    
+    If aufs is mounted in sum mode, but the source file systems have different
+    block sizes, the result of statfs is the sum of all block counts which does
+    not make sense. This patch corrects this problem by normalizing the block
+    counts to the same block size and then adds them.
+    
+    Signed-off-by: Daniel Alder <hackie@wolke7.net>
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 238d27af4989db5f36f366ac9acf471c148ec839
+Author: J. R. Okajima <hooanon05@yahoo.co.jp>
+Date:   Wed Mar 14 14:19:07 2012 +0900
+
+    aufs: statfs, support various bsize
+    
+    Signed-off-by: J. R. Okajima <hooanon05@yahoo.co.jp>
+
+commit 333b15f12677220f40bed3a8f61ff4a485875889
+Author: Daniel Alder <hackie@wolke7.net>
+Date:   Tue Mar 13 22:56:19 2012 +0100
+
+    Bugfix: au_statfs_sum calculates wrong sums when different block sizes are used
+    
+    If aufs is mounted in sum mode, but the source file systems have different block sizes, the result of the statfs is the sum of all block counts which does not make sense. This patch corrects this problem by normalizing the block counts to the same block size and then adds them.
+
+commit 35a354a673540f75513b66ca03f37d64b2850895
+Author: Daniel Alder <hackie@wolke7.net>
+Date:   Tue Mar 13 22:56:18 2012 +0100
+
+    New function: au_add_muldiv_till_max
+    
+    Preparation patch for bugfix-sums-with-different-block-size.patch
+    
+    A new function au_add_muldiv_till_max which works like au_add_till_max but adds the result of b*mul/div instead of just b.
+    
+    NEED SOME HELP HERE: the function is not overflow-safe yet. I think there must be such functions in the kernel already, but I'm to new to know where to find it.
+    
+    Possibly this function could also be implemented by using bit shifting.
+    ===================================================================
+
+commit 2cb94043a1b0f7deec7ea3b963a21e6ad80d67bf
+Author: Daniel Alder <hackie@wolke7.net>
+Date:   Tue Mar 13 22:56:17 2012 +0100
+
+    Bugfix: au_add_till_max wrongly detects overflow if b==0
+    
+    If argument b is set to 0, au_add_till_max returns the value of constant ULLONG_MAX. In this case, old is equal to a and the condition fails.
+
 commit 5296ea6bf60df2b1f7bd37cddbc88fc37ae1bb71
 Author: J. R. Okajima <hooanon05@yahoo.co.jp>
 Date:   Tue Mar 6 01:07:23 2012 +0900
