@@ -16,11 +16,12 @@ diff --git a/fs/Makefile b/fs/Makefile
 index af6d047..dba1ce1 100644
 --- a/fs/Makefile
 +++ b/fs/Makefile
-@@ -124,3 +124,4 @@ obj-$(CONFIG_OCFS2_FS)		+= ocfs2/
+@@ -121,4 +121,5 @@
  obj-$(CONFIG_BTRFS_FS)		+= btrfs/
  obj-$(CONFIG_GFS2_FS)           += gfs2/
  obj-$(CONFIG_EXOFS_FS)          += exofs/
 +obj-$(CONFIG_AUFS_FS)           += aufs/
+ obj-$(CONFIG_PSTORE)		+= pstore/
 diff --git a/include/linux/Kbuild b/include/linux/Kbuild
 index 1feed71..4ceebc7 100644
 --- a/include/linux/Kbuild
