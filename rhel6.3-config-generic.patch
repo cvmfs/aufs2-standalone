@@ -1,5 +1,5 @@
---- ../../kernel-source/config-generic	2012-11-05 12:38:29.687931106 +0100
-+++ config-generic	2012-11-08 11:59:59.652152195 +0100
+--- a/config-generic	2012-11-05 12:38:29.687931106 +0100
++++ b/config-generic	2012-11-08 11:59:59.652152195 +0100
 @@ -4158,3 +4158,22 @@
  
  CONFIG_MEMORY_FAILURE=y
