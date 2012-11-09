@@ -1,0 +1,27 @@
+--- a/kernel.spec.orig	2012-11-09 16:08:32.185797262 +0100
++++ b/kernel.spec	2012-11-09 16:10:40.996707133 +0100
+@@ -644,11 +644,7 @@
+ Obsoletes: glibc-kernheaders
+ Provides: glibc-kernheaders = 3.0-46
+ %description headers
+-Kernel-headers includes the C header files that specify the interface
+-between the Linux kernel and userspace libraries and programs.  The
+-header files define structures and constants that are needed for
+-building most standard programs and are also needed for rebuilding the
+-glibc package.
++Includes the user-space headers for aufs2
+ 
+ %package firmware
+ Summary: Firmware files used by the Linux kernel
+@@ -1424,6 +1420,11 @@
+ rm -f $RPM_BUILD_ROOT/usr/include/asm*/irq.h
+ %endif
+ 
++cp $RPM_BUILD_ROOT/usr/include/linux/aufs_type.h $RPM_BUILD_ROOT/usr/
++rm -rf $RPM_BUILD_ROOT/usr/include/*
++mkdir $RPM_BUILD_ROOT/usr/include/linux
++mv $RPM_BUILD_ROOT/usr/aufs_type.h $RPM_BUILD_ROOT/usr/include/linux
++
+ %if %{with_firmware}
+ %{build_firmware}
+ %endif
