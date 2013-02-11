@@ -1,5 +1,9 @@
 
-KDIR = /lib/modules/$(shell uname -r)/build
+ifndef KSRC
+  KDIR = /lib/modules/$(shell uname -r)/build
+else
+  KDIR = $(KSRC)
+endif
 Conf1=${KDIR}/include/config/auto.conf
 Conf2=${KDIR}/.config
 ifeq "t" "$(shell test -e ${Conf1} && echo t)"
