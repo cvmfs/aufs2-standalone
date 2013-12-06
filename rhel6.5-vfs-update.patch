@@ -1,0 +1,10 @@
+--- include/linux/fs.h.orig	2013-12-06 15:42:18.819187324 +0100
++++ include/linux/fs.h	2013-12-06 15:18:54.793178137 +0100
+@@ -2744,5 +2744,7 @@
+ 
+ #define OPEN_FMODE(flag) ((__force fmode_t)((flag + 1) & O_ACCMODE))
+ 
++#define __getname_gfp(gfp)	kmem_cache_alloc(names_cachep, (gfp))
++
+ #endif /* __KERNEL__ */
+ #endif /* _LINUX_FS_H */
