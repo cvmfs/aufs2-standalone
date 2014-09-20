@@ -1,0 +1,16 @@
+--- fs/aufs/i_op_ren.c.orig     2014-09-18 19:46:41.959001888 +0200
++++ fs/aufs/i_op_ren.c  2014-09-18 05:11:26.552001874 +0200
+@@ -922,6 +922,12 @@
+        if (unlikely(err))
+                goto out_children;
+
++       /* Workaround: if r/o branch is on fuse and reading the file triggers a rename() */
++       if ((au_dbstart(a->src_dentry) != a->btgt) && (a->src_dir != a->dst_dir)) {
++               err = -EXDEV;
++               goto out_children;
++       }
++
+        /* prepare the writable parent dir on the same branch */
+        if (a->dst_bstart == a->btgt) {
+                au_fset_ren(a->flags, WHDST);
+
